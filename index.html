@@ -1174,9 +1174,146 @@
 
         .dash-filter {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 10px;
             margin-left: auto;
+        }
+
+        @media (max-width: 640px) {
+            .dash-filter {
+                width: 100%;
+            }
+
+            .dash-select {
+                flex: 1 1 140px;
+                min-width: 0;
+            }
+
+            .chart-body {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .chart-plot-row,
+            .chart-labels {
+                min-width: 480px;
+            }
+
+            .chart-y-axis {
+                position: sticky;
+                left: 0;
+                background: var(--bg-panel);
+                z-index: 1;
+            }
+        }
+
+        .sidebar-backdrop,
+        .mobile-bottom-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                gap: 0;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                top: auto;
+                width: 100% !important;
+                max-height: 78vh;
+                height: auto;
+                border-radius: 22px 22px 0 0;
+                transform: translateY(100%);
+                transition: transform .35s cubic-bezier(.65, 0, .35, 1);
+                z-index: 60;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateY(0);
+            }
+
+            .toggle-btn {
+                display: none;
+            }
+
+            .nav-list {
+                margin-top: 12px;
+            }
+
+            .sidebar.collapsed .nav-item {
+                justify-content: flex-start;
+                padding: 12px 14px;
+            }
+
+            .sidebar.collapsed .nav-item .label {
+                display: block;
+                opacity: 1;
+                max-width: none;
+            }
+
+            .sidebar-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, .45);
+                z-index: 55;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .3s ease;
+            }
+
+            .sidebar-backdrop.visible {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .mobile-bottom-nav {
+                display: flex;
+                position: fixed;
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                z-index: 50;
+                background: var(--bg-panel);
+                border: 1px solid var(--panel-border);
+                border-radius: 20px;
+                box-shadow: var(--block-shadow);
+                padding: 8px 6px;
+                justify-content: space-between;
+                gap: 4px;
+            }
+
+            .mobile-bottom-nav .nav-item {
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+                padding: 8px 4px;
+                border-radius: 14px;
+                font-size: 10.5px;
+                white-space: normal;
+                text-align: center;
+                flex: 1;
+                background: none;
+                border: none;
+                font-family: inherit;
+                cursor: pointer;
+                color: var(--fg-muted);
+            }
+
+            .mobile-bottom-nav .nav-item.active {
+                color: var(--highlight-fg);
+                background: var(--highlight-bg);
+            }
+
+            .content {
+                padding-bottom: 100px;
+            }
         }
 
         .chart-bar.dimmed {
@@ -1550,6 +1687,49 @@
             </div>
         </div>
     </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <nav class="mobile-bottom-nav" id="mobileBottomNav">
+        <div class="nav-item active" data-i18n-label="nav.home" data-view="home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 11.5 12 4l9 7.5" />
+                <path d="M5 10v10h14V10" />
+            </svg>
+            <span class="label" data-i18n="nav.home">Bosh sahifa</span>
+        </div>
+        <div class="nav-item" data-i18n-label="nav.clients" data-view="clients">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="18" x2="14" y2="18" />
+            </svg>
+            <span class="label" data-i18n="nav.clients">Mijozlar</span>
+        </div>
+        <div class="nav-item" data-i18n-label="nav.groups" data-view="groups">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3 3 8l9 5 9-5-9-5z" />
+                <path d="M3 12l9 5 9-5" />
+                <path d="M3 16l9 5 9-5" />
+            </svg>
+            <span class="label" data-i18n="nav.groups">Guruhlar</span>
+        </div>
+        <div class="nav-item" data-i18n-label="nav.finance" data-view="finance">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="8" />
+                <path d="M12 8v8M9 10h4.5a1.5 1.5 0 0 1 0 3H9m0 0h4.5a1.5 1.5 0 0 1 0 3H9" />
+            </svg>
+            <span class="label" data-i18n="nav.finance">Moliya</span>
+        </div>
+        <button type="button" class="nav-item more-btn" id="mobileMoreBtn" data-i18n-title="nav.more" title="Ko'proq">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="5" cy="12" r="1.6" fill="currentColor" stroke="none" />
+                <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none" />
+                <circle cx="19" cy="12" r="1.6" fill="currentColor" stroke="none" />
+            </svg>
+            <span class="label" data-i18n="nav.more">Ko'proq</span>
+        </button>
+    </nav>
 
     <div class="main">
         <header class="header">
@@ -2143,10 +2323,33 @@
                 const view = item.getAttribute('data-view');
                 if (!view) return;
                 document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+                document.querySelectorAll(`.nav-item[data-view="${view}"]`).forEach(i => i.classList.add('active'));
                 showView(view);
+                closeMobileSidebar();
             });
         });
+
+        // ===== MOBIL: pastki panel "Ko'proq" -> to'liq sidebar ochilishi =====
+        const mobileMoreBtn = document.getElementById('mobileMoreBtn');
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+        function openMobileSidebar() {
+            sidebar.classList.add('mobile-open');
+            sidebarBackdrop.classList.add('visible');
+            mobileMoreBtn.classList.add('active');
+        }
+
+        function closeMobileSidebar() {
+            sidebar.classList.remove('mobile-open');
+            sidebarBackdrop.classList.remove('visible');
+            mobileMoreBtn.classList.remove('active');
+        }
+
+        mobileMoreBtn.addEventListener('click', () => {
+            sidebar.classList.contains('mobile-open') ? closeMobileSidebar() : openMobileSidebar();
+        });
+
+        sidebarBackdrop.addEventListener('click', closeMobileSidebar);
 
         // ======================================================
         // ===== THEME (LIGHT / DARK) ===========================
@@ -2390,6 +2593,7 @@
                 'nav.finance': 'Moliya',
                 'nav.settings': 'Sozlamalar',
                 'nav.reports': 'Hisobotlar',
+                'nav.more': "Ko'proq",
                 'nav.profile': 'Profile',
                 'nav.logout': 'Chiqish',
                 'search.placeholder': 'Qidiruv',
@@ -2476,6 +2680,7 @@
                 'nav.finance': 'Finance',
                 'nav.settings': 'Settings',
                 'nav.reports': 'Reports',
+                'nav.more': 'More',
                 'nav.profile': 'Profile',
                 'nav.logout': 'Log out',
                 'search.placeholder': 'Search',
@@ -2562,6 +2767,7 @@
                 'nav.finance': 'Финансы',
                 'nav.settings': 'Настройки',
                 'nav.reports': 'Отчёты',
+                'nav.more': 'Ещё',
                 'nav.profile': 'Профиль',
                 'nav.logout': 'Выйти',
                 'search.placeholder': 'Поиск',
