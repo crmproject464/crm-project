@@ -37,7 +37,8 @@
             --stat-icon-bg: rgba(244, 239, 230, 0.10);
             --chart-bar-top: #57D9C4;
             --chart-bar-bottom: #2F6FE0;
-            --chart-bar-peak: linear-gradient(to bottom, #A78BFA, #6D4FE0);
+            --chart-bar-peak-top: #A78BFA;
+            --chart-bar-peak-bottom: #6D4FE0;
 
             --radius: 14px;
         }
@@ -70,7 +71,8 @@
             --stat-icon-bg: rgba(233, 236, 243, 0.08);
             --chart-bar-top: #59E3C9;
             --chart-bar-bottom: #3C7EF0;
-            --chart-bar-peak: linear-gradient(to bottom, #B9A5FF, #7C5CFC);
+            --chart-bar-peak-top: #B9A5FF;
+            --chart-bar-peak-bottom: #7C5CFC;
         }
 
         html {
@@ -1212,6 +1214,7 @@
         }
 
         .chart-card {
+            position: relative;
             background: var(--bg-panel);
             color: var(--fg-panel);
             border: 1px solid var(--panel-border);
@@ -1268,21 +1271,104 @@
         }
 
         .chart-bar {
-            width: 56%;
-            max-width: 34px;
-            border-radius: 8px 8px 3px 3px;
-            background: linear-gradient(to bottom, var(--chart-bar-top), var(--chart-bar-bottom));
+            position: relative;
+            width: 76%;
+            max-width: 52px;
+            border-radius: 0 0 4px 4px;
+            background:
+                linear-gradient(90deg, rgba(0, 0, 0, .24) 0%, rgba(255, 255, 255, .26) 36%, rgba(255, 255, 255, .04) 55%, rgba(0, 0, 0, .20) 100%),
+                linear-gradient(to bottom, var(--chart-bar-top), var(--chart-bar-bottom));
+            box-shadow: 3px 6px 12px rgba(15, 23, 42, .22);
             transition: height .5s cubic-bezier(.65, 0, .35, 1), opacity .2s ease, transform .2s ease;
             cursor: default;
         }
 
+        .chart-bar::before {
+            content: '';
+            position: absolute;
+            top: -9px;
+            left: 0;
+            right: 0;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, .9), var(--chart-bar-top));
+            box-shadow: inset 0 -3px 4px rgba(0, 0, 0, .14);
+        }
+
+        .chart-bar::after {
+            content: '';
+            position: absolute;
+            left: 8%;
+            right: 46%;
+            top: 2px;
+            bottom: 10%;
+            border-radius: 3px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, .30), rgba(255, 255, 255, 0));
+            pointer-events: none;
+        }
+
         .chart-bar:hover {
-            opacity: .82;
-            transform: scaleY(1.01);
+            opacity: .9;
+            transform: translateY(-3px);
         }
 
         .chart-bar.peak {
-            background: var(--chart-bar-peak);
+            background:
+                linear-gradient(90deg, rgba(0, 0, 0, .28) 0%, rgba(255, 255, 255, .26) 36%, rgba(255, 255, 255, .04) 55%, rgba(0, 0, 0, .22) 100%),
+                linear-gradient(to bottom, var(--chart-bar-peak-top), var(--chart-bar-peak-bottom));
+        }
+
+        .chart-bar.peak::before {
+            background: linear-gradient(135deg, rgba(255, 255, 255, .92), var(--chart-bar-peak-top));
+        }
+
+        /* ===== CHART TOOLTIP ===== */
+        .chart-tooltip {
+            position: absolute;
+            z-index: 30;
+            left: 0;
+            top: 0;
+            background: #121729;
+            color: #F4F6FA;
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, .35);
+            pointer-events: none;
+            opacity: 0;
+            white-space: nowrap;
+            transform: translate(-50%, -100%) translateY(-14px);
+            transition: opacity .15s ease, transform .15s ease;
+        }
+
+        .chart-tooltip.visible {
+            opacity: 1;
+            transform: translate(-50%, -100%) translateY(-20px);
+        }
+
+        .chart-tooltip-title {
+            font-weight: 700;
+            font-size: 13.5px;
+            margin-bottom: 8px;
+        }
+
+        .chart-tooltip-row {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 13px;
+            color: rgba(244, 246, 250, .85);
+        }
+
+        .chart-tooltip-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .chart-tooltip-row strong {
+            color: #fff;
+            font-weight: 700;
         }
 
         .chart-labels {
@@ -1562,11 +1648,6 @@
         <div class="content">
             <div class="content-view active-view" data-view="home">
                 <div class="dash-head">
-                    <div>
-                        <h1 data-i18n="content.title">Bosh sahifa</h1>
-                        <p data-i18n="content.desc">Bu joyga dashboard kontenti (statistikalar, grafik va h.k.) joylashadi. Yuqoridagi tugma orqali
-                            sidebar-ni ochib/yopib ko'ring.</p>
-                    </div>
                     <div class="dash-filter">
                         <select id="dashYear" class="dash-select" data-i18n-title="dash.yearSelect" title="Yilni tanlash"></select>
                     </div>
@@ -1582,6 +1663,7 @@
                         <div class="chart-plot-row">
                             <div class="chart-y-axis" id="chartYAxis"></div>
                             <div class="chart-plot" id="chartPlot"></div>
+                            <div class="chart-tooltip" id="chartTooltip"></div>
                         </div>
                         <div class="chart-labels" id="chartLabels"></div>
                     </div>
@@ -1711,8 +1793,6 @@
             </div>
 
             <div class="content-view" data-view="clients">
-                <h1 data-i18n="content.clients.title">Mijozlar</h1>
-                <p data-i18n="content.clients.desc">Barcha mijozlaringiz ro'yxati, aloqa ma'lumotlari va bitimlar tarixi shu yerda joylashadi.</p>
                 <div class="view-empty">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                         <line x1="4" y1="6" x2="20" y2="6" />
@@ -1724,8 +1804,6 @@
             </div>
 
             <div class="content-view" data-view="students">
-                <h1 data-i18n="content.students.title">Talabalar</h1>
-                <p data-i18n="content.students.desc">Talabalar ro'yxati, guruhlari va o'zlashtirish natijalari shu yerda ko'rsatiladi.</p>
                 <div class="view-empty">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                         <path d="M12 3 2 8l10 5 10-5-10-5z" />
@@ -1736,8 +1814,6 @@
             </div>
 
             <div class="content-view" data-view="groups">
-                <h1 data-i18n="content.groups.title">Guruhlar</h1>
-                <p data-i18n="content.groups.desc">Faol guruhlar, dars jadvali va guruh a'zolari shu yerda boshqariladi.</p>
                 <div class="view-empty">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                         <path d="M12 3 3 8l9 5 9-5-9-5z" />
@@ -1749,8 +1825,6 @@
             </div>
 
             <div class="content-view" data-view="teachers">
-                <h1 data-i18n="content.teachers.title">O'qituvchilar</h1>
-                <p data-i18n="content.teachers.desc">O'qituvchilar ro'yxati, fanlari va dars yuklamasi shu yerda ko'rsatiladi.</p>
                 <div class="view-empty">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                         <circle cx="9" cy="8" r="3" />
@@ -1763,8 +1837,6 @@
             </div>
 
             <div class="content-view" data-view="finance">
-                <h1 data-i18n="content.finance.title">Moliya</h1>
-                <p data-i18n="content.finance.desc">To'lovlar, xarajatlar va umumiy moliyaviy hisobotlar shu yerda aks etadi.</p>
                 <div class="view-empty">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                         <circle cx="12" cy="12" r="8" />
@@ -1775,8 +1847,6 @@
             </div>
 
             <div class="content-view" data-view="settings">
-                <h1 data-i18n="content.settings.title">Sozlamalar</h1>
-                <p data-i18n="content.settings.desc">Tizim sozlamalari, huquqlar va integratsiyalar shu yerdan boshqariladi.</p>
                 <div class="view-empty">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                         <circle cx="12" cy="12" r="3" />
@@ -1788,8 +1858,6 @@
             </div>
 
             <div class="content-view" data-view="reports">
-                <h1 data-i18n="content.reports.title">Hisobotlar</h1>
-                <p data-i18n="content.reports.desc">Turli davrlar bo'yicha statistik va analitik hisobotlar shu yerda shakllanadi.</p>
                 <div class="view-empty">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                         <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -1868,6 +1936,42 @@
             `).join('');
         }
 
+        // Chart ustuni ustiga sichqoncha olib borilganda ko'rsatiladigan tooltip
+        const chartTooltip = document.getElementById('chartTooltip');
+        const chartCardEl = document.querySelector('.chart-card');
+
+        function positionTooltip(bar) {
+            const barRect = bar.getBoundingClientRect();
+            const cardRect = chartCardEl.getBoundingClientRect();
+            chartTooltip.style.left = (barRect.left + barRect.width / 2 - cardRect.left) + 'px';
+            chartTooltip.style.top = (barRect.top - cardRect.top) + 'px';
+        }
+
+        function attachTooltipEvents() {
+            document.querySelectorAll('#chartPlot .chart-bar').forEach(bar => {
+                bar.addEventListener('mouseenter', () => {
+                    const idx = parseInt(bar.getAttribute('data-month-index'), 10);
+                    const val = bar.getAttribute('data-value');
+                    const isPeak = bar.classList.contains('peak');
+                    const lang = document.documentElement.getAttribute('lang') || 'uz';
+                    const dict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[lang]) ? TRANSLATIONS[lang] : {};
+                    const monthName = dict[MONTH_KEYS[idx]] || '';
+                    const label = dict['dash.tooltipLabel'] || 'Faollik';
+                    const dotColor = isPeak ? 'var(--chart-bar-peak-top)' : 'var(--chart-bar-top)';
+                    chartTooltip.innerHTML =
+                        `<div class="chart-tooltip-title">${monthName}</div>` +
+                        `<div class="chart-tooltip-row"><span class="chart-tooltip-dot" style="background:${dotColor}"></span>` +
+                        `<span>${label}: <strong>${val}</strong></span></div>`;
+                    positionTooltip(bar);
+                    chartTooltip.classList.add('visible');
+                });
+                bar.addEventListener('mousemove', () => positionTooltip(bar));
+                bar.addEventListener('mouseleave', () => {
+                    chartTooltip.classList.remove('visible');
+                });
+            });
+        }
+
         function renderChart(year) {
             const data = CHART_DATA[year] || CHART_DATA['2025'];
             const max = Math.max(...data);
@@ -1886,9 +1990,11 @@
             const plot = document.getElementById('chartPlot');
             plot.innerHTML = data.map((val, i) => `
                 <div class="chart-col">
-                    <div class="chart-bar${i === peakIndex ? ' peak' : ''}" style="height:${(val / niceMax) * 100}%" title="${val}"></div>
+                    <div class="chart-bar${i === peakIndex ? ' peak' : ''}" style="height:${(val / niceMax) * 100}%" data-value="${val}" data-month-index="${i}"></div>
                 </div>
             `).join('');
+
+            attachTooltipEvents();
 
             const labels = document.getElementById('chartLabels');
             labels.innerHTML = MONTH_KEYS.map(k => `<span data-i18n="${k}"></span>`).join('');
@@ -2233,6 +2339,7 @@
                 'dash.teachers': "O'qituvchilar",
                 'dash.debtors': 'Qarzdorlar',
                 'dash.chartTitle': 'Oylik faollik',
+                'dash.tooltipLabel': 'Faollik',
                 'dash.max': 'Eng yuqori',
                 'dash.min': 'Eng past',
                 'dash.avg': "O'rtacha",
@@ -2316,6 +2423,7 @@
                 'dash.teachers': 'Teachers',
                 'dash.debtors': 'Debtors',
                 'dash.chartTitle': 'Monthly activity',
+                'dash.tooltipLabel': 'Activity',
                 'dash.max': 'Highest',
                 'dash.min': 'Lowest',
                 'dash.avg': 'Average',
@@ -2399,6 +2507,7 @@
                 'dash.teachers': 'Преподаватели',
                 'dash.debtors': 'Должники',
                 'dash.chartTitle': 'Активность по месяцам',
+                'dash.tooltipLabel': 'Активность',
                 'dash.max': 'Наибольший',
                 'dash.min': 'Наименьший',
                 'dash.avg': 'Средний',
