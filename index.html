@@ -172,8 +172,8 @@
             right: 20px;
             transform: translateY(-50%);
             transition: top .5s cubic-bezier(.65, 0, .35, 1),
-                        right .5s cubic-bezier(.65, 0, .35, 1),
-                        transform .2s ease;
+                right .5s cubic-bezier(.65, 0, .35, 1),
+                transform .2s ease;
         }
 
         .toggle-btn svg {
@@ -506,13 +506,36 @@
         }
 
         @keyframes bell-wiggle {
-            0%, 85%, 100% { transform: rotate(0deg); }
-            87% { transform: rotate(-14deg); }
-            89% { transform: rotate(11deg); }
-            91% { transform: rotate(-8deg); }
-            93% { transform: rotate(5deg); }
-            95% { transform: rotate(-3deg); }
-            97% { transform: rotate(0deg); }
+
+            0%,
+            85%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            87% {
+                transform: rotate(-14deg);
+            }
+
+            89% {
+                transform: rotate(11deg);
+            }
+
+            91% {
+                transform: rotate(-8deg);
+            }
+
+            93% {
+                transform: rotate(5deg);
+            }
+
+            95% {
+                transform: rotate(-3deg);
+            }
+
+            97% {
+                transform: rotate(0deg);
+            }
         }
 
         .notif-btn.has-unread svg {
@@ -684,7 +707,7 @@
             display: none;
         }
 
-        .notif-list.is-empty + .notif-empty {
+        .notif-list.is-empty+.notif-empty {
             display: block;
         }
 
@@ -1149,6 +1172,17 @@
             background-size: 14px;
         }
 
+        .dash-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .chart-bar.dimmed {
+            opacity: .28;
+        }
+
         .stat-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
@@ -1528,15 +1562,18 @@
                     <circle cx="11" cy="11" r="7" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input type="text" class="search-input" data-i18n-placeholder="search.placeholder" placeholder="Qidiruv" />
+                <input type="text" class="search-input" data-i18n-placeholder="search.placeholder"
+                    placeholder="Qidiruv" />
             </div>
             <div class="header-icons">
                 <div class="lang-dropdown" id="langDropdown">
-                    <button class="lang-btn" id="langBtn" type="button" data-i18n-title="lang.select" title="Tilni tanlash">
+                    <button class="lang-btn" id="langBtn" type="button" data-i18n-title="lang.select"
+                        title="Tilni tanlash">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="9" />
                             <line x1="3" y1="12" x2="21" y2="12" />
-                            <path d="M12 3c2.5 2.5 3.8 5.6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.6-3.8-9s1.3-6.5 3.8-9z" />
+                            <path
+                                d="M12 3c2.5 2.5 3.8 5.6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.6-3.8-9s1.3-6.5 3.8-9z" />
                         </svg>
                     </button>
                     <div class="lang-menu" id="langMenu">
@@ -1578,7 +1615,8 @@
                     </svg>
                 </div>
                 <div class="notif-dropdown" id="notifDropdown">
-                    <button class="icon-btn notif-btn" id="notifBtn" type="button" data-i18n-title="notif.button" title="Bildirishnomalar">
+                    <button class="icon-btn notif-btn" id="notifBtn" type="button" data-i18n-title="notif.button"
+                        title="Bildirishnomalar">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 8a6 6 0 0 0-12 0c0 4-2 5-2 8h16c0-3-2-4-2-8" />
                             <path d="M10 21a2 2 0 0 0 4 0" />
@@ -1588,36 +1626,42 @@
                     <div class="notif-panel" id="notifPanel">
                         <div class="notif-header">
                             <span class="notif-title" data-i18n="notif.title">Bildirishnomalar</span>
-                            <button class="notif-mark-all" id="notifMarkAll" type="button" data-i18n="notif.markAll">Barchasini o'qilgan deb belgilash</button>
+                            <button class="notif-mark-all" id="notifMarkAll" type="button"
+                                data-i18n="notif.markAll">Barchasini o'qilgan deb belgilash</button>
                         </div>
                         <div class="notif-list" id="notifList">
                             <div class="notif-item unread" data-id="1">
                                 <span class="notif-dot"></span>
                                 <div class="notif-body">
-                                    <p class="notif-text" data-i18n="notif.item1">Yangi to'lov qabul qilindi: 850,000 so'm</p>
+                                    <p class="notif-text" data-i18n="notif.item1">Yangi to'lov qabul qilindi: 850,000
+                                        so'm</p>
                                     <span class="notif-time" data-i18n="notif.time1">5 daqiqa oldin</span>
                                 </div>
                             </div>
                             <div class="notif-item unread" data-id="2">
                                 <span class="notif-dot"></span>
                                 <div class="notif-body">
-                                    <p class="notif-text" data-i18n="notif.item2">Yangi talaba ro'yxatdan o'tdi: Aziz Karimov</p>
+                                    <p class="notif-text" data-i18n="notif.item2">Yangi talaba ro'yxatdan o'tdi: Aziz
+                                        Karimov</p>
                                     <span class="notif-time" data-i18n="notif.time2">1 soat oldin</span>
                                 </div>
                             </div>
                             <div class="notif-item unread" data-id="3">
                                 <span class="notif-dot"></span>
                                 <div class="notif-body">
-                                    <p class="notif-text" data-i18n="notif.item3">Ertaga soat 10:00 da guruh darsi bor</p>
+                                    <p class="notif-text" data-i18n="notif.item3">Ertaga soat 10:00 da guruh darsi bor
+                                    </p>
                                     <span class="notif-time" data-i18n="notif.time3">Kecha</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="notif-empty" id="notifEmpty" data-i18n="notif.empty">Yangi bildirishnomalar yo'q</div>
+                        <div class="notif-empty" id="notifEmpty" data-i18n="notif.empty">Yangi bildirishnomalar yo'q
+                        </div>
                     </div>
                 </div>
                 <div class="profile-dropdown" id="profileDropdown">
-                    <button class="icon-btn avatar profile-btn" id="profileBtn" type="button" data-i18n-title="profile.button" title="Profil menyusi">
+                    <button class="icon-btn avatar profile-btn" id="profileBtn" type="button"
+                        data-i18n-title="profile.button" title="Profil menyusi">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="8" r="4" />
                             <path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" />
@@ -1649,7 +1693,10 @@
             <div class="content-view active-view" data-view="home">
                 <div class="dash-head">
                     <div class="dash-filter">
-                        <select id="dashYear" class="dash-select" data-i18n-title="dash.yearSelect" title="Yilni tanlash"></select>
+                        <select id="dashYear" class="dash-select" data-i18n-title="dash.yearSelect"
+                            title="Yilni tanlash"></select>
+                        <select id="dashMonth" class="dash-select" data-i18n-title="dash.monthSelect"
+                            title="Oyni tanlash"></select>
                     </div>
                 </div>
 
@@ -1696,9 +1743,12 @@
                             <div class="profile-avatar-frame" id="profileAvatarFrame">
                                 <img class="profile-avatar-img" id="profileAvatarImg" src="./logo.png" alt="">
                             </div>
-                            <button type="button" class="profile-avatar-camera" id="avatarCameraBtn" data-i18n-title="profile.changePhoto" title="Rasmni almashtirish">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 8a2 2 0 0 1 2-2h1.2l.9-1.4A2 2 0 0 1 9.8 3.6h4.4a2 2 0 0 1 1.7 1L16.8 6H18a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
+                            <button type="button" class="profile-avatar-camera" id="avatarCameraBtn"
+                                data-i18n-title="profile.changePhoto" title="Rasmni almashtirish">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M4 8a2 2 0 0 1 2-2h1.2l.9-1.4A2 2 0 0 1 9.8 3.6h4.4a2 2 0 0 1 1.7 1L16.8 6H18a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
                                     <circle cx="12" cy="13" r="3.4" />
                                 </svg>
                             </button>
@@ -1716,7 +1766,8 @@
                             <div class="profile-lang-display" id="profileLangDisplay">
                                 <span class="flag" id="profileLangFlag">🇺🇿</span>
                                 <span id="profileLangText" data-i18n="profile.langValue">O'zbekcha</span>
-                                <svg class="chevron-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <svg class="chevron-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.4">
                                     <polyline points="6 9 12 15 18 9" />
                                 </svg>
                             </div>
@@ -1748,7 +1799,8 @@
                             <label data-i18n="profile.regionLabel">Viloyatingiz</label>
                             <div class="profile-select-wrap">
                                 <select id="profileRegionSelect"></select>
-                                <svg class="chevron-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <svg class="chevron-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.4">
                                     <polyline points="6 9 12 15 18 9" />
                                 </svg>
                             </div>
@@ -1757,7 +1809,8 @@
                             <label data-i18n="profile.districtLabel">Tumaningiz</label>
                             <div class="profile-select-wrap">
                                 <select id="profileDistrictSelect"></select>
-                                <svg class="chevron-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <svg class="chevron-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.4">
                                     <polyline points="6 9 12 15 18 9" />
                                 </svg>
                             </div>
@@ -1786,8 +1839,10 @@
                     </div>
 
                     <div class="profile-save-row">
-                        <button type="button" class="profile-save-btn" id="profileSaveBtn" data-i18n="profile.save">Saqlash</button>
-                        <span class="profile-save-status" id="profileSaveStatus" data-i18n="profile.saveSuccess">Ma'lumotlar saqlandi</span>
+                        <button type="button" class="profile-save-btn" id="profileSaveBtn"
+                            data-i18n="profile.save">Saqlash</button>
+                        <span class="profile-save-status" id="profileSaveStatus"
+                            data-i18n="profile.saveSuccess">Ma'lumotlar saqlandi</span>
                     </div>
                 </div>
             </div>
@@ -1972,7 +2027,7 @@
             });
         }
 
-        function renderChart(year) {
+        function renderChart(year, month = 'all') {
             const data = CHART_DATA[year] || CHART_DATA['2025'];
             const max = Math.max(...data);
             const min = Math.min(...data);
@@ -1993,6 +2048,15 @@
                     <div class="chart-bar${i === peakIndex ? ' peak' : ''}" style="height:${(val / niceMax) * 100}%" data-value="${val}" data-month-index="${i}"></div>
                 </div>
             `).join('');
+
+            // Oy tanlangan bo'lsa, faqat o'sha ustunni ajratib, qolganlarini xiralashtiramiz
+            if (month !== 'all') {
+                const selectedIndex = parseInt(month, 10);
+                plot.querySelectorAll('.chart-bar').forEach(bar => {
+                    const idx = parseInt(bar.getAttribute('data-month-index'), 10);
+                    bar.classList.toggle('dimmed', idx !== selectedIndex);
+                });
+            }
 
             attachTooltipEvents();
 
@@ -2022,10 +2086,28 @@
             opt.textContent = y;
             dashYearSelect.appendChild(opt);
         });
-        dashYearSelect.addEventListener('change', () => renderChart(dashYearSelect.value));
+
+        const dashMonthSelect = document.getElementById('dashMonth');
+        const UZ_MONTH_NAMES = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
+            'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'];
+        const allMonthsOpt = document.createElement('option');
+        allMonthsOpt.value = 'all';
+        allMonthsOpt.setAttribute('data-i18n', 'dash.monthAll');
+        allMonthsOpt.textContent = 'Barcha oylar';
+        dashMonthSelect.appendChild(allMonthsOpt);
+        MONTH_KEYS.forEach((key, i) => {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.setAttribute('data-i18n', key);
+            opt.textContent = UZ_MONTH_NAMES[i];
+            dashMonthSelect.appendChild(opt);
+        });
+
+        dashYearSelect.addEventListener('change', () => renderChart(dashYearSelect.value, dashMonthSelect.value));
+        dashMonthSelect.addEventListener('change', () => renderChart(dashYearSelect.value, dashMonthSelect.value));
 
         renderStatCards();
-        renderChart(dashYearSelect.value);
+        renderChart(dashYearSelect.value, dashMonthSelect.value);
 
         // ======================================================
         // ===== CONTENT VIEWS (BOSH SAHIFA / PROFIL) ===========
@@ -2332,6 +2414,8 @@
                 'content.reports.title': 'Hisobotlar',
                 'content.reports.desc': "Turli davrlar bo'yicha statistik va analitik hisobotlar shu yerda shakllanadi.",
                 'dash.yearSelect': 'Yilni tanlash',
+                'dash.monthSelect': 'Oyni tanlash',
+                'dash.monthAll': 'Barcha oylar',
                 'dash.clients': 'Mijozlar',
                 'dash.activeStudents': 'Faol talabalar',
                 'dash.groups': 'Guruhlar',
@@ -2416,6 +2500,8 @@
                 'content.reports.title': 'Reports',
                 'content.reports.desc': 'Statistical and analytical reports for different periods are generated here.',
                 'dash.yearSelect': 'Select year',
+                'dash.monthSelect': 'Select month',
+                'dash.monthAll': 'All months',
                 'dash.clients': 'Clients',
                 'dash.activeStudents': 'Active students',
                 'dash.groups': 'Groups',
@@ -2500,6 +2586,8 @@
                 'content.reports.title': 'Отчёты',
                 'content.reports.desc': 'Здесь формируются статистические и аналитические отчёты за разные периоды.',
                 'dash.yearSelect': 'Выбрать год',
+                'dash.monthSelect': 'Выбрать месяц',
+                'dash.monthAll': 'Все месяцы',
                 'dash.clients': 'Клиенты',
                 'dash.activeStudents': 'Активные студенты',
                 'dash.groups': 'Группы',
