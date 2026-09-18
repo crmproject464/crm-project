@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Ferdinant - Sidebar & Header</title>
     <style>
         :root {
@@ -1314,6 +1315,40 @@
             .content {
                 padding-bottom: 100px;
             }
+
+            .header {
+                height: auto;
+                min-height: 64px;
+                padding: 10px 14px;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .header-logo .logo-text {
+                display: none;
+            }
+
+            .header-logo .logo-mark {
+                width: 38px;
+                height: 38px;
+            }
+
+            .search-box {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-width: none;
+                height: 40px;
+            }
+
+            .header-icons {
+                gap: 6px;
+            }
+
+            .header-icons .icon-btn:not([id]) {
+                display: none;
+            }
+
         }
 
         .chart-bar.dimmed {
