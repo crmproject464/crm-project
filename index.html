@@ -819,6 +819,467 @@
             max-width: 360px;
         }
 
+        /* ===== CLIENTS KANBAN (Mijozlar) ===== */
+        .clients-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .clients-head-text {
+            max-width: 480px;
+        }
+
+        .clients-head-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .clients-head-actions-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .clients-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--field-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            padding: 9px 14px;
+            min-width: 220px;
+        }
+
+        html:not([data-theme="dark"]) .clients-search {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, .05);
+        }
+
+        .clients-search svg {
+            width: 16px;
+            height: 16px;
+            color: var(--fg-page-muted);
+            flex-shrink: 0;
+        }
+
+        .clients-search input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 13.5px;
+            color: var(--fg-page);
+            width: 100%;
+        }
+
+        .clients-add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 12px;
+            background: var(--highlight-bg);
+            color: var(--highlight-fg);
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: filter .2s ease, transform .15s ease;
+        }
+
+        .clients-add-btn:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+
+        .clients-add-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .clients-scroll-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .clients-scroll-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: 1.5px solid rgba(47, 111, 224, 0.35);
+            background: rgba(47, 111, 224, 0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: filter .15s ease, opacity .15s ease, background .15s ease, color .15s ease;
+        }
+
+        .clients-scroll-btn:hover {
+            background: var(--highlight-bg);
+            border-color: var(--highlight-bg);
+            color: var(--highlight-fg);
+        }
+
+        .clients-scroll-btn:disabled {
+            opacity: .35;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .clients-scroll-btn svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .clients-board {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+
+        .clients-column {
+            flex: 0 0 290px;
+            width: 290px;
+            background: var(--bg-panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            box-shadow: var(--block-shadow);
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 200px);
+        }
+
+        .clients-column-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 14px 12px;
+            border-bottom: 1px solid var(--panel-border);
+        }
+
+        .clients-column-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .clients-column-name {
+            flex: 1;
+            color: var(--fg-panel);
+            font-size: 14.5px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .clients-column-count {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--fg-muted);
+            background: rgba(237, 235, 227, 0.08);
+            border-radius: 20px;
+            padding: 2px 8px;
+        }
+
+        .clients-column-add {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(237, 235, 227, 0.08);
+            color: var(--fg-panel);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background .15s ease;
+        }
+
+        .clients-column-add:hover {
+            background: rgba(237, 235, 227, 0.18);
+        }
+
+        .clients-column-add svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .clients-column-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .clients-column-body.drag-over {
+            background: rgba(47, 111, 224, 0.08);
+        }
+
+        .clients-column-empty {
+            font-size: 12.5px;
+            color: var(--fg-muted);
+            text-align: center;
+            padding: 22px 8px;
+            border: 1.5px dashed var(--panel-border);
+            border-radius: 14px;
+        }
+
+        .client-card {
+            position: relative;
+            background: rgba(237, 235, 227, 0.05);
+            border: 1px solid var(--panel-border);
+            border-radius: 14px;
+            padding: 12px 34px 12px 12px;
+            cursor: grab;
+            transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+        }
+
+        html:not([data-theme="dark"]) .client-card {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .client-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(111, 163, 245, 0.5);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, .18);
+        }
+
+        .client-card.dragging {
+            opacity: .4;
+        }
+
+        .client-card-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .client-card-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12.5px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .client-card-name {
+            color: var(--fg-panel);
+            font-size: 13.5px;
+            font-weight: 700;
+            line-height: 1.25;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .client-card-meta {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .client-card-meta a,
+        .client-card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            color: var(--fg-muted);
+            text-decoration: none;
+        }
+
+        .client-card-meta a:hover {
+            color: var(--fg-panel);
+        }
+
+        .client-card-meta svg {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+
+        .client-card-flag,
+        .client-card-del {
+            position: absolute;
+            right: 9px;
+            width: 22px;
+            height: 22px;
+            border: none;
+            background: transparent;
+            color: var(--fg-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 7px;
+        }
+
+        .client-card-flag {
+            top: 9px;
+        }
+
+        .client-card-del {
+            top: 33px;
+            opacity: 0;
+            transition: opacity .15s ease;
+        }
+
+        .client-card:hover .client-card-del {
+            opacity: 1;
+        }
+
+        .client-card-flag:hover,
+        .client-card-del:hover {
+            background: rgba(237, 235, 227, 0.1);
+            color: var(--fg-panel);
+        }
+
+        .client-card-flag.active {
+            color: #F5B942;
+        }
+
+        .client-card-flag svg,
+        .client-card-del svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ===== CLIENTS MODAL (Yangi mijoz) ===== */
+        .clients-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(9, 13, 22, .55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 60;
+            padding: 20px;
+        }
+
+        .clients-modal-backdrop.open {
+            display: flex;
+        }
+
+        .clients-modal {
+            width: 100%;
+            max-width: 380px;
+            background: var(--menu-bg);
+            color: var(--menu-fg);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--menu-shadow);
+        }
+
+        .clients-modal h2 {
+            font-size: 17px;
+            margin-bottom: 18px;
+        }
+
+        .clients-modal-field {
+            margin-bottom: 14px;
+        }
+
+        .clients-modal-field label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--fg-page-muted);
+            margin-bottom: 6px;
+        }
+
+        .clients-modal-field input,
+        .clients-modal-field select {
+            width: 100%;
+            padding: 11px 13px;
+            border-radius: 11px;
+            border: 1px solid var(--panel-border);
+            background: var(--bg-page);
+            color: var(--menu-fg);
+            font-family: inherit;
+            font-size: 13.5px;
+            outline: none;
+        }
+
+        .clients-modal-field input:focus,
+        .clients-modal-field select:focus {
+            border-color: var(--accent);
+        }
+
+        .clients-modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .clients-modal-cancel,
+        .clients-modal-save {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .clients-modal-cancel {
+            background: var(--menu-hover);
+            color: var(--menu-fg);
+        }
+
+        .clients-modal-save {
+            background: var(--highlight-bg);
+            color: var(--highlight-fg);
+        }
+
+        @media (max-width: 768px) {
+            .clients-board {
+                flex-direction: column;
+                overflow-x: visible;
+            }
+
+            .clients-column {
+                width: 100%;
+                flex: 1 1 auto;
+                max-height: none;
+            }
+        }
+
         /* ===== PROFILE FORM (Shaxsiy sozlamalari) ===== */
         .profile-form-card {
             margin-top: 22px;
@@ -1129,6 +1590,7 @@
 
         .content {
             flex: 1;
+            min-width: 0;
             overflow: auto;
             padding: 26px 30px;
             color: var(--fg-page);
@@ -2171,6 +2633,10 @@
                             <span class="chart-summary-label" data-i18n="pay.totalAmount">Jami summa</span>
                             <span class="chart-summary-value" id="payTotalAmount">-</span>
                         </div>
+                        <div class="chart-summary-item">
+                            <span class="chart-summary-label" data-i18n="pay.avgPayment">O'rtacha to'lov</span>
+                            <span class="chart-summary-value" id="payAvgAmount">-</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2292,13 +2758,71 @@
             </div>
 
             <div class="content-view" data-view="clients">
-                <div class="view-empty">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                        <line x1="4" y1="6" x2="20" y2="6" />
-                        <line x1="4" y1="12" x2="20" y2="12" />
-                        <line x1="4" y1="18" x2="14" y2="18" />
-                    </svg>
-                    <span data-i18n="content.comingSoon">Bu bo'lim tez orada to'liq ishga tushiriladi</span>
+                <div class="clients-head">
+                    <div class="clients-head-text">
+                        <h1 data-i18n="content.clients.title">Mijozlar</h1>
+                    </div>
+                    <div class="clients-head-actions">
+                        <div class="clients-head-actions-top">
+                            <div class="clients-search">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="7" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                </svg>
+                                <input type="text" id="clientsSearchInput" data-i18n-placeholder="clients.searchPlaceholder"
+                                    placeholder="Ism yoki telefon bo'yicha qidirish">
+                            </div>
+                            <button class="clients-add-btn" id="clientsAddBtn" type="button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                                    stroke-linecap="round">
+                                    <line x1="12" y1="5" x2="12" y2="19" />
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                                <span data-i18n="clients.addBtn">Mijoz qo'shish</span>
+                            </button>
+                        </div>
+                        <div class="clients-scroll-controls">
+                            <button type="button" class="clients-scroll-btn" id="clientsScrollLeft"
+                                data-i18n-title="clients.scrollLeft" title="Chapga surish">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 6 9 12 15 18" />
+                                </svg>
+                            </button>
+                            <button type="button" class="clients-scroll-btn" id="clientsScrollRight"
+                                data-i18n-title="clients.scrollRight" title="O'ngga surish">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 6 15 12 9 18" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="clients-board" id="clientsBoard"></div>
+            </div>
+
+            <div class="clients-modal-backdrop" id="clientsModalBackdrop">
+                <div class="clients-modal">
+                    <h2 data-i18n="clients.modalTitle">Yangi mijoz</h2>
+                    <div class="clients-modal-field">
+                        <label data-i18n="clients.nameLabel">Ism familiya</label>
+                        <input type="text" id="clientNameInput" autocomplete="off">
+                    </div>
+                    <div class="clients-modal-field">
+                        <label data-i18n="clients.phoneLabel">Telefon raqam</label>
+                        <input type="tel" id="clientPhoneInput" placeholder="+998 __ ___ __ __" autocomplete="off">
+                    </div>
+                    <div class="clients-modal-field">
+                        <label data-i18n="clients.courseLabel">Yo'nalish / ustun</label>
+                        <select id="clientCourseSelect"></select>
+                    </div>
+                    <div class="clients-modal-actions">
+                        <button type="button" class="clients-modal-cancel" id="clientsModalCancel"
+                            data-i18n="clients.cancel">Bekor qilish</button>
+                        <button type="button" class="clients-modal-save" id="clientsModalSave"
+                            data-i18n="clients.save">Saqlash</button>
+                    </div>
                 </div>
             </div>
 
@@ -2700,12 +3224,220 @@
         renderPayments();
 
         // ======================================================
+        // ===== MIJOZLAR (CLIENTS KANBAN BOARD) ================
+        // ======================================================
+        const CLIENT_COURSES = [
+            { id: 'sorov', name: "So'rov", color: '#6FA3F5' },
+            { id: 'ingliz', name: 'Ingliz tili', color: '#57D9C4' },
+            { id: 'it', name: 'IT Suhrobjon', color: '#A78BFA' },
+            { id: 'savod', name: 'Savodxonlik Yangi', color: '#F5B942' },
+        ];
+
+        let CLIENTS = [
+            { id: 1, name: 'Omonullayev Muhammadziyo', phone: '+998 50 270-25-63', date: '2026-09-22', course: 'sorov', flagged: false },
+            { id: 2, name: 'Sulaymonova Muqaddam', phone: '+998 93 733-17-84', date: '2026-09-22', course: 'sorov', flagged: false },
+            { id: 3, name: 'Xasanov Nasibjon', phone: '+998 94 103-74-62', date: '2026-09-21', course: 'sorov', flagged: false },
+            { id: 4, name: 'Ahmadjonov Abduvahob', phone: '+998 90 540-12-46', date: '2026-09-21', course: 'sorov', flagged: false },
+            { id: 5, name: 'Ahmadjonov Xalimjon', phone: '+998 77 777-62-09', date: '2026-09-21', course: 'sorov', flagged: false },
+            { id: 6, name: 'Abdunabiyeva Feruza', phone: '+998 33 275-04-01', date: '2026-09-21', course: 'sorov', flagged: false },
+            { id: 7, name: 'Yusupov Jamoldin', phone: '+998 90 111-22-33', date: '2026-09-20', course: 'sorov', flagged: false },
+            { id: 8, name: 'Rahmatillayev Lazizbek', phone: '+998 50 020-21-80', date: '2026-09-17', course: 'ingliz', flagged: false },
+            { id: 9, name: 'Muhiddinov Muhammadaziz', phone: '+998 50 899-58-48', date: '2026-05-11', course: 'ingliz', flagged: false },
+            { id: 10, name: 'Zulunov Xojiakbar', phone: '+998 99 499-00-85', date: '2026-09-12', course: 'ingliz', flagged: true },
+            { id: 11, name: 'Iminova Mohina', phone: '+998 88 140-17-74', date: '2026-09-08', course: 'it', flagged: false },
+        ];
+        let clientsNextId = CLIENTS.length + 1;
+        let clientsSearchTerm = '';
+        let clientsModalDefaultCourse = CLIENT_COURSES[0].id;
+
+        function ct(key, fallback) {
+            const lang = document.documentElement.getAttribute('lang') || 'uz';
+            const dict = TRANSLATIONS[lang] || TRANSLATIONS.uz;
+            return (dict && dict[key]) || (TRANSLATIONS.uz[key]) || fallback || key;
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[m]);
+        }
+
+        function clientInitials(name) {
+            return name.trim().split(/\s+/).slice(0, 2).map(p => p[0]).join('').toUpperCase();
+        }
+
+        function formatClientDate(iso) {
+            const d = new Date(iso + 'T00:00:00');
+            if (isNaN(d)) return iso;
+            return d.toLocaleDateString(document.documentElement.getAttribute('lang') === 'ru' ? 'ru-RU' : 'en-CA');
+        }
+
+        function renderClientsBoard() {
+            const board = document.getElementById('clientsBoard');
+            if (!board) return;
+            const term = clientsSearchTerm.trim().toLowerCase();
+            board.innerHTML = CLIENT_COURSES.map(course => {
+                const items = CLIENTS.filter(c => c.course === course.id &&
+                    (!term || c.name.toLowerCase().includes(term) || c.phone.replace(/\D/g, '').includes(term.replace(/\D/g, ''))));
+                const cardsHtml = items.length ? items.map(c => `
+                    <div class="client-card" draggable="true" data-id="${c.id}">
+                        <button type="button" class="client-card-flag ${c.flagged ? 'active' : ''}" data-action="flag" data-id="${c.id}" title="${ct('clients.flagTitle', 'Belgilash')}">
+                            <svg viewBox="0 0 24 24" fill="${c.flagged ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7-5.4-4.7 7.1-.7z"/></svg>
+                        </button>
+                        <button type="button" class="client-card-del" data-action="del" data-id="${c.id}" title="${ct('clients.deleteTitle', "O'chirish")}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg>
+                        </button>
+                        <div class="client-card-top">
+                            <div class="client-card-avatar" style="background:${course.color}22;color:${course.color}">${clientInitials(c.name)}</div>
+                            <div class="client-card-name">${escapeHtml(c.name)}</div>
+                        </div>
+                        <div class="client-card-meta">
+                            <a href="tel:${c.phone.replace(/[^\d+]/g, '')}">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 2.9a2 2 0 0 1-.5 2.1L7.9 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.5 2.9.6a2 2 0 0 1 1.7 2z"/></svg>
+                                ${escapeHtml(c.phone)}
+                            </a>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                ${formatClientDate(c.date)}
+                            </span>
+                        </div>
+                    </div>
+                `).join('') : `<div class="clients-column-empty">${ct('clients.emptyColumn', "Bu yerda mijozlar yo'q")}</div>`;
+
+                return `
+                    <div class="clients-column" data-course="${course.id}">
+                        <div class="clients-column-head">
+                            <span class="clients-column-dot" style="background:${course.color}"></span>
+                            <span class="clients-column-name">${escapeHtml(course.name)}</span>
+                            <span class="clients-column-count">${items.length}</span>
+                            <button type="button" class="clients-column-add" data-action="quick-add" data-course="${course.id}" title="${ct('clients.addBtn', "Mijoz qo'shish")}">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            </button>
+                        </div>
+                        <div class="clients-column-body" data-course="${course.id}">${cardsHtml}</div>
+                    </div>
+                `;
+            }).join('');
+            attachClientsBoardEvents();
+            updateClientsScrollButtons();
+        }
+
+        function attachClientsBoardEvents() {
+            document.querySelectorAll('.client-card-flag').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const c = CLIENTS.find(x => x.id == btn.dataset.id);
+                    if (c) { c.flagged = !c.flagged; renderClientsBoard(); }
+                });
+            });
+            document.querySelectorAll('.client-card-del').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (confirm(ct('clients.deleteConfirm', "Mijozni o'chirmoqchimisiz?"))) {
+                        CLIENTS = CLIENTS.filter(x => x.id != btn.dataset.id);
+                        renderClientsBoard();
+                    }
+                });
+            });
+            document.querySelectorAll('.clients-column-add').forEach(btn => {
+                btn.addEventListener('click', () => openClientsModal(btn.dataset.course));
+            });
+            document.querySelectorAll('.client-card').forEach(card => {
+                card.addEventListener('dragstart', () => {
+                    card.classList.add('dragging');
+                    card.dataset.dragId = card.dataset.id;
+                });
+                card.addEventListener('dragend', () => card.classList.remove('dragging'));
+            });
+            document.querySelectorAll('.clients-column-body').forEach(body => {
+                body.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    body.classList.add('drag-over');
+                });
+                body.addEventListener('dragleave', () => body.classList.remove('drag-over'));
+                body.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    body.classList.remove('drag-over');
+                    const dragging = document.querySelector('.client-card.dragging');
+                    if (!dragging) return;
+                    const c = CLIENTS.find(x => x.id == dragging.dataset.id);
+                    if (c) { c.course = body.dataset.course; renderClientsBoard(); }
+                });
+            });
+        }
+
+        function openClientsModal(defaultCourse) {
+            clientsModalDefaultCourse = defaultCourse || CLIENT_COURSES[0].id;
+            const select = document.getElementById('clientCourseSelect');
+            select.innerHTML = CLIENT_COURSES.map(c => `<option value="${c.id}" ${c.id === clientsModalDefaultCourse ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('');
+            document.getElementById('clientNameInput').value = '';
+            document.getElementById('clientPhoneInput').value = '';
+            document.getElementById('clientsModalBackdrop').classList.add('open');
+            document.getElementById('clientNameInput').focus();
+        }
+
+        function closeClientsModal() {
+            document.getElementById('clientsModalBackdrop').classList.remove('open');
+        }
+
+        function saveNewClient() {
+            const name = document.getElementById('clientNameInput').value.trim();
+            const phone = document.getElementById('clientPhoneInput').value.trim();
+            const course = document.getElementById('clientCourseSelect').value;
+            if (!name) { document.getElementById('clientNameInput').focus(); return; }
+            CLIENTS.push({
+                id: clientsNextId++,
+                name, phone: phone || '-',
+                date: new Date().toISOString().slice(0, 10),
+                course, flagged: false
+            });
+            closeClientsModal();
+            renderClientsBoard();
+        }
+
+        document.getElementById('clientsAddBtn').addEventListener('click', () => openClientsModal(CLIENT_COURSES[0].id));
+        document.getElementById('clientsModalCancel').addEventListener('click', closeClientsModal);
+        document.getElementById('clientsModalSave').addEventListener('click', saveNewClient);
+        document.getElementById('clientsModalBackdrop').addEventListener('click', (e) => {
+            if (e.target.id === 'clientsModalBackdrop') closeClientsModal();
+        });
+        document.getElementById('clientsSearchInput').addEventListener('input', (e) => {
+            clientsSearchTerm = e.target.value;
+            renderClientsBoard();
+        });
+
+        const clientsScrollLeftBtn = document.getElementById('clientsScrollLeft');
+        const clientsScrollRightBtn = document.getElementById('clientsScrollRight');
+
+        function updateClientsScrollButtons() {
+            const board = document.getElementById('clientsBoard');
+            if (!board || !clientsScrollLeftBtn || !clientsScrollRightBtn) return;
+            const max = board.scrollWidth - board.clientWidth;
+            clientsScrollLeftBtn.disabled = board.scrollLeft <= 4;
+            clientsScrollRightBtn.disabled = max <= 4 || board.scrollLeft >= max - 4;
+        }
+
+        (function initClientsScrollButtons() {
+            const board = document.getElementById('clientsBoard');
+            const step = () => Math.max(board.clientWidth * 0.8, 260);
+            clientsScrollLeftBtn.addEventListener('click', () => board.scrollBy({ left: -step(), behavior: 'smooth' }));
+            clientsScrollRightBtn.addEventListener('click', () => board.scrollBy({ left: step(), behavior: 'smooth' }));
+            board.addEventListener('scroll', updateClientsScrollButtons);
+            window.addEventListener('resize', updateClientsScrollButtons);
+        })();
+
+        // ======================================================
         // ===== CONTENT VIEWS (BOSH SAHIFA / PROFIL) ===========
         // ======================================================
         function showView(name) {
             document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active-view'));
             const target = document.querySelector(`.content-view[data-view="${name}"]`);
             if (target) target.classList.add('active-view');
+            if (name === 'clients' && typeof updateClientsScrollButtons === 'function') {
+                if (typeof requestAnimationFrame === 'function') {
+                    requestAnimationFrame(updateClientsScrollButtons);
+                } else {
+                    setTimeout(updateClientsScrollButtons, 0);
+                }
+            }
         }
 
         function setActiveNav(view) {
@@ -3015,6 +3747,20 @@
                 'content.comingSoon': "Bu bo'lim tez orada to'liq ishga tushiriladi",
                 'content.clients.title': 'Mijozlar',
                 'content.clients.desc': "Barcha mijozlaringiz ro'yxati, aloqa ma'lumotlari va bitimlar tarixi shu yerda joylashadi.",
+                'clients.searchPlaceholder': 'Ism yoki telefon bo\'yicha qidirish',
+                'clients.addBtn': "Mijoz qo'shish",
+                'clients.modalTitle': 'Yangi mijoz',
+                'clients.nameLabel': 'Ism familiya',
+                'clients.phoneLabel': 'Telefon raqam',
+                'clients.courseLabel': "Yo'nalish / ustun",
+                'clients.cancel': 'Bekor qilish',
+                'clients.save': 'Saqlash',
+                'clients.emptyColumn': "Bu yerda mijozlar yo'q",
+                'clients.deleteConfirm': "Mijozni o'chirmoqchimisiz?",
+                'clients.deleteTitle': "O'chirish",
+                'clients.flagTitle': 'Muhim deb belgilash',
+                'clients.scrollLeft': 'Chapga surish',
+                'clients.scrollRight': "O'ngga surish",
                 'content.students.title': 'Talabalar',
                 'content.students.desc': "Talabalar ro'yxati, guruhlari va o'zlashtirish natijalari shu yerda ko'rsatiladi.",
                 'content.groups.title': 'Guruhlar',
@@ -3116,6 +3862,20 @@
                 'content.comingSoon': 'This section will be fully available soon',
                 'content.clients.title': 'Clients',
                 'content.clients.desc': 'The full list of your clients, their contact details and deal history will appear here.',
+                'clients.searchPlaceholder': 'Search by name or phone',
+                'clients.addBtn': 'Add client',
+                'clients.modalTitle': 'New client',
+                'clients.nameLabel': 'Full name',
+                'clients.phoneLabel': 'Phone number',
+                'clients.courseLabel': 'Course / column',
+                'clients.cancel': 'Cancel',
+                'clients.save': 'Save',
+                'clients.emptyColumn': 'No clients here yet',
+                'clients.deleteConfirm': 'Delete this client?',
+                'clients.deleteTitle': 'Delete',
+                'clients.flagTitle': 'Mark as important',
+                'clients.scrollLeft': 'Scroll left',
+                'clients.scrollRight': 'Scroll right',
                 'content.students.title': 'Students',
                 'content.students.desc': 'The list of students, their groups and academic progress will be shown here.',
                 'content.groups.title': 'Groups',
@@ -3217,6 +3977,20 @@
                 'content.comingSoon': 'Этот раздел скоро будет полностью доступен',
                 'content.clients.title': 'Клиенты',
                 'content.clients.desc': 'Здесь будет список всех клиентов, их контактные данные и история сделок.',
+                'clients.searchPlaceholder': 'Поиск по имени или телефону',
+                'clients.addBtn': 'Добавить клиента',
+                'clients.modalTitle': 'Новый клиент',
+                'clients.nameLabel': 'Имя и фамилия',
+                'clients.phoneLabel': 'Номер телефона',
+                'clients.courseLabel': 'Направление / колонка',
+                'clients.cancel': 'Отмена',
+                'clients.save': 'Сохранить',
+                'clients.emptyColumn': 'Здесь пока нет клиентов',
+                'clients.deleteConfirm': 'Удалить этого клиента?',
+                'clients.deleteTitle': 'Удалить',
+                'clients.flagTitle': 'Отметить как важное',
+                'clients.scrollLeft': 'Прокрутить влево',
+                'clients.scrollRight': 'Прокрутить вправо',
                 'content.students.title': 'Студенты',
                 'content.students.desc': 'Здесь будут отображаться список студентов, их группы и успеваемость.',
                 'content.groups.title': 'Группы',
@@ -3341,6 +4115,8 @@
             if (typeof profileLangFlag !== 'undefined' && profileLangFlag && LANG_FLAGS[lang]) {
                 profileLangFlag.textContent = LANG_FLAGS[lang];
             }
+
+            if (typeof renderClientsBoard === 'function') renderClientsBoard();
         }
 
         // ===== LANGUAGE DROPDOWN UI LOGIKASI =====
