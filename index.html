@@ -2269,6 +2269,418 @@
             width: 0;
             height: 0;
         }
+        /* ===== DARS JADVALI (SCHEDULE) MODAL ===== */
+        .sch-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-page);
+            display: none;
+            align-items: stretch;
+            justify-content: stretch;
+            z-index: 70;
+            padding: 0;
+        }
+
+        .sch-modal-backdrop.open {
+            display: flex;
+        }
+
+        .sch-modal {
+            width: 100%;
+            height: 100%;
+            background: var(--menu-bg);
+            color: var(--menu-fg);
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sch-modal-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 24px 14px;
+            flex-shrink: 0;
+        }
+
+        .sch-modal-head-text h2 {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .sch-modal-head-text span {
+            display: block;
+            font-size: 12.5px;
+            color: var(--fg-page-muted);
+            margin-top: 2px;
+        }
+
+        .sch-modal-close {
+            margin-left: auto;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: none;
+            background: var(--menu-hover);
+            color: var(--menu-fg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background .15s ease;
+        }
+
+        .sch-modal-close:hover {
+            background: var(--hover-bg);
+        }
+
+        .sch-modal-close svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .sch-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 24px 14px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .sch-tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .sch-tab {
+            border: 1px solid transparent;
+            background: var(--menu-hover);
+            color: var(--fg-page-muted);
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 8px 13px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background .15s ease, color .15s ease, border-color .15s ease;
+            white-space: nowrap;
+        }
+
+        .sch-tab:hover {
+            color: var(--menu-fg);
+        }
+
+        .sch-tab.sch-tab-agg {
+            background: transparent;
+            border-color: var(--panel-border);
+        }
+
+        .sch-tab.active {
+            background: var(--highlight-bg);
+            border-color: transparent;
+            color: var(--highlight-fg);
+        }
+
+        .sch-viewtoggle {
+            display: flex;
+            background: var(--menu-hover);
+            border-radius: 10px;
+            padding: 3px;
+            flex-shrink: 0;
+            gap: 2px;
+        }
+
+        .sch-viewbtn {
+            border: none;
+            background: transparent;
+            color: var(--fg-page-muted);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 7px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+        }
+
+        .sch-viewbtn svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .sch-viewbtn.active {
+            background: var(--bg-page);
+            color: var(--menu-fg);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .12);
+        }
+
+        .sch-body {
+            flex: 1;
+            overflow: auto;
+            margin: 0 24px 22px;
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .sch-grid {
+            min-width: 1300px;
+        }
+
+        /* --- horizontal (xonalar qator, vaqt ustun) --- */
+        .sch-headrow {
+            display: flex;
+            position: sticky;
+            top: 0;
+            z-index: 3;
+        }
+
+        .sch-corner {
+            width: 128px;
+            flex-shrink: 0;
+            position: sticky;
+            left: 0;
+            z-index: 4;
+            background: var(--menu-bg);
+            border-right: 1px solid var(--panel-border);
+            border-bottom: 1px solid var(--panel-border);
+        }
+
+        .sch-timelabels {
+            flex: 1;
+            display: flex;
+            background: var(--menu-bg);
+            border-bottom: 1px solid var(--panel-border);
+        }
+
+        .sch-timelabels span {
+            flex: 1;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--fg-page-muted);
+            padding: 12px 0 12px 8px;
+            border-left: 1px dashed var(--panel-border);
+        }
+
+        .sch-roomrow {
+            display: flex;
+            border-bottom: 1px solid var(--panel-border);
+        }
+
+        .sch-roomrow:last-child {
+            border-bottom: none;
+        }
+
+        .sch-roomlabel {
+            width: 128px;
+            flex-shrink: 0;
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            background: var(--menu-bg);
+            border-right: 1px solid var(--panel-border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 14px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--menu-fg);
+        }
+
+        .sch-room-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .sch-track {
+            flex: 1;
+            position: relative;
+            min-height: 92px;
+            background-image: linear-gradient(to right, var(--panel-border) 1px, transparent 1px);
+            background-size: calc(100% / 22) 100%;
+        }
+
+        /* --- vertical (vaqt qator, xonalar ustun) --- */
+        .sch-v-headrow {
+            display: flex;
+            position: sticky;
+            top: 0;
+            z-index: 3;
+        }
+
+        .sch-v-corner {
+            width: 64px;
+            flex-shrink: 0;
+            position: sticky;
+            left: 0;
+            z-index: 4;
+            background: var(--menu-bg);
+            border-right: 1px solid var(--panel-border);
+            border-bottom: 1px solid var(--panel-border);
+        }
+
+        .sch-v-roomhead {
+            flex: 1;
+            min-width: 210px;
+            text-align: center;
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 13px 8px;
+            background: var(--menu-bg);
+            border-left: 1px solid var(--panel-border);
+            border-bottom: 1px solid var(--panel-border);
+        }
+
+        .sch-v-body {
+            display: flex;
+            position: relative;
+        }
+
+        .sch-v-timecol {
+            width: 64px;
+            flex-shrink: 0;
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            background: var(--menu-bg);
+            border-right: 1px solid var(--panel-border);
+        }
+
+        .sch-v-timecol span {
+            position: absolute;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--fg-page-muted);
+            padding-left: 8px;
+        }
+
+        .sch-v-roomcol {
+            flex: 1;
+            min-width: 210px;
+            position: relative;
+            border-left: 1px solid var(--panel-border);
+            background-image: linear-gradient(var(--panel-border) 1px, transparent 1px);
+            background-size: 100% calc(100% / 22);
+        }
+
+        /* --- dars kartasi (ikkala rejim uchun umumiy) --- */
+        .sch-card {
+            position: absolute;
+            border-radius: 10px;
+            padding: 6px 9px;
+            overflow: hidden;
+            border-left: 3px solid var(--cat-color);
+            background: var(--cat-bg);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+            cursor: default;
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .sch-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+            z-index: 5;
+        }
+
+        .sch-h-card {
+            top: 6px;
+            bottom: 6px;
+        }
+
+        .sch-v-card {
+            left: 5px;
+            right: 5px;
+        }
+
+        .sch-card-time {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--cat-color);
+            white-space: nowrap;
+        }
+
+        .sch-card-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--menu-fg);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 1px;
+        }
+
+        .sch-card-sub {
+            font-size: 10.5px;
+            color: var(--fg-page-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sch-card-badge {
+            position: absolute;
+            right: 7px;
+            bottom: 5px;
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--cat-color);
+            background: var(--bg-page);
+            border-radius: 6px;
+            padding: 1px 5px;
+            opacity: .9;
+        }
+
+        .sch-empty {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 100%;
+            color: var(--fg-page-muted);
+            font-size: 13px;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .sch-empty.show {
+            display: flex;
+        }
+
+        .sch-empty svg {
+            width: 34px;
+            height: 34px;
+            opacity: .5;
+        }
+
+        @media (max-width: 768px) {
+            .sch-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .sch-viewtoggle {
+                align-self: flex-start;
+            }
+        }
     </style>
 </head>
 
@@ -2464,7 +2876,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="icon-btn" id="scheduleBtn" role="button" tabindex="0" data-i18n-title="schedule.button"
+                    title="Dars jadvali"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="4" width="18" height="18" rx="2" />
                         <line x1="16" y1="2" x2="16" y2="6" />
                         <line x1="8" y1="2" x2="8" y2="6" />
@@ -2822,6 +3235,60 @@
                             data-i18n="clients.cancel">Bekor qilish</button>
                         <button type="button" class="clients-modal-save" id="clientsModalSave"
                             data-i18n="clients.save">Saqlash</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sch-modal-backdrop" id="scheduleModalBackdrop">
+                <div class="sch-modal">
+                    <div class="sch-modal-head">
+                        <div class="sch-modal-head-text">
+                            <h2 data-i18n="schedule.title">Dars jadvali</h2>
+                            <span id="scheduleSubtitle"></span>
+                        </div>
+                        <button type="button" class="sch-modal-close" id="scheduleModalClose"
+                            data-i18n-title="schedule.close" title="Yopish">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round">
+                                <path d="M6 6l12 12M18 6L6 18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="sch-toolbar">
+                        <div class="sch-tabs" id="scheduleTabs"></div>
+                        <div class="sch-viewtoggle">
+                            <button type="button" class="sch-viewbtn" data-mode="horizontal" id="scheduleViewH">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round">
+                                    <line x1="3" y1="7" x2="21" y2="7" />
+                                    <line x1="3" y1="13" x2="21" y2="13" />
+                                    <line x1="3" y1="19" x2="21" y2="19" />
+                                </svg>
+                                <span data-i18n="schedule.horizontal">Gorizontal</span>
+                            </button>
+                            <button type="button" class="sch-viewbtn" data-mode="vertical" id="scheduleViewV">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round">
+                                    <line x1="7" y1="3" x2="7" y2="21" />
+                                    <line x1="13" y1="3" x2="13" y2="21" />
+                                    <line x1="19" y1="3" x2="19" y2="21" />
+                                </svg>
+                                <span data-i18n="schedule.vertical">Vertikal</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sch-body">
+                        <div class="sch-grid" id="scheduleGridBody"></div>
+                        <div class="sch-empty" id="scheduleEmpty">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                stroke-linecap="round">
+                                <rect x="3" y="5" width="18" height="16" rx="3" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                                <line x1="8" y1="3" x2="8" y2="7" />
+                                <line x1="16" y1="3" x2="16" y2="7" />
+                            </svg>
+                            <span data-i18n="schedule.empty">Bu kuni darslar rejalashtirilmagan</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3761,6 +4228,16 @@
                 'clients.flagTitle': 'Muhim deb belgilash',
                 'clients.scrollLeft': 'Chapga surish',
                 'clients.scrollRight': "O'ngga surish",
+                'schedule.button': 'Dars jadvali',
+                'schedule.title': 'Dars jadvali',
+                'schedule.close': 'Yopish',
+                'schedule.even': 'Juft kunlar',
+                'schedule.odd': 'Toq kunlar',
+                'schedule.horizontal': 'Gorizontal',
+                'schedule.vertical': 'Vertikal',
+                'schedule.empty': 'Bu kuni darslar rejalashtirilmagan',
+                'schedule.room': 'xona',
+                'schedule.lessonsCount': "dars",
                 'content.students.title': 'Talabalar',
                 'content.students.desc': "Talabalar ro'yxati, guruhlari va o'zlashtirish natijalari shu yerda ko'rsatiladi.",
                 'content.groups.title': 'Guruhlar',
@@ -3876,6 +4353,16 @@
                 'clients.flagTitle': 'Mark as important',
                 'clients.scrollLeft': 'Scroll left',
                 'clients.scrollRight': 'Scroll right',
+                'schedule.button': 'Class schedule',
+                'schedule.title': 'Class schedule',
+                'schedule.close': 'Close',
+                'schedule.even': 'Even days',
+                'schedule.odd': 'Odd days',
+                'schedule.horizontal': 'Horizontal',
+                'schedule.vertical': 'Vertical',
+                'schedule.empty': 'No classes scheduled for this day',
+                'schedule.room': 'Room',
+                'schedule.lessonsCount': "classes",
                 'content.students.title': 'Students',
                 'content.students.desc': 'The list of students, their groups and academic progress will be shown here.',
                 'content.groups.title': 'Groups',
@@ -3991,6 +4478,16 @@
                 'clients.flagTitle': 'Отметить как важное',
                 'clients.scrollLeft': 'Прокрутить влево',
                 'clients.scrollRight': 'Прокрутить вправо',
+                'schedule.button': 'Расписание занятий',
+                'schedule.title': 'Расписание занятий',
+                'schedule.close': 'Закрыть',
+                'schedule.even': 'Чётные дни',
+                'schedule.odd': 'Нечётные дни',
+                'schedule.horizontal': 'Горизонтально',
+                'schedule.vertical': 'Вертикально',
+                'schedule.empty': 'На этот день занятия не запланированы',
+                'schedule.room': 'Кабинет',
+                'schedule.lessonsCount': "занятий",
                 'content.students.title': 'Студенты',
                 'content.students.desc': 'Здесь будут отображаться список студентов, их группы и успеваемость.',
                 'content.groups.title': 'Группы',
@@ -4117,6 +4614,7 @@
             }
 
             if (typeof renderClientsBoard === 'function') renderClientsBoard();
+            if (typeof renderScheduleModal === 'function' && document.getElementById('scheduleModalBackdrop').classList.contains('open')) renderScheduleModal();
         }
 
         // ===== LANGUAGE DROPDOWN UI LOGIKASI =====
@@ -4146,6 +4644,206 @@
 
         // sahifa ochilganda: agar foydalanuvchi oldin til tanlagan bo'lsa o'shani,
         // aks holda har doim standart til sifatida O'ZBEKCHA qo'llanadi
+        // ======================================================
+        // ===== DARS JADVALI (SCHEDULE) MODAL ==================
+        // ======================================================
+        const SCH_ROOMS = [1, 2, 3, 4, 5];
+        const SCH_DAY_START = 8 * 60;
+        const SCH_DAY_END = 19 * 60;
+        const SCH_DAY_RANGE = SCH_DAY_END - SCH_DAY_START;
+        const SCH_SLOT_COUNT = SCH_DAY_RANGE / 30;
+
+        const SCH_CATS = {
+            beginner: { color: '#F0655F', bg: 'rgba(240, 101, 95, .14)' },
+            intensive: { color: '#8B6DF0', bg: 'rgba(139, 109, 240, .14)' },
+            individual: { color: '#33B8A6', bg: 'rgba(51, 184, 166, .14)' },
+            ielts: { color: '#2F6FE0', bg: 'rgba(47, 111, 224, .14)' },
+            itfront: { color: '#DDA22C', bg: 'rgba(221, 162, 44, .16)' },
+            kids: { color: '#EC7CBB', bg: 'rgba(236, 124, 187, .14)' },
+            russian: { color: '#7C5CFC', bg: 'rgba(124, 92, 252, .14)' },
+            korean: { color: '#2FA9D6', bg: 'rgba(47, 169, 214, .14)' },
+        };
+
+        // "toq" = Dushanba/Chorshanba/Juma, "juft" = Seshanba/Payshanba/Shanba,
+        // "sun" = Yakshanba (dam olish kuni, faqat bir nechta individual dars)
+        const SCH_DATA = {
+            toq: [
+                { room: 1, start: '09:00', end: '10:30', title: 'Beginner English', teacher: 'Mirabbos Mentor', cat: 'beginner', students: 9 },
+                { room: 1, start: '10:30', end: '12:00', title: 'Pre-Intermediate', teacher: 'Mirabbos Mentor', cat: 'beginner', students: 7 },
+                { room: 1, start: '13:30', end: '15:00', title: 'Intensive kurs', teacher: 'Mirabbos Mentor', cat: 'intensive', students: 15 },
+                { room: 1, start: '15:00', end: '16:30', title: 'IELTS 6.0+', teacher: 'Mirabbos Mentor', cat: 'ielts', students: 11 },
+                { room: 1, start: '17:00', end: '18:00', title: 'Individual dars', teacher: 'Murodbek Teacher', cat: 'individual', students: 1 },
+                { room: 2, start: '10:00', end: '11:30', title: 'Beginner English', teacher: 'Murodbek Teacher', cat: 'beginner', students: 6 },
+                { room: 2, start: '13:30', end: '15:00', title: 'Elementary English', teacher: 'Murodbek Teacher', cat: 'beginner', students: 10 },
+                { room: 2, start: '15:00', end: '16:30', title: 'Intensive kurs', teacher: 'Fozilova Gavharoy', cat: 'intensive', students: 8 },
+                { room: 3, start: '09:30', end: '11:00', title: "Koreys tili", teacher: 'Soliyeva Gulsanam', cat: 'korean', students: 5 },
+                { room: 3, start: '12:00', end: '13:00', title: 'CEFR Individual', teacher: 'Fozilova Gavharoy', cat: 'individual', students: 1 },
+                { room: 3, start: '13:30', end: '15:00', title: 'Kids English', teacher: 'Fozilova Gavharoy', cat: 'kids', students: 6 },
+                { room: 3, start: '16:30', end: '18:00', title: 'Rus tili sertifikat', teacher: 'Guljaxon', cat: 'russian', students: 12 },
+                { room: 4, start: '09:30', end: '11:00', title: 'HTML/CSS asoslari', teacher: 'Sukhrobjon', cat: 'itfront', students: 8 },
+                { room: 4, start: '13:30', end: '15:00', title: 'JavaScript amaliyot', teacher: 'Sukhrobjon', cat: 'itfront', students: 9 },
+                { room: 4, start: '16:30', end: '18:00', title: 'Front-end loyiha', teacher: 'Sukhrobjon', cat: 'itfront', students: 7 },
+                { room: 5, start: '11:00', end: '12:30', title: 'Beginner English', teacher: 'Abdunazarov Abdurashid', cat: 'beginner', students: 3 },
+                { room: 5, start: '13:30', end: '15:00', title: 'Intermediate English', teacher: 'Abdunazarov Abdurashid', cat: 'beginner', students: 5 },
+            ],
+            juft: [
+                { room: 1, start: '09:00', end: '10:30', title: 'Beginner English', teacher: 'Mirabbos Mentor', cat: 'beginner', students: 8 },
+                { room: 1, start: '10:30', end: '12:00', title: 'Ertalab Intensive', teacher: 'Mirabbos Mentor', cat: 'intensive', students: 5 },
+                { room: 1, start: '12:00', end: '13:30', title: 'Rus tili', teacher: 'Mirabbos Mentor', cat: 'russian', students: 1 },
+                { room: 1, start: '13:30', end: '15:00', title: 'Elementary English', teacher: 'Mirabbos Mentor', cat: 'beginner', students: 13 },
+                { room: 1, start: '15:00', end: '16:30', title: 'Katta Intensive', teacher: 'Mirabbos Mentor', cat: 'intensive', students: 17 },
+                { room: 1, start: '16:30', end: '17:30', title: 'CEFR Individual', teacher: 'Mirabbos Mentor', cat: 'individual', students: 0 },
+                { room: 1, start: '17:30', end: '18:30', title: 'Individual dars', teacher: 'Murodbek Teacher', cat: 'individual', students: 0 },
+                { room: 2, start: '13:30', end: '15:00', title: 'Beginner English', teacher: 'Murodbek Teacher', cat: 'beginner', students: 3 },
+                { room: 2, start: '15:00', end: '16:30', title: 'Beginner English', teacher: 'Murodbek Teacher', cat: 'beginner', students: 5 },
+                { room: 2, start: '16:30', end: '18:00', title: 'Intensive kurs', teacher: 'Fozilova Gavharoy', cat: 'intensive', students: 6 },
+                { room: 3, start: '09:00', end: '10:30', title: 'Koreys tili', teacher: 'Soliyeva Gulsanam', cat: 'korean', students: 4 },
+                { room: 3, start: '10:30', end: '12:00', title: 'Beginner English', teacher: 'Fozilova Gavharoy', cat: 'beginner', students: 1 },
+                { room: 3, start: '12:00', end: '13:00', title: 'CEFR Individual', teacher: 'Fozilova Gavharoy', cat: 'individual', students: 1 },
+                { room: 3, start: '13:30', end: '15:00', title: 'Kids English', teacher: 'Fozilova Gavharoy', cat: 'kids', students: 5 },
+                { room: 3, start: '15:00', end: '16:30', title: 'Rus tili', teacher: 'Guljaxon', cat: 'russian', students: 2 },
+                { room: 3, start: '16:30', end: '18:00', title: 'Rus tili sertifikat', teacher: 'Guljaxon', cat: 'russian', students: 14 },
+                { room: 3, start: '18:00', end: '19:00', title: 'Individual dars', teacher: 'Guljaxon', cat: 'individual', students: 1 },
+                { room: 4, start: '09:30', end: '11:00', title: 'HTML asoslari', teacher: 'Sukhrobjon', cat: 'itfront', students: 7 },
+                { room: 4, start: '13:30', end: '15:00', title: 'Dasturlash asoslari', teacher: 'Sukhrobjon', cat: 'itfront', students: 12 },
+                { room: 4, start: '15:00', end: '16:30', title: 'Reestr / amaliyot', teacher: 'Sukhrobjon', cat: 'itfront', students: 0 },
+                { room: 4, start: '16:30', end: '18:00', title: 'Front-end CSS', teacher: 'Sukhrobjon', cat: 'itfront', students: 12 },
+                { room: 5, start: '11:00', end: '12:30', title: 'Beginner English', teacher: 'Abdunazarov Abdurashid', cat: 'beginner', students: 1 },
+                { room: 5, start: '13:30', end: '15:00', title: 'Intermediate English', teacher: 'Abdunazarov Abdurashid', cat: 'beginner', students: 4 },
+                { room: 5, start: '15:00', end: '16:30', title: 'Ingliz tili', teacher: 'Abdunazarov Abdurashid', cat: 'beginner', students: 4 },
+            ],
+        };
+
+        const SCH_TABS = [
+            { id: 'juft', agg: true, key: 'schedule.even' },
+            { id: 'toq', agg: true, key: 'schedule.odd' },
+        ];
+
+        // Dushanba(1)/Chorshanba(3)/Juma(5) = toq, Seshanba(2)/Payshanba(4)/Shanba(6) = juft
+        const SCH_TODAY_GROUP = [2, 4, 6].includes(new Date().getDay()) ? 'juft' : 'toq';
+
+        let schActiveTab = SCH_TODAY_GROUP;
+        let schViewMode = 'horizontal';
+
+        function schParseTime(t) {
+            const [h, m] = t.split(':').map(Number);
+            return h * 60 + m;
+        }
+
+        function schRoomLabel(n) {
+            const lang = document.documentElement.getAttribute('lang') || 'uz';
+            if (lang === 'en') return `${ct('schedule.room')} ${n}`;
+            if (lang === 'ru') return `${ct('schedule.room')} ${n}`;
+            return `${n}-${ct('schedule.room')}`;
+        }
+
+        function schGroupKey(tabId) {
+            return tabId === 'toq' ? 'toq' : 'juft';
+        }
+
+        function schRenderTabs() {
+            const wrap = document.getElementById('scheduleTabs');
+            wrap.innerHTML = SCH_TABS.map(tab => {
+                const label = ct(tab.key);
+                return `<button type="button" class="sch-tab sch-tab-agg${tab.id === schActiveTab ? ' active' : ''}" data-tab="${tab.id}">${escapeHtml(label)}</button>`;
+            }).join('');
+            wrap.querySelectorAll('.sch-tab').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    schActiveTab = btn.dataset.tab;
+                    renderScheduleModal();
+                });
+            });
+        }
+
+        function schBuildHorizontalHTML(lessons) {
+            const timeLabels = [];
+            for (let h = 8; h <= 19; h++) timeLabels.push(`<span>${String(h).padStart(2, '0')}:00</span>`);
+            const rows = SCH_ROOMS.map(roomNum => {
+                const cards = lessons.filter(l => l.room === roomNum).map(l => {
+                    const start = schParseTime(l.start), end = schParseTime(l.end);
+                    const left = ((start - SCH_DAY_START) / SCH_DAY_RANGE * 100).toFixed(3);
+                    const width = ((end - start) / SCH_DAY_RANGE * 100).toFixed(3);
+                    const cat = SCH_CATS[l.cat] || SCH_CATS.beginner;
+                    return `<div class="sch-card sch-h-card" style="left:${left}%;width:${width}%;--cat-color:${cat.color};--cat-bg:${cat.bg}" title="${escapeHtml(l.title)} — ${escapeHtml(l.teacher)}, ${l.start}–${l.end}">
+                        <div class="sch-card-time">${l.start}–${l.end}</div>
+                        <div class="sch-card-title">${escapeHtml(l.title)}</div>
+                        <div class="sch-card-sub">${escapeHtml(l.teacher)}</div>
+                        ${l.students != null ? `<span class="sch-card-badge">${l.students}</span>` : ''}
+                    </div>`;
+                }).join('');
+                return `<div class="sch-roomrow">
+                    <div class="sch-roomlabel"><span class="sch-room-dot"></span>${schRoomLabel(roomNum)}</div>
+                    <div class="sch-track">${cards}</div>
+                </div>`;
+            }).join('');
+            return `<div class="sch-headrow"><div class="sch-corner"></div><div class="sch-timelabels">${timeLabels.join('')}</div></div>${rows}`;
+        }
+
+        const SCH_DAY_HEIGHT_PX = Math.round(SCH_DAY_RANGE * 1.15); // 1.15px har bir daqiqa uchun
+
+        function schBuildVerticalHTML(lessons) {
+            const timeLabels = [];
+            for (let h = 8; h <= 19; h++) {
+                const top = ((h * 60 - SCH_DAY_START) / SCH_DAY_RANGE * 100).toFixed(3);
+                timeLabels.push(`<span style="top:${top}%">${String(h).padStart(2, '0')}:00</span>`);
+            }
+            const roomHeads = SCH_ROOMS.map(r => `<div class="sch-v-roomhead">${schRoomLabel(r)}</div>`).join('');
+            const roomCols = SCH_ROOMS.map(roomNum => {
+                const cards = lessons.filter(l => l.room === roomNum).map(l => {
+                    const start = schParseTime(l.start), end = schParseTime(l.end);
+                    const top = ((start - SCH_DAY_START) / SCH_DAY_RANGE * 100).toFixed(3);
+                    const height = ((end - start) / SCH_DAY_RANGE * 100).toFixed(3);
+                    const cat = SCH_CATS[l.cat] || SCH_CATS.beginner;
+                    return `<div class="sch-card sch-v-card" style="top:${top}%;height:${height}%;--cat-color:${cat.color};--cat-bg:${cat.bg}" title="${escapeHtml(l.title)} — ${escapeHtml(l.teacher)}, ${l.start}–${l.end}">
+                        <div class="sch-card-time">${l.start}–${l.end}</div>
+                        <div class="sch-card-title">${escapeHtml(l.title)}</div>
+                        <div class="sch-card-sub">${escapeHtml(l.teacher)}</div>
+                    </div>`;
+                }).join('');
+                return `<div class="sch-v-roomcol" style="height:${SCH_DAY_HEIGHT_PX}px">${cards}</div>`;
+            }).join('');
+            return `<div class="sch-v-headrow"><div class="sch-v-corner"></div>${roomHeads}</div>
+                <div class="sch-v-body" style="height:${SCH_DAY_HEIGHT_PX}px"><div class="sch-v-timecol" style="height:${SCH_DAY_HEIGHT_PX}px">${timeLabels.join('')}</div>${roomCols}</div>`;
+        }
+
+        function renderScheduleModal() {
+            schRenderTabs();
+            document.querySelectorAll('.sch-viewbtn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === schViewMode);
+            });
+            const groupKey = schGroupKey(schActiveTab);
+            const lessons = SCH_DATA[groupKey] || [];
+            const grid = document.getElementById('scheduleGridBody');
+            grid.innerHTML = schViewMode === 'horizontal' ? schBuildHorizontalHTML(lessons) : schBuildVerticalHTML(lessons);
+            grid.style.display = lessons.length ? '' : 'none';
+            document.getElementById('scheduleEmpty').classList.toggle('show', lessons.length === 0);
+            const count = lessons.length;
+            document.getElementById('scheduleSubtitle').textContent = count ? `${count} ${ct('schedule.lessonsCount')}` : '';
+        }
+
+        function openScheduleModal() {
+            document.getElementById('scheduleModalBackdrop').classList.add('open');
+            renderScheduleModal();
+        }
+
+        function closeScheduleModal() {
+            document.getElementById('scheduleModalBackdrop').classList.remove('open');
+        }
+
+        document.getElementById('scheduleBtn').addEventListener('click', openScheduleModal);
+        document.getElementById('scheduleBtn').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openScheduleModal(); }
+        });
+        document.getElementById('scheduleModalClose').addEventListener('click', closeScheduleModal);
+        document.getElementById('scheduleModalBackdrop').addEventListener('click', (e) => {
+            if (e.target.id === 'scheduleModalBackdrop') closeScheduleModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('scheduleModalBackdrop').classList.contains('open')) closeScheduleModal();
+        });
+        document.getElementById('scheduleViewH').addEventListener('click', () => { schViewMode = 'horizontal'; renderScheduleModal(); });
+        document.getElementById('scheduleViewV').addEventListener('click', () => { schViewMode = 'vertical'; renderScheduleModal(); });
+
         (function initLanguage() {
             const saved = localStorage.getItem(LANG_STORAGE_KEY);
             applyLanguage(saved && TRANSLATIONS[saved] ? saved : 'uz');
