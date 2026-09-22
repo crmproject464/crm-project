@@ -1653,6 +1653,149 @@
             font-size: 17px;
             font-weight: 700;
         }
+
+        /* ===== KUNLIK TO'LOVLAR BLOKI ===== */
+        .payments-card {
+            position: relative;
+            background: var(--bg-panel);
+            color: var(--fg-panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 22px;
+            padding: 26px 28px 22px;
+            margin-top: 24px;
+            box-shadow: var(--block-shadow);
+        }
+
+        .payments-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .payments-head h2 {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .payments-period {
+            margin-top: 4px;
+            font-size: 12.5px;
+            color: var(--fg-muted);
+        }
+
+        .pay-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--highlight-bg);
+            color: var(--highlight-fg);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: filter .2s ease, transform .2s ease;
+        }
+
+        .pay-download:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .pay-download svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .payments-table-wrap {
+            max-height: 360px;
+            overflow: auto;
+            border: 1px solid var(--panel-border);
+            border-radius: 14px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .payments-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .payments-table th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: var(--bg-panel);
+            color: var(--fg-muted);
+            font-size: 12.5px;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--panel-border);
+            white-space: nowrap;
+        }
+
+        .payments-table td {
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--panel-border);
+            white-space: nowrap;
+        }
+
+        .payments-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .payments-table tbody tr:hover td {
+            background: var(--hover-bg);
+        }
+
+        .payments-table .num {
+            text-align: right;
+        }
+
+        .payments-table td.muted {
+            color: var(--fg-muted);
+        }
+
+        @media (max-width: 640px) {
+            .payments-card {
+                padding: 20px 16px 18px;
+            }
+
+            .payments-table .col-hide-sm {
+                display: none;
+            }
+
+            .payments-table {
+                font-size: 12.5px;
+            }
+
+            .payments-table th,
+            .payments-table td {
+                padding: 10px 8px;
+            }
+
+            .payments-table th {
+                white-space: normal;
+                font-size: 11.5px;
+                line-height: 1.25;
+            }
+
+            .payments-table .pay-cur {
+                display: none;
+            }
+
+            .pay-download {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 
@@ -1972,6 +2115,50 @@
                         <div class="chart-summary-item">
                             <span class="chart-summary-label" data-i18n="dash.avg">O'rtacha</span>
                             <span class="chart-summary-value" id="chartAvg">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payments-card" id="paymentsCard">
+                    <div class="payments-head">
+                        <div>
+                            <h2 data-i18n="pay.title">Bugungi oylik to'lovlar</h2>
+                            <div class="payments-period">
+                                <span id="payTodayWeekday"></span> &middot; <span id="payTodayDate"></span>
+                            </div>
+                        </div>
+                        <button class="pay-download" id="payDownload" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3v12" />
+                                <polyline points="7 11 12 16 17 11" />
+                                <path d="M4 20h16" />
+                            </svg>
+                            <span data-i18n="pay.download">Yuklab olish</span>
+                        </button>
+                    </div>
+                    <div class="payments-table-wrap">
+                        <table class="payments-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="pay.colTime">Vaqt</th>
+                                    <th data-i18n="pay.colStudent">Talaba</th>
+                                    <th class="col-hide-sm" data-i18n="pay.colGroup">Guruh</th>
+                                    <th class="col-hide-sm" data-i18n="pay.colMethod">To'lov turi</th>
+                                    <th class="num" data-i18n="pay.colAmount">Summa</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="chart-summary">
+                        <div class="chart-summary-item">
+                            <span class="chart-summary-label" data-i18n="pay.totalCount">Jami to'lovlar</span>
+                            <span class="chart-summary-value" id="payTotalCount">-</span>
+                        </div>
+                        <div class="chart-summary-item">
+                            <span class="chart-summary-label" data-i18n="pay.totalAmount">Jami summa</span>
+                            <span class="chart-summary-value" id="payTotalAmount">-</span>
                         </div>
                     </div>
                 </div>
@@ -2349,11 +2536,157 @@
             dashMonthSelect.appendChild(opt);
         });
 
+        // ======================================================
+        // ===== BUGUNGI TO'LOVLAR RO'YXATI =====================
+        // ======================================================
+        // Blok faqat BUGUNGI kun to'lovlarini ko'rsatadi. Sana o'zgarganda
+        // (yarim tundan keyin) ro'yxat o'zi yangi kun bilan almashadi.
+        // Namunaviy ma'lumot: sanaga qarab har kuni boshqacha, lekin o'sha kun
+        // ichida doim bir xil. Haqiqiy ma'lumot ulanganda faqat
+        // getTodayPayments() ichini API chaqiruviga almashtirish kifoya
+        // (qaytish formati: [{ time:'09:15', student, group, methodKey, amount }]).
+        const PAY_STUDENTS = ['Azizbek Karimov', 'Malika Yusupova', 'Jasur Toshmatov', 'Dilnoza Rahimova',
+            'Sardor Ismoilov', 'Madina Aliyeva', 'Bekzod Qodirov', 'Shahzoda Nazarova', 'Otabek Sobirov',
+            'Nilufar Abdullayeva', 'Sherzod Umarov', 'Zilola Hamidova', 'Javohir Ergashev', 'Kamola Saidova',
+            'Doniyor Mirzayev', 'Gulnoza Botirova', 'Rustam Xolmatov', 'Sevara Tursunova', 'Ulugbek Normatov',
+            'Feruza Islomova'];
+        const PAY_GROUPS = ['Ingliz tili A1', 'Ingliz tili B1', 'IELTS 6.5', 'Matematika', 'Rus tili',
+            'Python dasturlash', 'Grafik dizayn', 'SMM', 'Koreys tili'];
+        const PAY_METHOD_KEYS = ['pay.mCash', 'pay.mCard', 'pay.mTransfer'];
+        const PAY_AMOUNTS = [350000, 400000, 450000, 500000, 600000, 750000, 900000, 1200000];
+
+        function seededRandom(seed) {
+            let t = seed + 0x6D2B79F5;
+            return function () {
+                t = Math.imul(t ^ (t >>> 15), t | 1);
+                t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+            };
+        }
+
+        function getTodayPayments(date) {
+            const rnd = seededRandom(date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate());
+            const isSunday = date.getDay() === 0;
+            const count = isSunday ? 1 + Math.floor(rnd() * 4) : 6 + Math.floor(rnd() * 9);
+
+            // talabalar takrorlanmasligi uchun ro'yxatni aralashtirib olamiz
+            const students = PAY_STUDENTS.slice();
+            for (let i = students.length - 1; i > 0; i--) {
+                const k = Math.floor(rnd() * (i + 1));
+                [students[i], students[k]] = [students[k], students[i]];
+            }
+
+            const rows = [];
+            for (let i = 0; i < count; i++) {
+                const hh = 9 + Math.floor(rnd() * 11);
+                const mm = Math.floor(rnd() * 60);
+                rows.push({
+                    time: String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0'),
+                    student: students[i],
+                    group: PAY_GROUPS[Math.floor(rnd() * PAY_GROUPS.length)],
+                    methodKey: PAY_METHOD_KEYS[Math.floor(rnd() * PAY_METHOD_KEYS.length)],
+                    amount: PAY_AMOUNTS[Math.floor(rnd() * PAY_AMOUNTS.length)]
+                });
+            }
+            return rows.sort((x, y) => x.time.localeCompare(y.time));
+        }
+
+        function formatNumber(n) {
+            return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+
+        function formatDate(d) {
+            const dd = String(d.getDate()).padStart(2, '0');
+            const mm = String(d.getMonth() + 1).padStart(2, '0');
+            return `${dd}.${mm}.${d.getFullYear()}`;
+        }
+
+        function dayKey(d) {
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+
+        let currentPayments = [];
+        let renderedDayKey = '';
+        let renderedDate = new Date();
+
+        function renderPayments() {
+            const today = new Date();
+            renderedDate = today;
+            renderedDayKey = dayKey(today);
+            currentPayments = getTodayPayments(today);
+
+            document.getElementById('payTableBody').innerHTML = currentPayments.map(r => `
+                <tr>
+                    <td class="muted">${r.time}</td>
+                    <td>${r.student}</td>
+                    <td class="col-hide-sm muted">${r.group}</td>
+                    <td class="col-hide-sm muted" data-i18n="${r.methodKey}"></td>
+                    <td class="num"><strong>${formatNumber(r.amount)}</strong> <span class="muted pay-cur" data-i18n="pay.currency"></span></td>
+                </tr>
+            `).join('');
+
+            const totalAmount = currentPayments.reduce((a, r) => a + r.amount, 0);
+            document.getElementById('payTotalCount').textContent = currentPayments.length;
+            document.getElementById('payTotalAmount').textContent = formatNumber(totalAmount);
+            document.getElementById('payAvgAmount').textContent =
+                formatNumber(currentPayments.length ? totalAmount / currentPayments.length : 0);
+
+            document.getElementById('payTodayWeekday').setAttribute('data-i18n', 'pay.wd' + today.getDay());
+            document.getElementById('payTodayDate').textContent = formatDate(today);
+
+            // yangi matnlar (hafta kuni, to'lov turi, valyuta) joriy til bilan tarjima qilinadi
+            try {
+                applyLanguage(document.documentElement.getAttribute('lang') || 'uz');
+            } catch (e) {
+                // birinchi renderda TRANSLATIONS hali yo'q — initLanguage() o'zi tarjima qiladi
+            }
+        }
+
+        // Kun almashganini tekshirish: sahifa ochiq tursa ham, yarim tundan keyin
+        // ro'yxat avtomatik yangilanadi (kompyuter uyquga ketib qaytsa ham ishlaydi).
+        function refreshPaymentsIfNewDay() {
+            if (dayKey(new Date()) !== renderedDayKey) renderPayments();
+        }
+        setInterval(refreshPaymentsIfNewDay, 30 * 1000);
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) refreshPaymentsIfNewDay();
+        });
+
+        // CSV yuklab olish (Excel'da to'g'ri ochilishi uchun UTF-8 BOM va ';' ajratgich)
+        function downloadPaymentsCsv() {
+            const lang = document.documentElement.getAttribute('lang') || 'uz';
+            const dict = TRANSLATIONS[lang] || TRANSLATIONS.uz;
+            const lines = [[dict['pay.colTime'], dict['pay.colStudent'], dict['pay.colGroup'],
+                dict['pay.colMethod'], dict['pay.colAmount'] + ' (' + dict['pay.currency'] + ')']];
+            currentPayments.forEach(r => {
+                lines.push([r.time, r.student, r.group, dict[r.methodKey], r.amount]);
+            });
+            lines.push([dict['pay.totalAmount'], '', '', '',
+                currentPayments.reduce((a, r) => a + r.amount, 0)]);
+
+            const csv = '\uFEFF' + lines.map(row =>
+                row.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(';')
+            ).join('\r\n');
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `tolovlar-${renderedDayKey}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        document.getElementById('payDownload').addEventListener('click', downloadPaymentsCsv);
+
         dashYearSelect.addEventListener('change', () => renderChart(dashYearSelect.value, dashMonthSelect.value));
         dashMonthSelect.addEventListener('change', () => renderChart(dashYearSelect.value, dashMonthSelect.value));
 
         renderStatCards();
         renderChart(dashYearSelect.value, dashMonthSelect.value);
+        renderPayments();
 
         // ======================================================
         // ===== CONTENT VIEWS (BOSH SAHIFA / PROFIL) ===========
@@ -2697,6 +3030,20 @@
                 'dash.max': 'Eng yuqori',
                 'dash.min': 'Eng past',
                 'dash.avg': "O'rtacha",
+                'pay.title': "Bugungi oylik to'lovlar",
+                'pay.download': 'Yuklab olish',
+                'pay.colTime': 'Vaqt',
+                'pay.colStudent': 'Talaba',
+                'pay.colGroup': 'Guruh',
+                'pay.colMethod': "To'lov turi",
+                'pay.colAmount': 'Summa',
+                'pay.currency': "so'm",
+                'pay.totalCount': "Jami to'lovlar",
+                'pay.totalAmount': 'Jami summa',
+                'pay.avgPayment': "O'rtacha to'lov",
+                'pay.mCash': 'Naqd', 'pay.mCard': 'Karta', 'pay.mTransfer': "O'tkazma",
+                'pay.wd0': 'Yakshanba', 'pay.wd1': 'Dushanba', 'pay.wd2': 'Seshanba', 'pay.wd3': 'Chorshanba',
+                'pay.wd4': 'Payshanba', 'pay.wd5': 'Juma', 'pay.wd6': 'Shanba',
                 'month.1': 'Yanvar', 'month.2': 'Fevral', 'month.3': 'Mart', 'month.4': 'Aprel',
                 'month.5': 'May', 'month.6': 'Iyun', 'month.7': 'Iyul', 'month.8': 'Avgust',
                 'month.9': 'Sentabr', 'month.10': 'Oktabr', 'month.11': 'Noyabr', 'month.12': 'Dekabr',
@@ -2784,6 +3131,20 @@
                 'dash.max': 'Highest',
                 'dash.min': 'Lowest',
                 'dash.avg': 'Average',
+                'pay.title': "Today's monthly payments",
+                'pay.download': 'Download',
+                'pay.colTime': 'Time',
+                'pay.colStudent': 'Student',
+                'pay.colGroup': 'Group',
+                'pay.colMethod': 'Method',
+                'pay.colAmount': 'Amount',
+                'pay.currency': 'UZS',
+                'pay.totalCount': 'Total payments',
+                'pay.totalAmount': 'Total amount',
+                'pay.avgPayment': 'Average payment',
+                'pay.mCash': 'Cash', 'pay.mCard': 'Card', 'pay.mTransfer': 'Transfer',
+                'pay.wd0': 'Sunday', 'pay.wd1': 'Monday', 'pay.wd2': 'Tuesday', 'pay.wd3': 'Wednesday',
+                'pay.wd4': 'Thursday', 'pay.wd5': 'Friday', 'pay.wd6': 'Saturday',
                 'month.1': 'January', 'month.2': 'February', 'month.3': 'March', 'month.4': 'April',
                 'month.5': 'May', 'month.6': 'June', 'month.7': 'July', 'month.8': 'August',
                 'month.9': 'September', 'month.10': 'October', 'month.11': 'November', 'month.12': 'December',
@@ -2871,6 +3232,20 @@
                 'dash.max': 'Наибольший',
                 'dash.min': 'Наименьший',
                 'dash.avg': 'Средний',
+                'pay.title': 'Ежемесячные платежи за сегодня',
+                'pay.download': 'Скачать',
+                'pay.colTime': 'Время',
+                'pay.colStudent': 'Студент',
+                'pay.colGroup': 'Группа',
+                'pay.colMethod': 'Способ оплаты',
+                'pay.colAmount': 'Сумма',
+                'pay.currency': 'сум',
+                'pay.totalCount': 'Всего платежей',
+                'pay.totalAmount': 'Общая сумма',
+                'pay.avgPayment': 'Средний платёж',
+                'pay.mCash': 'Наличные', 'pay.mCard': 'Карта', 'pay.mTransfer': 'Перевод',
+                'pay.wd0': 'Воскресенье', 'pay.wd1': 'Понедельник', 'pay.wd2': 'Вторник', 'pay.wd3': 'Среда',
+                'pay.wd4': 'Четверг', 'pay.wd5': 'Пятница', 'pay.wd6': 'Суббота',
                 'month.1': 'Январь', 'month.2': 'Февраль', 'month.3': 'Март', 'month.4': 'Апрель',
                 'month.5': 'Май', 'month.6': 'Июнь', 'month.7': 'Июль', 'month.8': 'Август',
                 'month.9': 'Сентябрь', 'month.10': 'Октябрь', 'month.11': 'Ноябрь', 'month.12': 'Декабрь',
