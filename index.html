@@ -1796,6 +1796,17 @@
                 justify-content: center;
             }
         }
+
+        /* Scroll ishlayveradi, lekin scrollbar korinmaydi */
+        * {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE va Edge (legacy) */
+        }
+        *::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge (Chromium) */
+            width: 0;
+            height: 0;
+        }
     </style>
 </head>
 
