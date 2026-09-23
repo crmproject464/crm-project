@@ -1134,7 +1134,7 @@
             box-shadow: var(--block-shadow);
             display: flex;
             flex-direction: column;
-            max-height: calc(100vh - 200px);
+            overflow: hidden;
         }
 
         .clients-column-head {
@@ -1196,7 +1196,10 @@
         }
 
         .clients-column-body {
-            flex: 1;
+            /* Doim aynan 5ta card sig'adigan balandlikda turadi:
+               card kam bo'lsa ham qisqarmaydi, ko'p bo'lsa scroll chiqadi. */
+            flex: 0 0 auto;
+            height: min(var(--clients-body-h, 560px), calc(100vh - 260px));
             overflow-y: auto;
             padding: 12px;
             display: flex;
@@ -4165,9 +4168,52 @@
             return d.toLocaleDateString(document.documentElement.getAttribute('lang') === 'ru' ? 'ru-RU' : 'en-CA');
         }
 
+        // Kolonka balandligini har doim "aynan 5ta card" o'lchamiga moslab qo'yadi:
+        // haqiqiy (namunaviy) card balandligini o'lchab, shu asosda CSS
+        // o'zgaruvchisini yangilaydi — cardlar soni kam yoki ko'p bo'lishidan
+        // qat'i nazar kolonka balandligi o'zgarmay turadi.
+        let clientsBodyHeightSynced = false;
+        function syncClientsColumnHeight(force) {
+            if (clientsBodyHeightSynced && !force) return;
+            const probe = document.createElement('div');
+            probe.style.position = 'fixed';
+            probe.style.visibility = 'hidden';
+            probe.style.pointerEvents = 'none';
+            probe.style.top = '-9999px';
+            probe.style.left = '-9999px';
+            probe.style.width = '290px';
+            probe.innerHTML = `
+                <div class="clients-column-body" style="height:auto;">
+                    <div class="client-card">
+                        <div class="client-card-top">
+                            <div class="client-card-avatar">AA</div>
+                            <div class="client-card-name">Namuna Familiya Ismov</div>
+                        </div>
+                        <div class="client-card-meta">
+                            <a href="tel:+998900000000">+998 90 000-00-00</a>
+                            <span>2026-01-01</span>
+                        </div>
+                    </div>
+                </div>`;
+            document.body.appendChild(probe);
+            const card = probe.querySelector('.client-card');
+            const body = probe.querySelector('.clients-column-body');
+            const cardH = card.getBoundingClientRect().height;
+            const cs = getComputedStyle(body);
+            const gap = parseFloat(cs.rowGap || cs.gap) || 10;
+            const padY = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+            document.body.removeChild(probe);
+            if (cardH > 0) {
+                const total = Math.ceil(cardH * 5 + gap * 4 + padY);
+                document.documentElement.style.setProperty('--clients-body-h', total + 'px');
+                clientsBodyHeightSynced = true;
+            }
+        }
+
         function renderClientsBoard() {
             const board = document.getElementById('clientsBoard');
             if (!board) return;
+            syncClientsColumnHeight();
             const term = clientsSearchTerm.trim().toLowerCase();
             const termDigits = term.replace(/\D/g, '');
             board.innerHTML = CLIENT_COURSES.map(course => {
@@ -4354,6 +4400,7 @@
             clientsScrollRightBtn.addEventListener('click', () => board.scrollBy({ left: step(), behavior: 'smooth' }));
             board.addEventListener('scroll', updateClientsScrollButtons);
             window.addEventListener('resize', updateClientsScrollButtons);
+            window.addEventListener('resize', () => syncClientsColumnHeight(true));
         })();
 
         // ======================================================
