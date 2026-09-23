@@ -49,6 +49,10 @@
             --surface-border: rgba(15, 23, 42, .08);
             --surface-shadow: 0 10px 28px rgba(15, 23, 42, .07);
 
+            /* mijozlar bo'limi — kurslar orqasidagi umumiy och blok */
+            --clients-wrap-bg: rgba(15, 23, 42, 0.065);
+            --clients-wrap-border: rgba(15, 23, 42, 0.12);
+
             --radius: 14px;
         }
 
@@ -88,6 +92,10 @@
             --surface-alt-bg: #0A0F1C;
             --surface-border: rgba(233, 236, 243, .09);
             --surface-shadow: 0 10px 28px rgba(0, 0, 0, .45);
+
+            /* mijozlar bo'limi — kurslar orqasidagi umumiy och blok */
+            --clients-wrap-bg: rgba(233, 236, 243, 0.075);
+            --clients-wrap-border: rgba(233, 236, 243, 0.14);
         }
 
         html {
@@ -592,7 +600,7 @@
             line-height: 16px;
             text-align: center;
             box-shadow: 0 0 0 2px var(--bg-panel);
-            transition: opacity .15s ease, transform .15s ease;
+            transition: opacity .25s ease, transform .35s cubic-bezier(.34, 1.56, .64, 1);
         }
 
         .notif-badge.hidden {
@@ -625,11 +633,11 @@
             transform: translateY(0);
         }
 
-        .notif-header {
+                .notif-header {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
             padding: 10px 12px 8px 12px;
             border-bottom: 1px solid var(--panel-border);
         }
@@ -640,27 +648,118 @@
             color: var(--menu-fg);
         }
 
-        .notif-mark-all {
-            background: none;
-            border: none;
-            padding: 0;
+                .notif-mark-all {
+            align-self: stretch;
+            justify-content: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(47, 111, 224, 0.12);
+            border: 1px solid rgba(47, 111, 224, 0.28);
+            border-radius: 10px;
+            padding: 8px 12px;
             font-family: inherit;
-            font-size: 12px;
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--menu-selected-fg);
             cursor: pointer;
             white-space: nowrap;
-            opacity: .9;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: background .2s ease, border-color .2s ease, transform .15s ease;
         }
 
-        .notif-mark-all:hover {
-            opacity: 1;
-            text-decoration: underline;
+        .notif-mark-all-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .notif-check-1,
+        .notif-check-2 {
+            stroke-dasharray: 16;
+            stroke-dashoffset: 0;
+        }
+
+        .notif-mark-all::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            left: -60%;
+            width: 40%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .3), transparent);
+            transform: skewX(-20deg);
+            transition: left .5s ease;
+            z-index: -1;
+        }
+
+        .notif-mark-all:hover:not(:disabled) {
+            background: rgba(47, 111, 224, 0.2);
+            border-color: rgba(47, 111, 224, 0.45);
+            transform: translateY(-1px);
+        }
+
+        .notif-mark-all:hover:not(:disabled)::after {
+            left: 130%;
+        }
+
+        .notif-mark-all:active:not(:disabled) {
+            transform: translateY(0) scale(.95);
         }
 
         .notif-mark-all:disabled {
             opacity: .35;
             cursor: default;
-            text-decoration: none;
+            background: transparent;
+            border-color: transparent;
+            transform: none;
+        }
+
+        @keyframes mark-all-pop {
+            0% {
+                transform: scale(1);
+            }
+
+            40% {
+                transform: scale(1.12);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .notif-mark-all.is-firing {
+            animation: mark-all-pop .4s ease;
+        }
+
+        .notif-mark-all.is-firing .notif-check-1,
+        .notif-mark-all.is-firing .notif-check-2 {
+            animation: check-draw .45s ease forwards;
+        }
+
+        @keyframes check-draw {
+            0% {
+                stroke-dashoffset: 16;
+                opacity: .35;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .notif-mark-all::after,
+            .notif-mark-all.is-firing,
+            .notif-mark-all.is-firing .notif-check-1,
+            .notif-mark-all.is-firing .notif-check-2 {
+                animation: none;
+                transition: none;
+            }
         }
 
         .notif-list {
@@ -697,6 +796,37 @@
 
         .notif-item.unread .notif-dot {
             opacity: 1;
+        }
+
+        .notif-item.reading {
+            animation: notif-item-read-sweep .38s ease;
+            border-radius: 10px;
+        }
+
+        @keyframes notif-item-read-sweep {
+            0% {
+                background: rgba(87, 217, 196, 0);
+            }
+
+            35% {
+                background: rgba(87, 217, 196, 0.16);
+            }
+
+            100% {
+                background: rgba(87, 217, 196, 0);
+            }
+        }
+
+        .notif-item.reading .notif-dot {
+            transition: opacity .3s ease, transform .3s ease;
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .notif-item.reading {
+                animation: none;
+            }
         }
 
         .notif-body {
@@ -971,6 +1101,16 @@
             height: 17px;
         }
 
+        .clients-board-wrap {
+            background: var(--clients-wrap-bg);
+            border: 1px solid var(--clients-wrap-border);
+            border-radius: 24px;
+            padding: 18px;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
         .clients-board {
             display: flex;
             align-items: flex-start;
@@ -1152,11 +1292,20 @@
             color: var(--fg-panel);
         }
 
-        .client-card-meta svg {
+                .client-card-meta svg {
             width: 13px;
             height: 13px;
             flex-shrink: 0;
             color: var(--accent);
+        }
+
+        .client-card-note {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--panel-border);
+            font-size: 12px;
+            line-height: 1.4;
+            color: var(--fg-muted);
         }
 
         .client-card-flag,
@@ -1240,30 +1389,61 @@
             margin-bottom: 14px;
         }
 
-        .clients-modal-field label {
+                .clients-modal-field label {
             display: block;
             font-size: 12.5px;
             font-weight: 600;
-            color: var(--fg-page-muted);
+            color: var(--fg-muted);
             margin-bottom: 6px;
         }
 
+        .clients-modal-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .clients-modal-row .clients-modal-field {
+            flex: 1;
+            min-width: 0;
+        }
+
         .clients-modal-field input,
-        .clients-modal-field select {
+        .clients-modal-field select,
+        .clients-modal-field textarea {
             width: 100%;
             padding: 11px 13px;
             border-radius: 11px;
             border: 1px solid var(--panel-border);
-            background: var(--bg-page);
-            color: var(--menu-fg);
+            background: var(--field-bg);
+            color: var(--field-fg);
             font-family: inherit;
             font-size: 13.5px;
             outline: none;
+            transition: border-color .15s ease, background .15s ease;
+        }
+
+        .clients-modal-field textarea {
+            resize: vertical;
+            min-height: 60px;
+            line-height: 1.4;
+        }
+
+        .clients-modal-field input::placeholder,
+        .clients-modal-field textarea::placeholder {
+            color: var(--fg-muted);
+            opacity: .8;
+        }
+
+        .clients-modal-field select option {
+            background: var(--menu-bg);
+            color: var(--menu-fg);
         }
 
         .clients-modal-field input:focus,
-        .clients-modal-field select:focus {
+        .clients-modal-field select:focus,
+        .clients-modal-field textarea:focus {
             border-color: var(--accent);
+            background: var(--hover-bg);
         }
 
         .clients-modal-actions {
@@ -1295,15 +1475,15 @@
         }
 
         @media (max-width: 768px) {
-            .clients-board {
-                flex-direction: column;
-                overflow-x: visible;
+            .clients-board-wrap {
+                background: none;
+                border: none;
+                padding: 0;
+                border-radius: 0;
             }
 
-            .clients-column {
-                width: 100%;
-                flex: 1 1 auto;
-                max-height: none;
+            .clients-board {
+                zoom: 0.85;
             }
         }
 
@@ -2292,14 +2472,19 @@
 
         /* Scroll ishlayveradi, lekin scrollbar korinmaydi */
         * {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE va Edge (legacy) */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE va Edge (legacy) */
         }
+
         *::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Edge (Chromium) */
+            display: none;
+            /* Chrome, Safari, Edge (Chromium) */
             width: 0;
             height: 0;
         }
+
         /* ===== DARS JADVALI (SCHEDULE) MODAL ===== */
         .sch-modal-backdrop {
             position: fixed;
@@ -2322,40 +2507,45 @@
             background: var(--surface-bg);
             color: var(--fg-page);
             display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
 
-        /* ----- SIDEBAR: sarlavha, ko'rinish, kun filtri, xonalar holati ----- */
-        .sch-sidebar {
-            width: 260px;
+        /* ----- HEADER: sarlavha, ko'rinish, kun filtri (tepada, gorizontal) ----- */
+        .sch-header {
+            width: 100%;
             flex-shrink: 0;
             background: var(--surface-alt-bg);
-            border-right: 1px solid var(--surface-border);
+            border-bottom: 1px solid var(--surface-border);
             display: flex;
             flex-direction: column;
-            gap: 26px;
-            padding: 22px 20px;
-            overflow-y: auto;
+            gap: 16px;
+            padding: 16px 24px;
         }
 
-        .sch-sidebar-top {
+        .sch-header-top {
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
             gap: 10px;
         }
 
-        .sch-sidebar-title h2 {
+        .sch-header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .sch-header-title h2 {
             font-size: 19px;
             font-weight: 800;
             letter-spacing: -.2px;
         }
 
-        .sch-sidebar-title span {
+        .sch-header-title span {
             display: block;
             font-size: 12.5px;
             color: var(--fg-page-muted);
-            margin-top: 3px;
         }
 
         .sch-modal-close {
@@ -2384,13 +2574,26 @@
             height: 15px;
         }
 
-        .sch-sidebar-section {
+        .sch-header-controls {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            width: 100%;
         }
 
-        .sch-sidebar-label {
+        .sch-header-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sch-header-section.sch-header-view {
+            margin-left: auto;
+        }
+
+        .sch-header-label {
             font-size: 11px;
             font-weight: 800;
             letter-spacing: .6px;
@@ -2399,7 +2602,7 @@
             opacity: .75;
         }
 
-        /* ko'rinish (gorizontal/vertikal) — sidebar ichida segmentli tugma */
+        /* ko'rinish (gorizontal/vertikal) — header ichida segmentli tugma */
         .sch-viewtoggle {
             display: flex;
             background: var(--surface-bg);
@@ -2424,6 +2627,7 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
+            white-space: nowrap;
             transition: background .15s ease, color .15s ease, box-shadow .15s ease;
         }
 
@@ -2439,10 +2643,11 @@
             box-shadow: 0 2px 8px rgba(15, 23, 42, .18);
         }
 
-        /* kun filtri — vertikal, nuqtali pill tugmalar */
+        /* kun filtri — gorizontal, nuqtali pill tugmalar */
         .sch-tabs {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            flex-wrap: wrap;
             gap: 8px;
         }
 
@@ -2456,9 +2661,10 @@
             font-family: inherit;
             font-size: 13px;
             font-weight: 700;
-            padding: 11px 14px;
+            padding: 9px 14px;
             border-radius: 12px;
             cursor: pointer;
+            white-space: nowrap;
             transition: background .15s ease, color .15s ease, border-color .15s ease;
         }
 
@@ -2486,39 +2692,6 @@
             opacity: 1;
         }
 
-        /* xonalar holati — nuqta + nom + son */
-        .sch-roomstatus {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .sch-roomstatus li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 7px 2px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--fg-page);
-        }
-
-        .sch-roomstatus-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            box-shadow: 0 0 0 3px var(--room-dot-ring, transparent);
-        }
-
-        .sch-roomstatus-count {
-            margin-left: auto;
-            font-size: 12.5px;
-            font-weight: 800;
-            color: var(--fg-page-muted);
-        }
-
         /* ----- ASOSIY QISM: vaqt gridi va dars kartalari ----- */
         .sch-main {
             flex: 1;
@@ -2527,6 +2700,46 @@
             flex-direction: column;
             padding: 22px 24px;
             overflow: hidden;
+        }
+
+        .sch-scroll-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        .sch-scroll-btn {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            border: 1.5px solid rgba(47, 111, 224, 0.35);
+            background: rgba(47, 111, 224, 0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: filter .15s ease, opacity .15s ease, background .15s ease, color .15s ease;
+        }
+
+        .sch-scroll-btn:hover {
+            background: var(--highlight-bg);
+            border-color: var(--highlight-bg);
+            color: var(--highlight-fg);
+        }
+
+        .sch-scroll-btn:disabled {
+            opacity: .35;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .sch-scroll-btn svg {
+            width: 17px;
+            height: 17px;
         }
 
         .sch-body {
@@ -2541,18 +2754,22 @@
 
         .sch-grid {
             min-width: 1300px;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- horizontal (xonalar qator, vaqt ustun) --- */
         .sch-headrow {
             display: flex;
+            flex-shrink: 0;
             position: sticky;
             top: 0;
             z-index: 3;
         }
 
         .sch-corner {
-            width: 132px;
+            width: 148px;
             flex-shrink: 0;
             position: sticky;
             left: 0;
@@ -2580,15 +2797,16 @@
 
         .sch-timelabels span {
             flex: 1;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--fg-page-muted);
-            padding: 12px 0 12px 8px;
+            padding: 14px 0 14px 8px;
             border-left: 1px dashed var(--surface-border);
         }
 
         .sch-roomrow {
             display: flex;
+            flex: 1 1 0;
             border-bottom: 1px solid var(--surface-border);
         }
 
@@ -2597,7 +2815,7 @@
         }
 
         .sch-roomlabel {
-            width: 132px;
+            width: 148px;
             flex-shrink: 0;
             position: sticky;
             left: 0;
@@ -2615,7 +2833,7 @@
             display: flex;
             align-items: center;
             gap: 7px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 800;
             color: var(--fg-page);
         }
@@ -2629,7 +2847,7 @@
         }
 
         .sch-roomlabel-count {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--fg-page-muted);
             padding-left: 14px;
         }
@@ -2637,7 +2855,7 @@
         .sch-track {
             flex: 1;
             position: relative;
-            min-height: 92px;
+            min-height: 132px;
             background-image: linear-gradient(to right, var(--surface-border) 1px, transparent 1px);
             background-size: calc(100% / 22) 100%;
         }
@@ -2665,7 +2883,7 @@
             flex: 1;
             min-width: 210px;
             text-align: center;
-            font-size: 12.5px;
+            font-size: 13.5px;
             font-weight: 800;
             padding: 13px 8px;
             background: var(--surface-bg);
@@ -2697,7 +2915,7 @@
             left: 0;
             right: 0;
             transform: translateY(-50%);
-            font-size: 10.5px;
+            font-size: 11.5px;
             font-weight: 700;
             color: var(--fg-page-muted);
             padding-left: 8px;
@@ -2716,7 +2934,7 @@
         .sch-card {
             position: absolute;
             border-radius: 11px;
-            padding: 7px 9px 6px;
+            padding: 9px 11px 8px;
             overflow: hidden;
             border: 1px solid var(--cat-border);
             border-left: 3px solid var(--cat-color);
@@ -2750,7 +2968,7 @@
         }
 
         .sch-card-time {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 800;
             color: var(--cat-color);
             white-space: nowrap;
@@ -2760,32 +2978,32 @@
             display: inline-flex;
             align-items: center;
             gap: 2px;
-            font-size: 9.5px;
+            font-size: 10.5px;
             font-weight: 800;
             color: var(--cat-color);
             background: var(--surface-bg);
             border-radius: 20px;
-            padding: 1px 6px 1px 4px;
+            padding: 2px 7px 2px 5px;
             flex-shrink: 0;
         }
 
         .sch-card-badge svg {
-            width: 9px;
-            height: 9px;
+            width: 10px;
+            height: 10px;
         }
 
         .sch-card-title {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 800;
             color: var(--fg-page);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
         .sch-card-sub {
-            font-size: 10.5px;
+            font-size: 11.5px;
             color: var(--fg-page-muted);
             white-space: nowrap;
             overflow: hidden;
@@ -2816,38 +3034,18 @@
         }
 
         @media (max-width: 900px) {
-            .sch-modal {
-                flex-direction: column;
-            }
-
-            .sch-sidebar {
-                width: 100%;
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: center;
+            .sch-header {
                 gap: 12px;
                 padding: 14px 16px;
-                border-right: none;
-                border-bottom: 1px solid var(--surface-border);
             }
 
-            .sch-sidebar-top {
-                width: 100%;
-            }
-
-            .sch-sidebar-section {
+            .sch-header-section {
                 flex: 1;
                 min-width: 150px;
             }
 
-            .sch-sidebar-rooms {
-                width: 100%;
-            }
-
-            .sch-roomstatus {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px 16px;
+            .sch-header-section.sch-header-view {
+                margin-left: 0;
             }
 
             .sch-main {
@@ -3077,8 +3275,15 @@
                     <div class="notif-panel" id="notifPanel">
                         <div class="notif-header">
                             <span class="notif-title" data-i18n="notif.title">Bildirishnomalar</span>
-                            <button class="notif-mark-all" id="notifMarkAll" type="button"
-                                data-i18n="notif.markAll">Barchasini o'qilgan deb belgilash</button>
+                            <button class="notif-mark-all" id="notifMarkAll" type="button">
+                                <svg class="notif-mark-all-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                    <path class="notif-check-1" d="M2.5 12.5 7 17 15 7" />
+                                    <path class="notif-check-2" d="M9.5 12.5 14 17 22 7" />
+                                </svg>
+                                <span class="notif-mark-all-label" data-i18n="notif.markAll">Barchasini o'qilgan deb
+                                    belgilash</span>
+                            </button>
                         </div>
                         <div class="notif-list" id="notifList">
                             <div class="notif-item unread" data-id="1">
@@ -3355,7 +3560,8 @@
                                     <circle cx="11" cy="11" r="7" />
                                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                                 </svg>
-                                <input type="text" id="clientsSearchInput" data-i18n-placeholder="clients.searchPlaceholder"
+                                <input type="text" id="clientsSearchInput"
+                                    data-i18n-placeholder="clients.searchPlaceholder"
                                     placeholder="Ism yoki telefon bo'yicha qidirish">
                             </div>
                             <button class="clients-add-btn" id="clientsAddBtn" type="button">
@@ -3385,19 +3591,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="clients-board" id="clientsBoard"></div>
+                <div class="clients-board-wrap">
+                    <div class="clients-board" id="clientsBoard"></div>
+                </div>
             </div>
 
             <div class="clients-modal-backdrop" id="clientsModalBackdrop">
                 <div class="clients-modal">
                     <h2 data-i18n="clients.modalTitle">Yangi mijoz</h2>
-                    <div class="clients-modal-field">
-                        <label data-i18n="clients.nameLabel">Ism familiya</label>
-                        <input type="text" id="clientNameInput" autocomplete="off">
+                                        <div class="clients-modal-row">
+                        <div class="clients-modal-field">
+                            <label data-i18n="clients.firstNameLabel">Ism</label>
+                            <input type="text" id="clientFirstNameInput" autocomplete="off">
+                        </div>
+                        <div class="clients-modal-field">
+                            <label data-i18n="clients.lastNameLabel">Familya</label>
+                            <input type="text" id="clientLastNameInput" autocomplete="off">
+                        </div>
                     </div>
                     <div class="clients-modal-field">
-                        <label data-i18n="clients.phoneLabel">Telefon raqam</label>
+                        <label data-i18n="clients.phoneLabel">Telefon raqami</label>
                         <input type="tel" id="clientPhoneInput" placeholder="+998 __ ___ __ __" autocomplete="off">
+                    </div>
+                    <div class="clients-modal-field">
+                        <label data-i18n="clients.extraPhoneLabel">Qo'shimcha raqami</label>
+                        <input type="tel" id="clientExtraPhoneInput" placeholder="+998 __ ___ __ __"
+                            autocomplete="off">
+                    </div>
+                    <div class="clients-modal-field">
+                        <label data-i18n="clients.noteLabel">Qisqa matn</label>
+                        <textarea id="clientNoteInput" rows="3"></textarea>
                     </div>
                     <div class="clients-modal-field">
                         <label data-i18n="clients.courseLabel">Yo'nalish / ustun</label>
@@ -3414,12 +3637,13 @@
 
             <div class="sch-modal-backdrop" id="scheduleModalBackdrop">
                 <div class="sch-modal">
-                    <aside class="sch-sidebar">
-                        <div class="sch-sidebar-top">
-                            <div class="sch-sidebar-title">
+                    <header class="sch-header">
+                        <div class="sch-header-top">
+                            <div class="sch-header-title">
                                 <h2 data-i18n="schedule.title">Dars jadvali</h2>
                                 <span id="scheduleSubtitle"></span>
                             </div>
+
                             <button type="button" class="sch-modal-close" id="scheduleModalClose"
                                 data-i18n-title="schedule.close" title="Yopish">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -3429,43 +3653,56 @@
                             </button>
                         </div>
 
-                        <div class="sch-sidebar-section">
-                            <span class="sch-sidebar-label" data-i18n="schedule.viewLabel">Ko'rinish</span>
-                            <div class="sch-viewtoggle">
-                                <button type="button" class="sch-viewbtn" data-mode="horizontal" id="scheduleViewH">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round">
-                                        <line x1="3" y1="7" x2="21" y2="7" />
-                                        <line x1="3" y1="13" x2="21" y2="13" />
-                                        <line x1="3" y1="19" x2="21" y2="19" />
-                                    </svg>
-                                    <span data-i18n="schedule.horizontal">Gorizontal</span>
-                                </button>
-                                <button type="button" class="sch-viewbtn" data-mode="vertical" id="scheduleViewV">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round">
-                                        <line x1="7" y1="3" x2="7" y2="21" />
-                                        <line x1="13" y1="3" x2="13" y2="21" />
-                                        <line x1="19" y1="3" x2="19" y2="21" />
-                                    </svg>
-                                    <span data-i18n="schedule.vertical">Vertikal</span>
-                                </button>
+                        <div class="sch-header-controls">
+                            <div class="sch-header-section">
+                                <span class="sch-header-label" data-i18n="schedule.dayFilterLabel">Kun filtri</span>
+                                <div class="sch-tabs" id="scheduleTabs"></div>
+                            </div>
+
+                            <div class="sch-header-section sch-header-view">
+                                <span class="sch-header-label" data-i18n="schedule.viewLabel">Ko'rinish</span>
+                                <div class="sch-viewtoggle">
+                                    <button type="button" class="sch-viewbtn" data-mode="horizontal" id="scheduleViewH">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round">
+                                            <line x1="3" y1="7" x2="21" y2="7" />
+                                            <line x1="3" y1="13" x2="21" y2="13" />
+                                            <line x1="3" y1="19" x2="21" y2="19" />
+                                        </svg>
+                                        <span data-i18n="schedule.horizontal">Gorizontal</span>
+                                    </button>
+                                    <button type="button" class="sch-viewbtn" data-mode="vertical" id="scheduleViewV">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round">
+                                            <line x1="7" y1="3" x2="7" y2="21" />
+                                            <line x1="13" y1="3" x2="13" y2="21" />
+                                            <line x1="19" y1="3" x2="19" y2="21" />
+                                        </svg>
+                                        <span data-i18n="schedule.vertical">Vertikal</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="sch-sidebar-section">
-                            <span class="sch-sidebar-label" data-i18n="schedule.dayFilterLabel">Kun filtri</span>
-                            <div class="sch-tabs" id="scheduleTabs"></div>
-                        </div>
-
-                        <div class="sch-sidebar-section sch-sidebar-rooms">
-                            <span class="sch-sidebar-label" data-i18n="schedule.roomStatusLabel">Xonalar holati</span>
-                            <ul class="sch-roomstatus" id="scheduleRoomStatus"></ul>
-                        </div>
-                    </aside>
+                    </header>
 
                     <div class="sch-main">
-                        <div class="sch-body">
+                        <div class="sch-scroll-controls">
+                            <button type="button" class="sch-scroll-btn" id="scheduleScrollLeft"
+                                data-i18n-title="schedule.scrollLeft" title="Chapga surish">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 6 9 12 15 18" />
+                                </svg>
+                            </button>
+                            <button type="button" class="sch-scroll-btn" id="scheduleScrollRight"
+                                data-i18n-title="schedule.scrollRight" title="O'ngga surish">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 6 15 12 9 18" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="sch-body" id="scheduleBody">
                             <div class="sch-grid" id="scheduleGridBody"></div>
                             <div class="sch-empty" id="scheduleEmpty">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
@@ -3848,12 +4085,12 @@
             const lang = document.documentElement.getAttribute('lang') || 'uz';
             const dict = TRANSLATIONS[lang] || TRANSLATIONS.uz;
             const lines = [[dict['pay.colTime'], dict['pay.colStudent'], dict['pay.colGroup'],
-                dict['pay.colMethod'], dict['pay.colAmount'] + ' (' + dict['pay.currency'] + ')']];
+            dict['pay.colMethod'], dict['pay.colAmount'] + ' (' + dict['pay.currency'] + ')']];
             currentPayments.forEach(r => {
                 lines.push([r.time, r.student, r.group, dict[r.methodKey], r.amount]);
             });
             lines.push([dict['pay.totalAmount'], '', '', '',
-                currentPayments.reduce((a, r) => a + r.amount, 0)]);
+            currentPayments.reduce((a, r) => a + r.amount, 0)]);
 
             const csv = '\uFEFF' + lines.map(row =>
                 row.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(';')
@@ -3932,9 +4169,10 @@
             const board = document.getElementById('clientsBoard');
             if (!board) return;
             const term = clientsSearchTerm.trim().toLowerCase();
+            const termDigits = term.replace(/\D/g, '');
             board.innerHTML = CLIENT_COURSES.map(course => {
                 const items = CLIENTS.filter(c => c.course === course.id &&
-                    (!term || c.name.toLowerCase().includes(term) || c.phone.replace(/\D/g, '').includes(term.replace(/\D/g, ''))));
+                    (!term || c.name.toLowerCase().includes(term) || (termDigits && c.phone.replace(/\D/g, '').includes(termDigits))));
                 const cardsHtml = items.length ? items.map(c => `
                     <div class="client-card" draggable="true" data-id="${c.id}">
                         <button type="button" class="client-card-flag ${c.flagged ? 'active' : ''}" data-action="flag" data-id="${c.id}" title="${ct('clients.flagTitle', 'Belgilash')}">
@@ -3947,7 +4185,7 @@
                             <div class="client-card-avatar" style="background:${course.color}22;color:${course.color}">${clientInitials(c.name)}</div>
                             <div class="client-card-name">${escapeHtml(c.name)}</div>
                         </div>
-                        <div class="client-card-meta">
+                                                <div class="client-card-meta">
                             <a href="tel:${c.phone.replace(/[^\d+]/g, '')}">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 2.9a2 2 0 0 1-.5 2.1L7.9 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.5 2.9.6a2 2 0 0 1 1.7 2z"/></svg>
                                 ${escapeHtml(c.phone)}
@@ -3957,6 +4195,14 @@
                                 ${formatClientDate(c.date)}
                             </span>
                         </div>
+                        ${c.extraPhone ? `
+                        <div class="client-card-meta">
+                            <a href="tel:${c.extraPhone.replace(/[^\d+]/g, '')}">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 2.9a2 2 0 0 1-.5 2.1L7.9 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.5 2.9.6a2 2 0 0 1 1.7 2z"/></svg>
+                                ${escapeHtml(c.extraPhone)}
+                            </a>
+                        </div>` : ''}
+                        ${c.note ? `<div class="client-card-note">${escapeHtml(c.note)}</div>` : ''}
                     </div>
                 `).join('') : `<div class="clients-column-empty">${ct('clients.emptyColumn', "Bu yerda mijozlar yo'q")}</div>`;
 
@@ -4024,10 +4270,13 @@
             clientsModalDefaultCourse = defaultCourse || CLIENT_COURSES[0].id;
             const select = document.getElementById('clientCourseSelect');
             select.innerHTML = CLIENT_COURSES.map(c => `<option value="${c.id}" ${c.id === clientsModalDefaultCourse ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('');
-            document.getElementById('clientNameInput').value = '';
+            document.getElementById('clientFirstNameInput').value = '';
+            document.getElementById('clientLastNameInput').value = '';
             document.getElementById('clientPhoneInput').value = '';
+            document.getElementById('clientExtraPhoneInput').value = '';
+            document.getElementById('clientNoteInput').value = '';
             document.getElementById('clientsModalBackdrop').classList.add('open');
-            document.getElementById('clientNameInput').focus();
+            document.getElementById('clientFirstNameInput').focus();
         }
 
         function closeClientsModal() {
@@ -4035,19 +4284,46 @@
         }
 
         function saveNewClient() {
-            const name = document.getElementById('clientNameInput').value.trim();
+            const firstName = document.getElementById('clientFirstNameInput').value.trim();
+            const lastName = document.getElementById('clientLastNameInput').value.trim();
             const phone = document.getElementById('clientPhoneInput').value.trim();
+            const extraPhone = document.getElementById('clientExtraPhoneInput').value.trim();
+            const note = document.getElementById('clientNoteInput').value.trim();
             const course = document.getElementById('clientCourseSelect').value;
-            if (!name) { document.getElementById('clientNameInput').focus(); return; }
+            if (!firstName) { document.getElementById('clientFirstNameInput').focus(); return; }
             CLIENTS.push({
                 id: clientsNextId++,
-                name, phone: phone || '-',
+                name: [firstName, lastName].filter(Boolean).join(' '),
+                phone: phone || '-',
+                extraPhone, note,
                 date: new Date().toISOString().slice(0, 10),
                 course, flagged: false
             });
             closeClientsModal();
             renderClientsBoard();
         }
+
+        // ===== +998 TELEFON RAQAM NIQOBI (barcha type="tel" inputlar uchun) =====
+        function formatUzPhone(raw) {
+            let digits = raw.replace(/\D/g, '');
+            if (digits.startsWith('998')) digits = digits.slice(3);
+            digits = digits.slice(0, 9);
+            const parts = [digits.slice(0, 2), digits.slice(2, 5), digits.slice(5, 7), digits.slice(7, 9)]
+                .filter(Boolean);
+            return parts.length ? `+998 ${parts.join(' ')}` : '+998 ';
+        }
+
+        function attachUzPhoneMask(input) {
+            input.addEventListener('input', () => {
+                input.value = formatUzPhone(input.value);
+                input.setSelectionRange(input.value.length, input.value.length);
+            });
+            input.addEventListener('focus', () => {
+                if (!input.value.trim()) input.value = formatUzPhone('');
+            });
+        }
+
+        document.querySelectorAll('input[type="tel"]').forEach(attachUzPhoneMask);
 
         document.getElementById('clientsAddBtn').addEventListener('click', () => openClientsModal(CLIENT_COURSES[0].id));
         document.getElementById('clientsModalCancel').addEventListener('click', closeClientsModal);
@@ -4221,8 +4497,23 @@
         });
 
         notifMarkAll.addEventListener('click', () => {
-            notifList.querySelectorAll('.notif-item.unread').forEach(item => item.classList.remove('unread'));
-            updateNotifBadge();
+            if (notifMarkAll.disabled) return;
+            const items = Array.from(notifList.querySelectorAll('.notif-item.unread'));
+            if (items.length === 0) return;
+
+            notifMarkAll.disabled = true;
+            notifMarkAll.classList.add('is-firing');
+            setTimeout(() => notifMarkAll.classList.remove('is-firing'), 450);
+
+            items.forEach((item, i) => {
+                setTimeout(() => {
+                    item.classList.add('reading');
+                    setTimeout(() => {
+                        item.classList.remove('unread', 'reading');
+                        if (i === items.length - 1) updateNotifBadge();
+                    }, 380);
+                }, i * 60);
+            });
         });
 
         document.addEventListener('click', (e) => {
@@ -4407,7 +4698,11 @@
                 'clients.addBtn': "Mijoz qo'shish",
                 'clients.modalTitle': 'Yangi mijoz',
                 'clients.nameLabel': 'Ism familiya',
-                'clients.phoneLabel': 'Telefon raqam',
+                'clients.firstNameLabel': 'Ism',
+                'clients.lastNameLabel': 'Familya',
+                'clients.phoneLabel': 'Telefon raqami',
+                'clients.extraPhoneLabel': "Qo'shimcha raqami",
+                'clients.noteLabel': 'Qisqa matn',
                 'clients.courseLabel': "Yo'nalish / ustun",
                 'clients.cancel': 'Bekor qilish',
                 'clients.save': 'Saqlash',
@@ -4422,6 +4717,9 @@
                 'schedule.close': 'Yopish',
                 'schedule.even': 'Juft kunlar',
                 'schedule.odd': 'Toq kunlar',
+                'schedule.daily': 'Har kuni',
+                'schedule.scrollLeft': 'Chapga surish',
+                'schedule.scrollRight': "O'ngga surish",
                 'schedule.horizontal': 'Gorizontal',
                 'schedule.vertical': 'Vertikal',
                 'schedule.empty': 'Bu kuni darslar rejalashtirilmagan',
@@ -4430,7 +4728,6 @@
                 'schedule.activeLessonsCount': "faol dars",
                 'schedule.viewLabel': "Ko'rinish",
                 'schedule.dayFilterLabel': "Kun filtri",
-                'schedule.roomStatusLabel': "Xonalar holati",
                 'schedule.roomsLabel': "Xonalar",
                 'content.students.title': 'Talabalar',
                 'content.students.desc': "Talabalar ro'yxati, guruhlari va o'zlashtirish natijalari shu yerda ko'rsatiladi.",
@@ -4537,7 +4834,11 @@
                 'clients.addBtn': 'Add client',
                 'clients.modalTitle': 'New client',
                 'clients.nameLabel': 'Full name',
+                'clients.firstNameLabel': 'First name',
+                'clients.lastNameLabel': 'Last name',
                 'clients.phoneLabel': 'Phone number',
+                'clients.extraPhoneLabel': 'Additional phone',
+                'clients.noteLabel': 'Short note',
                 'clients.courseLabel': 'Course / column',
                 'clients.cancel': 'Cancel',
                 'clients.save': 'Save',
@@ -4552,6 +4853,9 @@
                 'schedule.close': 'Close',
                 'schedule.even': 'Even days',
                 'schedule.odd': 'Odd days',
+                'schedule.daily': 'Every day',
+                'schedule.scrollLeft': 'Scroll left',
+                'schedule.scrollRight': 'Scroll right',
                 'schedule.horizontal': 'Horizontal',
                 'schedule.vertical': 'Vertical',
                 'schedule.empty': 'No classes scheduled for this day',
@@ -4560,7 +4864,6 @@
                 'schedule.activeLessonsCount': "active classes",
                 'schedule.viewLabel': "View",
                 'schedule.dayFilterLabel': "Day filter",
-                'schedule.roomStatusLabel': "Room status",
                 'schedule.roomsLabel': "Rooms",
                 'content.students.title': 'Students',
                 'content.students.desc': 'The list of students, their groups and academic progress will be shown here.',
@@ -4667,7 +4970,11 @@
                 'clients.addBtn': 'Добавить клиента',
                 'clients.modalTitle': 'Новый клиент',
                 'clients.nameLabel': 'Имя и фамилия',
+                'clients.firstNameLabel': 'Имя',
+                'clients.lastNameLabel': 'Фамилия',
                 'clients.phoneLabel': 'Номер телефона',
+                'clients.extraPhoneLabel': 'Доп. номер',
+                'clients.noteLabel': 'Короткая заметка',
                 'clients.courseLabel': 'Направление / колонка',
                 'clients.cancel': 'Отмена',
                 'clients.save': 'Сохранить',
@@ -4682,6 +4989,9 @@
                 'schedule.close': 'Закрыть',
                 'schedule.even': 'Чётные дни',
                 'schedule.odd': 'Нечётные дни',
+                'schedule.daily': 'Каждый день',
+                'schedule.scrollLeft': 'Прокрутить влево',
+                'schedule.scrollRight': 'Прокрутить вправо',
                 'schedule.horizontal': 'Горизонтально',
                 'schedule.vertical': 'Вертикально',
                 'schedule.empty': 'На этот день занятия не запланированы',
@@ -4690,7 +5000,6 @@
                 'schedule.activeLessonsCount': "активных занятий",
                 'schedule.viewLabel': "Вид",
                 'schedule.dayFilterLabel': "Фильтр по дням",
-                'schedule.roomStatusLabel': "Статус кабинетов",
                 'schedule.roomsLabel': "Кабинеты",
                 'content.students.title': 'Студенты',
                 'content.students.desc': 'Здесь будут отображаться список студентов, их группы и успеваемость.',
@@ -4926,9 +5235,25 @@
             ],
         };
 
+        // "Har kuni" — juft va toq kunlarning ikkalasida ham bir xil xona/vaqt/nomda
+        // takrorlanadigan darslar (haqiqiy kundalik darslar). O'quvchilar soni
+        // ikki kun bo'yicha o'rtacha sifatida hisoblanadi.
+        (function schBuildDailyGroup() {
+            const keyOf = l => `${l.room}|${l.start}|${l.end}|${l.title}`;
+            const juftMap = new Map(SCH_DATA.juft.map(l => [keyOf(l), l]));
+            SCH_DATA.daily = SCH_DATA.toq
+                .filter(l => juftMap.has(keyOf(l)))
+                .map(l => {
+                    const match = juftMap.get(keyOf(l));
+                    const students = Math.round(((l.students || 0) + (match.students || 0)) / 2);
+                    return { ...l, students };
+                });
+        })();
+
         const SCH_TABS = [
             { id: 'juft', agg: true, key: 'schedule.even' },
             { id: 'toq', agg: true, key: 'schedule.odd' },
+            { id: 'daily', agg: true, key: 'schedule.daily' },
         ];
 
         // Dushanba(1)/Chorshanba(3)/Juma(5) = toq, Seshanba(2)/Payshanba(4)/Shanba(6) = juft
@@ -4950,7 +5275,9 @@
         }
 
         function schGroupKey(tabId) {
-            return tabId === 'toq' ? 'toq' : 'juft';
+            if (tabId === 'toq') return 'toq';
+            if (tabId === 'daily') return 'daily';
+            return 'juft';
         }
 
         function schRenderTabs() {
@@ -4965,15 +5292,6 @@
                     renderScheduleModal();
                 });
             });
-        }
-
-        function schRenderRoomStatus(lessons) {
-            const wrap = document.getElementById('scheduleRoomStatus');
-            wrap.innerHTML = SCH_ROOMS.map(roomNum => {
-                const count = lessons.filter(l => l.room === roomNum).length;
-                const color = schRoomColor(roomNum);
-                return `<li style="--room-dot-ring:${color}22"><span class="sch-roomstatus-dot" style="background:${color}"></span>${escapeHtml(schRoomLabel(roomNum))}<span class="sch-roomstatus-count">${count}</span></li>`;
-            }).join('');
         }
 
         const SCH_PERSON_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>';
@@ -5013,7 +5331,7 @@
             return `<div class="sch-headrow"><div class="sch-corner" data-i18n="schedule.roomsLabel">${escapeHtml(ct('schedule.roomsLabel'))}</div><div class="sch-timelabels">${timeLabels.join('')}</div></div>${rows}`;
         }
 
-        const SCH_DAY_HEIGHT_PX = Math.round(SCH_DAY_RANGE * 1.15); // 1.15px har bir daqiqa uchun
+        const SCH_DAY_HEIGHT_PX = Math.round(SCH_DAY_RANGE * 1.35); // 1.35px har bir daqiqa uchun — kattaroq, o'qish qulay jadval
 
         function schBuildVerticalHTML(lessons) {
             const timeLabels = [];
@@ -5054,9 +5372,9 @@
             grid.innerHTML = schViewMode === 'horizontal' ? schBuildHorizontalHTML(lessons) : schBuildVerticalHTML(lessons);
             grid.style.display = lessons.length ? '' : 'none';
             document.getElementById('scheduleEmpty').classList.toggle('show', lessons.length === 0);
-            schRenderRoomStatus(lessons);
             const count = lessons.length;
             document.getElementById('scheduleSubtitle').textContent = count ? `${count} ${ct('schedule.activeLessonsCount')}` : '';
+            updateScheduleScrollButtons();
         }
 
         function openScheduleModal() {
@@ -5081,6 +5399,26 @@
         });
         document.getElementById('scheduleViewH').addEventListener('click', () => { schViewMode = 'horizontal'; renderScheduleModal(); });
         document.getElementById('scheduleViewV').addEventListener('click', () => { schViewMode = 'vertical'; renderScheduleModal(); });
+
+        const scheduleScrollLeftBtn = document.getElementById('scheduleScrollLeft');
+        const scheduleScrollRightBtn = document.getElementById('scheduleScrollRight');
+
+        function updateScheduleScrollButtons() {
+            const body = document.getElementById('scheduleBody');
+            if (!body || !scheduleScrollLeftBtn || !scheduleScrollRightBtn) return;
+            const max = body.scrollWidth - body.clientWidth;
+            scheduleScrollLeftBtn.disabled = body.scrollLeft <= 4;
+            scheduleScrollRightBtn.disabled = max <= 4 || body.scrollLeft >= max - 4;
+        }
+
+        (function initScheduleScrollButtons() {
+            const body = document.getElementById('scheduleBody');
+            const step = () => Math.max(body.clientWidth * 0.8, 260);
+            scheduleScrollLeftBtn.addEventListener('click', () => body.scrollBy({ left: -step(), behavior: 'smooth' }));
+            scheduleScrollRightBtn.addEventListener('click', () => body.scrollBy({ left: step(), behavior: 'smooth' }));
+            body.addEventListener('scroll', updateScheduleScrollButtons);
+            window.addEventListener('resize', updateScheduleScrollButtons);
+        })();
 
         (function initLanguage() {
             const saved = localStorage.getItem(LANG_STORAGE_KEY);
