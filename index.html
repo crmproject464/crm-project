@@ -2473,6 +2473,75 @@
             }
         }
 
+        /* ===== TALABALAR (STUDENTS) ===== */
+        .st-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+        .st-toolbar .clients-search { flex: 1; min-width: 200px; max-width: 340px; }
+        .st-select { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--panel-border); background: var(--field-bg); color: var(--fg-page); font-family: inherit; font-size: 13px; outline: none; cursor: pointer; }
+        html:not([data-theme="dark"]) .st-select { background: #fff; }
+        .st-select option { background: var(--menu-bg); color: var(--menu-fg); }
+        .st-toolbar .spacer { flex: 1; }
+        .st-ghost-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--panel-border); background: transparent; color: var(--fg-page); font: 600 13px inherit; font-family: inherit; cursor: pointer; }
+        .st-ghost-btn:hover { background: var(--hover-bg); }
+        .st-ghost-btn svg { width: 16px; height: 16px; }
+        .st-user { display: flex; align-items: center; gap: 10px; }
+        .st-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--highlight-bg); color: var(--highlight-fg); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+        .st-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .st-badge.active { background: rgba(74, 222, 128, .16); color: #4ADE80; }
+        .st-badge.frozen { background: rgba(245, 185, 66, .16); color: #F5B942; }
+        .st-badge.grad { background: rgba(111, 163, 245, .16); color: #6FA3F5; }
+        .st-pos { color: #4ADE80; } .st-neg { color: #F87171; font-weight: 600; }
+        .payments-table th[data-sort] { cursor: pointer; user-select: none; }
+        .payments-table th[data-sort]:hover { color: var(--fg-panel); }
+        .st-act { width: 30px; height: 30px; border: none; border-radius: 8px; background: transparent; color: var(--fg-muted); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+        .st-act:hover { background: var(--hover-bg); color: var(--fg-panel); }
+        .st-act.del:hover { color: #F87171; }
+        .st-act svg { width: 16px; height: 16px; }
+        .st-pager { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; font-size: 12.5px; color: var(--fg-muted); }
+        .st-pager button { padding: 7px 14px; border-radius: 10px; border: 1px solid var(--panel-border); background: transparent; color: var(--fg-panel); font-family: inherit; cursor: pointer; }
+        .st-pager button:disabled { opacity: .35; cursor: default; }
+        .st-empty { padding: 40px 12px; text-align: center; color: var(--fg-muted); }
+        #stTable .payments-table-wrap { max-height: none; }
+
+        /* ===== GURUHLAR (GROUPS) ===== */
+        .gr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+        .gr-card { background: var(--bg-panel); color: var(--fg-panel); border: 1px solid var(--panel-border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--block-shadow); display: flex; flex-direction: column; gap: 14px; cursor: pointer; transition: border-color .15s ease, background .15s ease; }
+        .gr-card:hover { border-color: var(--accent); }
+        .gr-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+        .gr-name { font-size: 15.5px; font-weight: 600; line-height: 1.3; }
+        .gr-sub { font-size: 12.5px; color: var(--fg-muted); margin-top: 3px; }
+        .gr-acts { display: flex; gap: 2px; margin: -4px -6px 0 0; flex-shrink: 0; }
+        .gr-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--fg-muted); white-space: nowrap; }
+        .gr-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+        .gr-status.active { color: #4ADE80; } .gr-status.paused { color: #F5B942; } .gr-status.finished { color: var(--fg-muted); }
+        .gr-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; padding: 14px 0; border-top: 1px solid var(--panel-border); border-bottom: 1px solid var(--panel-border); margin: 0; }
+        .gr-meta dt { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 3px; }
+        .gr-meta dd { font-size: 13.5px; font-weight: 600; margin: 0; font-variant-numeric: tabular-nums; }
+        .gr-fillrow { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--fg-muted); margin-bottom: 7px; }
+        .gr-fillrow b { color: var(--fg-panel); font-weight: 600; }
+        .gr-bar { height: 4px; border-radius: 4px; background: var(--hover-bg); overflow: hidden; }
+        .gr-bar i { display: block; height: 100%; background: var(--accent); }
+        .gr-bar i.full { background: #F5B942; }
+        .gr-topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+        .gr-title { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+        .gr-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; background: var(--bg-panel); color: var(--fg-panel); border: 1px solid var(--panel-border); border-radius: 14px; box-shadow: var(--block-shadow); margin: 18px 0; overflow: hidden; }
+        .gr-info div { padding: 16px 20px; border-right: 1px solid var(--panel-border); }
+        .gr-info div:last-child { border-right: none; }
+        .gr-info dt { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 4px; }
+        .gr-info dd { font-size: 14px; font-weight: 600; margin: 0; }
+        .gr-move { padding: 6px 8px; border-radius: 8px; border: 1px solid var(--panel-border); background: var(--field-bg); color: var(--fg-panel); font-family: inherit; font-size: 12.5px; cursor: pointer; max-width: 150px; }
+        .gr-move option { background: var(--menu-bg); color: var(--menu-fg); }
+        .gr-modal-wide .clients-modal { max-width: 440px; }
+        .gr-daypick { display: flex; gap: 6px; flex-wrap: wrap; }
+        .gr-daypick label { margin: 0; cursor: pointer; }
+        .gr-daypick input { display: none; }
+        .gr-daypick span { display: inline-flex; width: 40px; height: 34px; align-items: center; justify-content: center; border-radius: 9px; border: 1px solid var(--panel-border); font-size: 12px; font-weight: 700; color: var(--menu-fg); }
+        .gr-daypick input:checked + span { background: var(--highlight-bg); color: var(--highlight-fg); border-color: transparent; }
+
+        /* ===== O'QITUVCHILAR (TEACHERS) ===== */
+        .th-id { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .th-id .st-avatar { width: 42px; height: 42px; font-size: 14px; }
+        .th-row { cursor: pointer; }
+
         /* Scroll ishlayveradi, lekin scrollbar korinmaydi */
         * {
             scrollbar-width: none;
@@ -3723,36 +3792,15 @@
             </div>
 
             <div class="content-view" data-view="students">
-                <div class="view-empty">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                        <path d="M12 3 2 8l10 5 10-5-10-5z" />
-                        <path d="M6 10.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-5.5" />
-                    </svg>
-                    <span data-i18n="content.comingSoon">Bu bo'lim tez orada to'liq ishga tushiriladi</span>
-                </div>
+                <div id="studentsRoot"></div>
             </div>
 
             <div class="content-view" data-view="groups">
-                <div class="view-empty">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                        <path d="M12 3 3 8l9 5 9-5-9-5z" />
-                        <path d="M3 12l9 5 9-5" />
-                        <path d="M3 16l9 5 9-5" />
-                    </svg>
-                    <span data-i18n="content.comingSoon">Bu bo'lim tez orada to'liq ishga tushiriladi</span>
-                </div>
+                <div id="groupsRoot"></div>
             </div>
 
             <div class="content-view" data-view="teachers">
-                <div class="view-empty">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                        <circle cx="9" cy="8" r="3" />
-                        <path d="M3 20c0-3 2.5-5 6-5s6 2 6 5" />
-                        <circle cx="17" cy="9" r="2.4" />
-                        <path d="M15.5 20c.2-2.2 1.7-3.7 3.5-3.9" />
-                    </svg>
-                    <span data-i18n="content.comingSoon">Bu bo'lim tez orada to'liq ishga tushiriladi</span>
-                </div>
+                <div id="teachersRoot"></div>
             </div>
 
             <div class="content-view" data-view="finance">
@@ -4410,6 +4458,9 @@
             document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active-view'));
             const target = document.querySelector(`.content-view[data-view="${name}"]`);
             if (target) target.classList.add('active-view');
+            if (name === 'groups' && typeof renderGroups === 'function') { if (window.closeGroupDetail) window.closeGroupDetail(); renderGroups(); }
+            if (name === 'students' && typeof renderStudents === 'function') renderStudents();
+            if (name === 'teachers' && typeof renderTeachers === 'function') { if (window.closeTeacherDetail) window.closeTeacherDetail(); renderTeachers(); }
             if (name === 'clients' && typeof updateClientsScrollButtons === 'function') {
                 if (typeof requestAnimationFrame === 'function') {
                     requestAnimationFrame(updateClientsScrollButtons);
@@ -5174,6 +5225,9 @@
             }
 
             if (typeof renderClientsBoard === 'function') renderClientsBoard();
+            if (typeof renderStudents === 'function') renderStudents();
+            if (typeof renderGroups === 'function') renderGroups();
+            if (typeof renderTeachers === 'function') renderTeachers();
             if (typeof renderScheduleModal === 'function' && document.getElementById('scheduleModalBackdrop').classList.contains('open')) renderScheduleModal();
         }
 
@@ -5465,6 +5519,725 @@
             scheduleScrollRightBtn.addEventListener('click', () => body.scrollBy({ left: step(), behavior: 'smooth' }));
             body.addEventListener('scroll', updateScheduleScrollButtons);
             window.addEventListener('resize', updateScheduleScrollButtons);
+        })();
+
+        // ======================================================
+        // ===== GURUHLAR (GROUPS) ==============================
+        // ======================================================
+        (function initGroups() {
+            const S = {
+                uz: { title: 'Guruhlar', search: "Guruh yoki o'qituvchi bo'yicha qidirish", add: "Guruh qo'shish", allT: "Barcha o'qituvchilar", allS: 'Barcha holatlar',
+                    total: 'Jami guruhlar', active: 'Faol guruhlar', studs: 'Jami talabalar', fill: "O'rtacha to'lish", st_active: 'Faol', st_paused: "To'xtatilgan", st_finished: 'Tugagan',
+                    teacher: "O'qituvchi", room: 'Xona', days: 'Dars kunlari', time: 'Vaqt', cap: "Sig'im", price: 'Narx (oylik)', status: 'Holat', name: 'Guruh nomi',
+                    roomN: 'Xona', places: "o'rin", cur: "so'm", students: 'Talabalar', empty: 'Guruh topilmadi', noStud: "Bu guruhda talaba yo'q",
+                    newT: 'Yangi guruh', editT: 'Guruhni tahrirlash', save: 'Saqlash', cancel: 'Bekor qilish', edit: 'Tahrirlash', del: "O'chirish",
+                    delConfirm: "Guruhni o'chirmoqchimisiz?", delBlocked: "Guruhda talabalar bor. Avval ularni boshqa guruhga o'tkazing.",
+                    errTime: "Tugash vaqti boshlanishdan keyin bo'lishi kerak", errDays: 'Kamida bitta dars kunini tanlang', errCap: "Sig'im kamida 1 bo'lishi kerak",
+                    errRoom: 'Bu xonada shu vaqtda boshqa guruh bor: ', errTeacher: "Bu o'qituvchining shu vaqtda boshqa guruhi bor: ",
+                    dayN: ['Du', 'Se', 'Chor', 'Pay', 'Ju', 'Sha', 'Yak'],
+                    free: "Bo'sh o'rin", debtors: 'Qarzdorlar', addStud: "Talaba qo'shish", addStudT: "Guruhga talaba qo'shish", pick: 'Talabani tanlang', noAvail: "Qo'shish uchun boshqa talaba yo'q",
+                    searchStud: "Ism yoki telefon bo'yicha qidirish", cName: 'Ism familiya', cPhone: 'Telefon', cStatus: 'Holat', cBalance: 'Balans', cMove: "Ko'chirish",
+                    s_active: 'Faol', s_frozen: 'Muzlatilgan', s_grad: 'Bitirgan', fullMsg: "Guruh to'lgan: bo'sh o'rin yo'q", confirmAdd: "Qo'shish" },
+                en: { title: 'Groups', search: 'Search by group or teacher', add: 'Add group', allT: 'All teachers', allS: 'All statuses',
+                    total: 'Total groups', active: 'Active groups', studs: 'Total students', fill: 'Average fill', st_active: 'Active', st_paused: 'Paused', st_finished: 'Finished',
+                    teacher: 'Teacher', room: 'Room', days: 'Class days', time: 'Time', cap: 'Capacity', price: 'Price (monthly)', status: 'Status', name: 'Group name',
+                    roomN: 'Room', places: 'seats', cur: 'UZS', students: 'Students', empty: 'No groups found', noStud: 'No students in this group',
+                    newT: 'New group', editT: 'Edit group', save: 'Save', cancel: 'Cancel', edit: 'Edit', del: 'Delete',
+                    delConfirm: 'Delete this group?', delBlocked: 'This group has students. Move them to another group first.',
+                    errTime: 'End time must be after start time', errDays: 'Select at least one class day', errCap: 'Capacity must be at least 1',
+                    errRoom: 'The room is busy at that time with: ', errTeacher: 'The teacher has another group at that time: ',
+                    dayN: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    free: 'Free seats', debtors: 'In debt', addStud: 'Add student', addStudT: 'Add student to group', pick: 'Select a student', noAvail: 'No other students to add',
+                    searchStud: 'Search by name or phone', cName: 'Full name', cPhone: 'Phone', cStatus: 'Status', cBalance: 'Balance', cMove: 'Move to',
+                    s_active: 'Active', s_frozen: 'Frozen', s_grad: 'Graduated', fullMsg: 'Group is full: no free seats', confirmAdd: 'Add' },
+                ru: { title: 'Группы', search: 'Поиск по группе или преподавателю', add: 'Добавить группу', allT: 'Все преподаватели', allS: 'Все статусы',
+                    total: 'Всего групп', active: 'Активные группы', studs: 'Всего студентов', fill: 'Средняя заполненность', st_active: 'Активна', st_paused: 'Приостановлена', st_finished: 'Завершена',
+                    teacher: 'Преподаватель', room: 'Кабинет', days: 'Дни занятий', time: 'Время', cap: 'Вместимость', price: 'Цена (в месяц)', status: 'Статус', name: 'Название группы',
+                    roomN: 'Кабинет', places: 'мест', cur: 'сум', students: 'Студенты', empty: 'Группы не найдены', noStud: 'В группе нет студентов',
+                    newT: 'Новая группа', editT: 'Изменить группу', save: 'Сохранить', cancel: 'Отмена', edit: 'Изменить', del: 'Удалить',
+                    delConfirm: 'Удалить группу?', delBlocked: 'В группе есть студенты. Сначала переведите их в другую группу.',
+                    errTime: 'Время окончания должно быть позже начала', errDays: 'Выберите хотя бы один день', errCap: 'Вместимость не менее 1',
+                    errRoom: 'В это время кабинет занят группой: ', errTeacher: 'У преподавателя в это время другая группа: ',
+                    dayN: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+                    free: 'Свободных мест', debtors: 'Должники', addStud: 'Добавить студента', addStudT: 'Добавить студента в группу', pick: 'Выберите студента', noAvail: 'Нет других студентов для добавления',
+                    searchStud: 'Поиск по имени или телефону', cName: 'Имя и фамилия', cPhone: 'Телефон', cStatus: 'Статус', cBalance: 'Баланс', cMove: 'Перевести',
+                    s_active: 'Активен', s_frozen: 'Заморожен', s_grad: 'Выпускник', fullMsg: 'Группа заполнена: нет свободных мест', confirmAdd: 'Добавить' }
+            };
+            const T = () => S[document.documentElement.getAttribute('lang')] || S.uz;
+            let TEACHERS = ['Mirabbos Mentor', 'Murodbek Teacher', 'Fozilova Gavharoy', 'Soliyeva Gulsanam', 'Guljaxon', 'Sukhrobjon', 'Abdunazarov Abdurashid'];
+            let GR = [
+                { id: 1, name: 'Beginner English', teacher: TEACHERS[0], room: 1, days: [0, 2, 4], start: '09:00', end: '10:30', cap: 12, price: 500000, status: 'active' },
+                { id: 2, name: 'IELTS 6.0+', teacher: TEACHERS[0], room: 1, days: [1, 3, 5], start: '15:00', end: '16:30', cap: 12, price: 800000, status: 'active' },
+                { id: 3, name: 'Intensive kurs', teacher: TEACHERS[2], room: 2, days: [0, 1, 2, 3, 4], start: '15:00', end: '16:30', cap: 15, price: 900000, status: 'active' },
+                { id: 4, name: 'Kids English', teacher: TEACHERS[2], room: 3, days: [1, 3, 5], start: '13:30', end: '15:00', cap: 8, price: 450000, status: 'active' },
+                { id: 5, name: 'HTML/CSS asoslari', teacher: TEACHERS[5], room: 4, days: [0, 2, 4], start: '09:30', end: '11:00', cap: 10, price: 700000, status: 'active' },
+                { id: 6, name: 'Koreys tili', teacher: TEACHERS[3], room: 3, days: [1, 3], start: '09:30', end: '11:00', cap: 8, price: 600000, status: 'paused' },
+                { id: 7, name: 'Rus tili', teacher: TEACHERS[4], room: 3, days: [0, 2, 4], start: '16:30', end: '18:00', cap: 14, price: 550000, status: 'finished' }
+            ];
+            let nextId = GR.length + 1, editId = null, openId = null;
+            const f = { q: '', teacher: '', status: '', sq: '' };
+            const root = document.getElementById('groupsRoot');
+            const $ = id => document.getElementById(id);
+            const money = n => Number(n).toLocaleString('ru-RU');
+            const ic = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+            const studentsOf = g => typeof window.studentsOfGroup === 'function' ? window.studentsOfGroup(g.name) : [];
+            const count = g => typeof window.studentCountByGroup === 'function' ? window.studentCountByGroup(g.name) : 0;
+            const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+            const daysText = (g, t) => g.days.map(i => t.dayN[i]).join(' · ');
+
+            function conflict(g) {
+                const t = T();
+                for (const o of GR) {
+                    if (o.id === g.id || o.status !== 'active' || g.status !== 'active') continue;
+                    if (!o.days.some(d => g.days.includes(d))) continue;
+                    if (toMin(g.start) >= toMin(o.end) || toMin(o.start) >= toMin(g.end)) continue;
+                    if (o.room === g.room) return t.errRoom + o.name;
+                    if (o.teacher === g.teacher) return t.errTeacher + o.name;
+                }
+                return '';
+            }
+
+            const modalsHTML = t => `
+                <div class="clients-modal-backdrop gr-modal-wide" id="grModalBackdrop"><div class="clients-modal">
+                    <h2 id="grModalTitle"></h2>
+                    <div class="clients-modal-field"><label>${t.name}</label><input id="grName" autocomplete="off"></div>
+                    <div class="clients-modal-row">
+                        <div class="clients-modal-field"><label>${t.teacher}</label><select id="grMTeacher">${TEACHERS.map(x => `<option>${x}</option>`).join('')}</select></div>
+                        <div class="clients-modal-field"><label>${t.room}</label><select id="grMRoom">${[1, 2, 3, 4, 5].map(n => `<option value="${n}">${t.roomN} ${n}</option>`).join('')}</select></div></div>
+                    <div class="clients-modal-field"><label>${t.days}</label><div class="gr-daypick">${t.dayN.map((d, i) => `<label><input type="checkbox" value="${i}" class="grDayChk"><span>${d.slice(0, 3)}</span></label>`).join('')}</div></div>
+                    <div class="clients-modal-row">
+                        <div class="clients-modal-field"><label>${t.time}</label><input id="grStart" type="time"></div>
+                        <div class="clients-modal-field"><label>&nbsp;</label><input id="grEnd" type="time"></div></div>
+                    <div class="clients-modal-row">
+                        <div class="clients-modal-field"><label>${t.cap}</label><input id="grCap" type="number" min="1" value="12"></div>
+                        <div class="clients-modal-field"><label>${t.price} (${t.cur})</label><input id="grPrice" type="number" min="0" step="10000" value="500000"></div></div>
+                    <div class="clients-modal-field"><label>${t.status}</label><select id="grMStatus">${['active', 'paused', 'finished'].map(s => `<option value="${s}">${t['st_' + s]}</option>`).join('')}</select></div>
+                    <div class="clients-modal-field" id="grErr" style="color:#F87171;font-size:12.5px;display:none"></div>
+                    <div class="clients-modal-actions"><button type="button" class="clients-modal-cancel" id="grCancel">${t.cancel}</button><button type="button" class="clients-modal-save" id="grSave">${t.save}</button></div>
+                </div></div>
+                <div class="clients-modal-backdrop gr-modal-wide" id="grAddBackdrop"><div class="clients-modal">
+                    <h2>${t.addStudT}</h2>
+                    <div class="clients-modal-field"><label>${t.pick}</label><select id="grAddSelect"></select></div>
+                    <div class="clients-modal-actions"><button type="button" class="clients-modal-cancel" id="grAddCancel">${t.cancel}</button><button type="button" class="clients-modal-save" id="grAddSave">${t.confirmAdd}</button></div>
+                </div></div>`;
+
+            function shell() {
+                if (typeof window.teacherNames === 'function') TEACHERS = window.teacherNames();
+                const t = T(), g = GR.find(x => x.id === openId);
+                if (openId && !g) openId = null;
+                root.innerHTML = (g ? detailHTML(g, t) : listHTML(t)) + modalsHTML(t);
+                bind();
+                g ? drawStudents() : render();
+            }
+
+            function listHTML(t) {
+                return `
+                <div class="clients-head"><div class="clients-head-text"><h1>${t.title}</h1></div>
+                    <div class="clients-head-actions-top"><button class="clients-add-btn" id="grAdd" type="button">${ic('<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>')}<span>${t.add}</span></button></div></div>
+                <div class="stat-cards" id="grStats"></div>
+                <div class="st-toolbar">
+                    <div class="clients-search">${ic('<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>')}<input id="grSearch" type="text" placeholder="${t.search}" value="${escapeHtml(f.q)}"></div>
+                    <select class="st-select" id="grTeacher"><option value="">${t.allT}</option>${TEACHERS.map(x => `<option ${f.teacher === x ? 'selected' : ''}>${x}</option>`).join('')}</select>
+                    <select class="st-select" id="grStatus"><option value="">${t.allS}</option>${['active', 'paused', 'finished'].map(s => `<option value="${s}" ${f.status === s ? 'selected' : ''}>${t['st_' + s]}</option>`).join('')}</select>
+                </div>
+                <div class="gr-grid" id="grGrid"></div>`;
+            }
+
+            function detailHTML(g, t) {
+                const studs = studentsOf(g), act = count(g), pct = Math.min(100, Math.round(act / g.cap * 100));
+                const stat = (label, val, path) => `<div class="stat-card"><div class="stat-icon">${ic(path)}</div><div class="stat-label">${label}</div><div class="stat-value">${val}</div></div>`;
+                return `
+                <div class="gr-topbar">
+                    <button class="st-ghost-btn" id="grBack" type="button">${ic('<polyline points="15 6 9 12 15 18"/>')}${t.title}</button>
+                    <div class="clients-head-actions-top">
+                        <button class="st-ghost-btn" id="grDetEdit" type="button">${ic('<path d="M4 20h4L19 9l-4-4L4 16v4z"/>')}${t.edit}</button>
+                        <button class="clients-add-btn" id="grDetAdd" type="button">${ic('<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>')}<span>${t.addStud}</span></button>
+                    </div></div>
+                <div class="gr-title"><h1>${escapeHtml(g.name)}</h1><span class="gr-status ${g.status}">${t['st_' + g.status]}</span></div>
+                <dl class="gr-info">
+                    <div><dt>${t.teacher}</dt><dd>${escapeHtml(g.teacher)}</dd></div>
+                    <div><dt>${t.room}</dt><dd>${t.roomN} ${g.room}</dd></div>
+                    <div><dt>${t.time}</dt><dd>${g.start} – ${g.end}</dd></div>
+                    <div><dt>${t.days}</dt><dd>${daysText(g, t)}</dd></div>
+                    <div><dt>${t.price}</dt><dd>${money(g.price)} ${t.cur}</dd></div>
+                </dl>
+                <div class="stat-cards" style="margin-top:0">
+                    ${stat(t.students, studs.length, '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.4"/>')}
+                    ${stat(t.st_active, act + ' / ' + g.cap + ' (' + pct + '%)', '<path d="M5 12l5 5 9-10"/>')}
+                    ${stat(t.free, Math.max(0, g.cap - act), '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/>')}
+                    ${stat(t.debtors, studs.filter(s => s.balance < 0).length, '<circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.5"/>')}
+                </div>
+                <div class="st-toolbar"><div class="clients-search">${ic('<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>')}<input id="grStudSearch" type="text" placeholder="${t.searchStud}" value="${escapeHtml(f.sq)}"></div></div>
+                <div class="payments-card" style="margin-top:0"><div id="grStudTable"></div></div>`;
+            }
+
+            function drawStudents() {
+                const t = T(), g = GR.find(x => x.id === openId); if (!g || !$('grStudTable')) return;
+                const q = f.sq.trim().toLowerCase(), qd = q.replace(/\D/g, '');
+                const rows = studentsOf(g).filter(s => !q || s.name.toLowerCase().includes(q) || (qd && s.phone.replace(/\D/g, '').includes(qd)));
+                $('grStudTable').innerHTML = `<div class="payments-table-wrap" style="max-height:none"><table class="payments-table"><thead><tr>
+                    <th>${t.cName}</th><th class="col-hide-sm">${t.cPhone}</th><th>${t.cStatus}</th><th class="num">${t.cBalance}</th><th>${t.cMove}</th></tr></thead><tbody>
+                    ${rows.map(s => `<tr><td><div class="st-user"><div class="st-avatar">${escapeHtml(clientInitials(s.name))}</div>${escapeHtml(s.name)}</div></td>
+                        <td class="muted col-hide-sm">${escapeHtml(s.phone)}</td>
+                        <td><span class="st-badge ${s.status}">${t['s_' + s.status]}</span></td>
+                        <td class="num ${s.balance < 0 ? 'st-neg' : s.balance > 0 ? 'st-pos' : ''}">${s.balance < 0 ? '−' : ''}${money(Math.abs(s.balance))} <span class="pay-cur">${t.cur}</span></td>
+                        <td><select class="gr-move" data-sid="${s.id}">${GR.map(x => `<option ${x.id === g.id ? 'selected' : ''}>${escapeHtml(x.name)}</option>`).join('')}</select></td></tr>`).join('')}
+                    </tbody></table>${rows.length ? '' : `<div class="st-empty">${t.noStud}</div>`}</div>`;
+            }
+
+            function filtered() {
+                const q = f.q.trim().toLowerCase();
+                return GR.filter(g => (!q || g.name.toLowerCase().includes(q) || g.teacher.toLowerCase().includes(q))
+                    && (!f.teacher || g.teacher === f.teacher) && (!f.status || g.status === f.status));
+            }
+
+            function render() {
+                const t = T(), rows = filtered(), grid = $('grGrid'); if (!grid) return;
+                const act = GR.filter(g => g.status === 'active'), total = GR.reduce((s, g) => s + count(g), 0);
+                const capSum = act.reduce((s, g) => s + g.cap, 0), inAct = act.reduce((s, g) => s + count(g), 0);
+                const cards = [[t.total, GR.length, '<path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/>'],
+                    [t.active, act.length, '<path d="M5 12l5 5 9-10"/>'],
+                    [t.studs, total, '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.4"/>'],
+                    [t.fill, (capSum ? Math.round(inAct / capSum * 100) : 0) + '%', '<circle cx="12" cy="12" r="8"/><path d="M12 12V6M12 12l4 3"/>']];
+                $('grStats').innerHTML = cards.map(c => `<div class="stat-card"><div class="stat-icon">${ic(c[2])}</div><div class="stat-label">${c[0]}</div><div class="stat-value">${c[1]}</div></div>`).join('');
+                grid.innerHTML = rows.length ? rows.map(g => {
+                    const n = count(g), pct = Math.min(100, Math.round(n / g.cap * 100));
+                    return `<div class="gr-card" data-id="${g.id}"><div class="gr-card-head">
+                        <div><div class="gr-name">${escapeHtml(g.name)}</div><div class="gr-sub">${escapeHtml(g.teacher)}</div></div>
+                        <div class="gr-acts"><button class="st-act" data-act="edit" data-id="${g.id}" title="${t.edit}">${ic('<path d="M4 20h4L19 9l-4-4L4 16v4z"/>')}</button>
+                        <button class="st-act del" data-act="del" data-id="${g.id}" title="${t.del}">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></div></div>
+                        <dl class="gr-meta">
+                            <div><dt>${t.time}</dt><dd>${g.start} – ${g.end}</dd></div>
+                            <div><dt>${t.room}</dt><dd>${t.roomN} ${g.room}</dd></div>
+                            <div><dt>${t.days}</dt><dd>${daysText(g, t)}</dd></div>
+                            <div><dt>${t.price}</dt><dd>${money(g.price)}</dd></div></dl>
+                        <div><div class="gr-fillrow"><span>${t.students}: <b>${n} / ${g.cap}</b></span><span class="gr-status ${g.status}">${t['st_' + g.status]}</span></div>
+                        <div class="gr-bar"><i class="${pct >= 100 ? 'full' : ''}" style="width:${pct}%"></i></div></div></div>`;
+                }).join('') : `<div class="st-empty" style="grid-column:1/-1">${t.empty}</div>`;
+            }
+
+            function openModal(id) {
+                const g = GR.find(x => x.id === id);
+                editId = id || null;
+                $('grModalTitle').textContent = g ? T().editT : T().newT;
+                $('grName').value = g ? g.name : '';
+                $('grMTeacher').value = g ? g.teacher : TEACHERS[0];
+                $('grMRoom').value = g ? g.room : 1;
+                document.querySelectorAll('.grDayChk').forEach(c => c.checked = g ? g.days.includes(+c.value) : [0, 2, 4].includes(+c.value));
+                $('grStart').value = g ? g.start : '09:00';
+                $('grEnd').value = g ? g.end : '10:30';
+                $('grCap').value = g ? g.cap : 12;
+                $('grPrice').value = g ? g.price : 500000;
+                $('grMStatus').value = g ? g.status : 'active';
+                $('grErr').style.display = 'none';
+                $('grModalBackdrop').classList.add('open');
+                $('grName').focus();
+            }
+            const closeModal = () => $('grModalBackdrop').classList.remove('open');
+
+            function save() {
+                const t = T(), name = $('grName').value.trim();
+                const err = m => { $('grErr').textContent = m; $('grErr').style.display = 'block'; };
+                if (!name) { $('grName').focus(); return; }
+                const g = {
+                    id: editId || nextId, name, teacher: $('grMTeacher').value, room: +$('grMRoom').value,
+                    days: [...document.querySelectorAll('.grDayChk')].filter(c => c.checked).map(c => +c.value),
+                    start: $('grStart').value, end: $('grEnd').value, cap: parseInt($('grCap').value, 10) || 0,
+                    price: parseInt($('grPrice').value, 10) || 0, status: $('grMStatus').value
+                };
+                if (!g.days.length) return err(t.errDays);
+                if (!g.start || !g.end || toMin(g.end) <= toMin(g.start)) return err(t.errTime);
+                if (g.cap < 1) return err(t.errCap);
+                const c = conflict(g); if (c) return err(c);
+                if (editId) {
+                    const old = GR.find(x => x.id === editId);
+                    if (old.name !== g.name && typeof window.renameStudentGroup === 'function') window.renameStudentGroup(old.name, g.name);
+                    Object.assign(old, g);
+                } else { GR.push(g); nextId++; }
+                shell();
+                if (typeof window.renderStudents === 'function') window.renderStudents();
+            }
+
+            const canJoin = (g, s) => s.status !== 'active' || count(g) < g.cap;
+
+            function openAddStudent() {
+                const t = T(), g = GR.find(x => x.id === openId);
+                const list = (typeof window.allStudents === 'function' ? window.allStudents() : []).filter(s => s.group !== g.name);
+                if (!list.length) { alert(t.noAvail); return; }
+                $('grAddSelect').innerHTML = list.map(s => `<option value="${s.id}">${escapeHtml(s.name)} — ${escapeHtml(s.group)}</option>`).join('');
+                $('grAddBackdrop').classList.add('open');
+            }
+
+            function bind() {
+                const on = (id, ev, fn) => { const el = $(id); if (el) el.addEventListener(ev, fn); };
+                on('grSearch', 'input', e => { f.q = e.target.value; render(); });
+                on('grTeacher', 'change', e => { f.teacher = e.target.value; render(); });
+                on('grStatus', 'change', e => { f.status = e.target.value; render(); });
+                on('grAdd', 'click', () => openModal());
+                on('grCancel', 'click', closeModal);
+                on('grSave', 'click', save);
+                on('grBack', 'click', () => { openId = null; f.sq = ''; shell(); });
+                on('grDetEdit', 'click', () => openModal(openId));
+                on('grDetAdd', 'click', openAddStudent);
+                on('grStudSearch', 'input', e => { f.sq = e.target.value; drawStudents(); });
+                on('grAddCancel', 'click', () => $('grAddBackdrop').classList.remove('open'));
+                on('grAddSave', 'click', () => {
+                    const g = GR.find(x => x.id === openId), s = window.allStudents().find(x => x.id === +$('grAddSelect').value);
+                    if (!s) return;
+                    if (!canJoin(g, s)) { alert(T().fullMsg); return; }
+                    window.moveStudentToGroup(s.id, g.name);
+                    $('grAddBackdrop').classList.remove('open'); shell();
+                });
+                ['grModalBackdrop', 'grAddBackdrop'].forEach(id => on(id, 'click', e => { if (e.target.id === id) $(id).classList.remove('open'); }));
+                on('grGrid', 'click', e => {
+                    const b = e.target.closest('[data-act]'), t = T();
+                    if (b) {
+                        const g = GR.find(x => x.id === +b.dataset.id);
+                        if (b.dataset.act === 'edit') openModal(g.id);
+                        else if (count(g) > 0 || studentsOf(g).length > 0) alert(t.delBlocked);
+                        else if (confirm(t.delConfirm)) { GR = GR.filter(x => x.id !== g.id); shell(); if (window.renderStudents) window.renderStudents(); }
+                        return;
+                    }
+                    const card = e.target.closest('.gr-card');
+                    if (card) { openId = +card.dataset.id; f.sq = ''; shell(); window.scrollTo(0, 0); }
+                });
+                on('grStudTable', 'change', e => {
+                    const sel = e.target.closest('.gr-move'); if (!sel) return;
+                    const target = GR.find(x => x.name === sel.value), s = window.allStudents().find(x => x.id === +sel.dataset.sid);
+                    if (!target || !s) return;
+                    if (!canJoin(target, s)) { alert(T().fullMsg); drawStudents(); return; }
+                    window.moveStudentToGroup(s.id, target.name); shell();
+                });
+            }
+
+            window.groupNames = () => GR.map(g => g.name);
+            window.groupsOfTeacher = name => GR.filter(g => g.teacher === name).map(g => ({ ...g, students: count(g) }));
+            window.renameTeacherInGroups = (a, b) => GR.forEach(g => { if (g.teacher === a) g.teacher = b; });
+            window.openGroup = id => {
+                openId = id; f.sq = '';
+                document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active-view'));
+                document.querySelector('.content-view[data-view="groups"]').classList.add('active-view');
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.toggle('active', i.getAttribute('data-view') === 'groups'));
+                shell(); window.scrollTo(0, 0);
+            };
+            window.closeGroupDetail = () => { openId = null; f.sq = ''; };
+            window.renderGroups = shell;
+            shell();
+        })();
+
+        // ======================================================
+        // ===== TALABALAR (STUDENTS) ===========================
+        // ======================================================
+        (function initStudents() {
+            const S = {
+                uz: { title: 'Talabalar', search: 'Ism yoki telefon bo\'yicha qidirish', add: "Talaba qo'shish", export: 'CSV yuklash',
+                    total: 'Jami talabalar', active: 'Faol', debt: 'Qarzdorlar', other: 'Muzlatilgan / bitirgan',
+                    allStatus: 'Barcha holatlar', allGroups: 'Barcha guruhlar', debtOnly: 'Faqat qarzdorlar',
+                    name: 'Ism familiya', phone: 'Telefon', group: 'Guruh', status: 'Holat', balance: 'Balans', joined: "Qo'shilgan sana", actions: '',
+                    s_active: 'Faol', s_frozen: 'Muzlatilgan', s_grad: 'Bitirgan', empty: 'Talaba topilmadi', cur: "so'm",
+                    edit: 'Tahrirlash', del: "O'chirish", delConfirm: "Talabani o'chirmoqchimisiz?", newT: 'Yangi talaba', editT: 'Talabani tahrirlash',
+                    first: 'Ism', last: 'Familya', save: 'Saqlash', cancel: 'Bekor qilish', prev: 'Oldingi', next: 'Keyingi' },
+                en: { title: 'Students', search: 'Search by name or phone', add: 'Add student', export: 'Export CSV',
+                    total: 'Total students', active: 'Active', debt: 'In debt', other: 'Frozen / graduated',
+                    allStatus: 'All statuses', allGroups: 'All groups', debtOnly: 'Debtors only',
+                    name: 'Full name', phone: 'Phone', group: 'Group', status: 'Status', balance: 'Balance', joined: 'Joined', actions: '',
+                    s_active: 'Active', s_frozen: 'Frozen', s_grad: 'Graduated', empty: 'No students found', cur: 'UZS',
+                    edit: 'Edit', del: 'Delete', delConfirm: 'Delete this student?', newT: 'New student', editT: 'Edit student',
+                    first: 'First name', last: 'Last name', save: 'Save', cancel: 'Cancel', prev: 'Prev', next: 'Next' },
+                ru: { title: 'Студенты', search: 'Поиск по имени или телефону', add: 'Добавить студента', export: 'Скачать CSV',
+                    total: 'Всего студентов', active: 'Активные', debt: 'Должники', other: 'Заморожены / выпущены',
+                    allStatus: 'Все статусы', allGroups: 'Все группы', debtOnly: 'Только должники',
+                    name: 'Имя и фамилия', phone: 'Телефон', group: 'Группа', status: 'Статус', balance: 'Баланс', joined: 'Дата', actions: '',
+                    s_active: 'Активен', s_frozen: 'Заморожен', s_grad: 'Выпускник', empty: 'Студенты не найдены', cur: 'сум',
+                    edit: 'Изменить', del: 'Удалить', delConfirm: 'Удалить студента?', newT: 'Новый студент', editT: 'Изменить студента',
+                    first: 'Имя', last: 'Фамилия', save: 'Сохранить', cancel: 'Отмена', prev: 'Назад', next: 'Далее' }
+            };
+            const T = () => S[document.documentElement.getAttribute('lang')] || S.uz;
+            let GROUPS = typeof window.groupNames === 'function' ? window.groupNames() : ['Beginner English', 'IELTS 6.0+', 'Intensive kurs', 'Kids English', 'HTML/CSS asoslari', 'Koreys tili', 'Rus tili'];
+            const seed = [
+                ['Azizbek Karimov', 1, 'active', 0], ['Malika Yusupova', 1, 'active', 250000], ['Jasur Toshmatov', 2, 'active', -300000],
+                ['Dilnoza Rahimova', 0, 'active', 0], ['Sardor Aliyev', 4, 'active', -150000], ['Nodira Ergasheva', 3, 'active', 0],
+                ['Bekzod Nazarov', 2, 'frozen', -450000], ['Madina Qodirova', 5, 'active', 100000], ['Otabek Sobirov', 4, 'active', 0],
+                ['Zilola Hamidova', 6, 'active', -200000], ['Shahzod Umarov', 1, 'grad', 0], ['Feruza Abdullayeva', 0, 'active', 0],
+                ['Javohir Ismoilov', 2, 'active', -600000], ['Sevara Mirzayeva', 3, 'active', 150000], ['Ulugbek Tursunov', 4, 'frozen', 0],
+                ['Gulnora Saidova', 6, 'active', 0], ['Rustam Xolmatov', 1, 'grad', 0], ['Nilufar Bekmurodova', 0, 'active', -100000],
+                ['Islom Normatov', 5, 'active', 0], ['Kamola Yuldasheva', 3, 'active', 0], ['Doston Rajabov', 2, 'active', -250000],
+                ['Aziza Mahmudova', 1, 'active', 300000], ['Behzod Ganiyev', 4, 'active', 0], ['Laylo Ochilova', 0, 'grad', 0]
+            ].map((r, i) => ({
+                id: i + 1, name: r[0], group: GROUPS[r[1]], status: r[2], balance: r[3],
+                phone: '+998 9' + (i % 10) + ' ' + String(100 + i * 37).slice(0, 3) + ' ' + String(10 + i * 3).padStart(2, '0') + ' ' + String(11 + i * 7).slice(-2).padStart(2, '0'),
+                date: '2026-0' + (1 + (i % 9)) + '-' + String(1 + (i * 3) % 28).padStart(2, '0')
+            }));
+            let ST = seed, nextId = seed.length + 1;
+            const f = { q: '', status: '', group: '', debt: false, sort: 'name', dir: 1, page: 1 };
+            const PER = 8;
+            const root = document.getElementById('studentsRoot');
+            const money = n => Math.abs(n).toLocaleString('ru-RU');
+            const ic = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+
+            function shell() {
+                const t = T();
+                if (typeof window.groupNames === 'function') GROUPS = window.groupNames();
+                root.innerHTML = `
+                <div class="clients-head"><div class="clients-head-text"><h1>${t.title}</h1></div>
+                    <div class="clients-head-actions-top">
+                        <button class="st-ghost-btn" id="stExport" type="button">${ic('<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>')}${t.export}</button>
+                        <button class="clients-add-btn" id="stAdd" type="button">${ic('<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>')}<span>${t.add}</span></button>
+                    </div></div>
+                <div class="stat-cards" id="stStats"></div>
+                <div class="st-toolbar">
+                    <div class="clients-search">${ic('<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>')}<input id="stSearch" type="text" placeholder="${t.search}" value="${escapeHtml(f.q)}"></div>
+                    <select class="st-select" id="stStatus"><option value="">${t.allStatus}</option>
+                        ${['active', 'frozen', 'grad'].map(s => `<option value="${s}" ${f.status === s ? 'selected' : ''}>${t['s_' + s]}</option>`).join('')}</select>
+                    <select class="st-select" id="stGroup"><option value="">${t.allGroups}</option>
+                        ${GROUPS.map(g => `<option ${f.group === g ? 'selected' : ''}>${g}</option>`).join('')}</select>
+                    <label class="st-ghost-btn"><input type="checkbox" id="stDebt" ${f.debt ? 'checked' : ''}> ${t.debtOnly}</label>
+                </div>
+                <div class="payments-card" style="margin-top:0"><div id="stTable"></div><div class="st-pager" id="stPager"></div></div>
+                <div class="clients-modal-backdrop" id="stModalBackdrop"><div class="clients-modal">
+                    <h2 id="stModalTitle"></h2>
+                    <div class="clients-modal-row">
+                        <div class="clients-modal-field"><label>${t.first}</label><input id="stFirst" autocomplete="off"></div>
+                        <div class="clients-modal-field"><label>${t.last}</label><input id="stLast" autocomplete="off"></div></div>
+                    <div class="clients-modal-field"><label>${t.phone}</label><input id="stPhone" type="tel" placeholder="+998 __ ___ __ __" autocomplete="off"></div>
+                    <div class="clients-modal-row">
+                        <div class="clients-modal-field"><label>${t.group}</label><select id="stMGroup">${GROUPS.map(g => `<option>${g}</option>`).join('')}</select></div>
+                        <div class="clients-modal-field"><label>${t.status}</label><select id="stMStatus">${['active', 'frozen', 'grad'].map(s => `<option value="${s}">${t['s_' + s]}</option>`).join('')}</select></div></div>
+                    <div class="clients-modal-field"><label>${t.balance} (${t.cur})</label><input id="stMBalance" type="number" step="10000" value="0"></div>
+                    <div class="clients-modal-actions"><button type="button" class="clients-modal-cancel" id="stCancel">${t.cancel}</button>
+                        <button type="button" class="clients-modal-save" id="stSave">${t.save}</button></div>
+                </div></div>`;
+                attachUzPhoneMask(document.getElementById('stPhone'));
+                bind(); table();
+            }
+
+            function filtered() {
+                const q = f.q.trim().toLowerCase(), qd = q.replace(/\D/g, '');
+                return ST.filter(s => (!q || s.name.toLowerCase().includes(q) || (qd && s.phone.replace(/\D/g, '').includes(qd)))
+                    && (!f.status || s.status === f.status) && (!f.group || s.group === f.group) && (!f.debt || s.balance < 0))
+                    .sort((a, b) => {
+                        const x = a[f.sort], y = b[f.sort];
+                        return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y))) * f.dir;
+                    });
+            }
+
+            function stats() {
+                const t = T(), n = ST.length, a = ST.filter(s => s.status === 'active').length, d = ST.filter(s => s.balance < 0).length;
+                const cards = [[t.total, n, '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.4"/>'],
+                    [t.active, a, '<path d="M5 12l5 5 9-10"/>'], [t.debt, d, '<circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.5"/>'],
+                    [t.other, n - a, '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>']];
+                document.getElementById('stStats').innerHTML = cards.map(c => `<div class="stat-card"><div class="stat-icon">${ic(c[2])}</div><div class="stat-label">${c[0]}</div><div class="stat-value">${c[1]}</div></div>`).join('');
+            }
+
+            function table() {
+                const t = T(), rows = filtered(), pages = Math.max(1, Math.ceil(rows.length / PER));
+                f.page = Math.min(f.page, pages);
+                const cur = rows.slice((f.page - 1) * PER, f.page * PER);
+                const th = (k, label, cls) => `<th ${k ? `data-sort="${k}"` : ''} class="${cls || ''}">${label}${f.sort === k ? (f.dir > 0 ? ' ▲' : ' ▼') : ''}</th>`;
+                document.getElementById('stTable').innerHTML = `<div class="payments-table-wrap"><table class="payments-table"><thead><tr>
+                    ${th('name', t.name)}${th('phone', t.phone, 'col-hide-sm')}${th('group', t.group)}${th('status', t.status)}${th('balance', t.balance, 'num')}${th('date', t.joined, 'col-hide-sm')}<th></th></tr></thead><tbody>
+                    ${cur.map(s => `<tr><td><div class="st-user"><div class="st-avatar">${escapeHtml(clientInitials(s.name))}</div>${escapeHtml(s.name)}</div></td>
+                        <td class="muted col-hide-sm">${escapeHtml(s.phone)}</td><td>${escapeHtml(s.group)}</td>
+                        <td><span class="st-badge ${s.status}">${t['s_' + s.status]}</span></td>
+                        <td class="num ${s.balance < 0 ? 'st-neg' : s.balance > 0 ? 'st-pos' : ''}">${s.balance < 0 ? '−' : ''}${money(s.balance)} <span class="pay-cur">${t.cur}</span></td>
+                        <td class="muted col-hide-sm">${s.date}</td>
+                        <td style="text-align:right"><button class="st-act" data-act="edit" data-id="${s.id}" title="${t.edit}">${ic('<path d="M4 20h4L19 9l-4-4L4 16v4z"/>')}</button>
+                        <button class="st-act del" data-act="del" data-id="${s.id}" title="${t.del}">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></td></tr>`).join('')}
+                    </tbody></table>${cur.length ? '' : `<div class="st-empty">${t.empty}</div>`}</div>`;
+                document.getElementById('stPager').innerHTML = `<span>${rows.length ? (f.page - 1) * PER + 1 : 0}–${Math.min(f.page * PER, rows.length)} / ${rows.length}</span>
+                    <span><button id="stPrev" ${f.page <= 1 ? 'disabled' : ''}>${t.prev}</button> <button id="stNext" ${f.page >= pages ? 'disabled' : ''}>${t.next}</button></span>`;
+                stats();
+            }
+
+            let editId = null;
+            function openModal(id) {
+                const t = T(), s = ST.find(x => x.id === id);
+                editId = id || null;
+                document.getElementById('stModalTitle').textContent = s ? t.editT : t.newT;
+                const [fi, ...la] = s ? s.name.split(' ') : [''];
+                document.getElementById('stFirst').value = fi || '';
+                document.getElementById('stLast').value = la.join(' ');
+                document.getElementById('stPhone').value = s ? s.phone : '';
+                document.getElementById('stMGroup').value = s ? s.group : GROUPS[0];
+                document.getElementById('stMStatus').value = s ? s.status : 'active';
+                document.getElementById('stMBalance').value = s ? s.balance : 0;
+                document.getElementById('stModalBackdrop').classList.add('open');
+                document.getElementById('stFirst').focus();
+            }
+            const closeModal = () => document.getElementById('stModalBackdrop').classList.remove('open');
+
+            function save() {
+                const first = document.getElementById('stFirst').value.trim();
+                if (!first) { document.getElementById('stFirst').focus(); return; }
+                const data = {
+                    name: [first, document.getElementById('stLast').value.trim()].filter(Boolean).join(' '),
+                    phone: document.getElementById('stPhone').value.trim() || '-',
+                    group: document.getElementById('stMGroup').value, status: document.getElementById('stMStatus').value,
+                    balance: parseInt(document.getElementById('stMBalance').value, 10) || 0
+                };
+                if (editId) Object.assign(ST.find(x => x.id === editId), data);
+                else ST.push({ id: nextId++, date: new Date().toISOString().slice(0, 10), ...data });
+                closeModal(); table();
+            }
+
+            function exportCsv() {
+                const t = T();
+                const lines = [[t.name, t.phone, t.group, t.status, t.balance, t.joined]].concat(filtered().map(s => [s.name, s.phone, s.group, t['s_' + s.status], s.balance, s.date]));
+                const csv = '\uFEFF' + lines.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+                a.download = 'talabalar.csv'; a.click(); URL.revokeObjectURL(a.href);
+            }
+
+            function bind() {
+                const $ = id => document.getElementById(id);
+                $('stSearch').addEventListener('input', e => { f.q = e.target.value; f.page = 1; table(); });
+                $('stStatus').addEventListener('change', e => { f.status = e.target.value; f.page = 1; table(); });
+                $('stGroup').addEventListener('change', e => { f.group = e.target.value; f.page = 1; table(); });
+                $('stDebt').addEventListener('change', e => { f.debt = e.target.checked; f.page = 1; table(); });
+                $('stAdd').addEventListener('click', () => openModal());
+                $('stExport').addEventListener('click', exportCsv);
+                $('stCancel').addEventListener('click', closeModal);
+                $('stSave').addEventListener('click', save);
+                $('stModalBackdrop').addEventListener('click', e => { if (e.target.id === 'stModalBackdrop') closeModal(); });
+                $('stTable').addEventListener('click', e => {
+                    const th = e.target.closest('th[data-sort]');
+                    if (th) { f.dir = f.sort === th.dataset.sort ? -f.dir : 1; f.sort = th.dataset.sort; table(); return; }
+                    const b = e.target.closest('[data-act]'); if (!b) return;
+                    const id = +b.dataset.id;
+                    if (b.dataset.act === 'edit') openModal(id);
+                    else if (confirm(T().delConfirm)) { ST = ST.filter(x => x.id !== id); table(); }
+                });
+                $('stPager').addEventListener('click', e => {
+                    if (e.target.id === 'stPrev') { f.page--; table(); }
+                    if (e.target.id === 'stNext') { f.page++; table(); }
+                });
+            }
+
+            window.studentCountByGroup = name => ST.filter(x => x.group === name && x.status === 'active').length;
+            window.studentsOfGroup = name => ST.filter(x => x.group === name);
+            window.allStudents = () => ST;
+            window.moveStudentToGroup = (id, name) => { const x = ST.find(y => y.id === id); if (x) x.group = name; };
+            window.renameStudentGroup = (a, b) => ST.forEach(x => { if (x.group === a) x.group = b; });
+            window.renderStudents = shell;
+            shell();
+        })();
+
+        // ======================================================
+        // ===== O'QITUVCHILAR (TEACHERS) =======================
+        // ======================================================
+        (function initTeachers() {
+            const S = {
+                uz: { title: "O'qituvchilar", search: "Ism yoki telefon bo'yicha qidirish", add: "O'qituvchi qo'shish", allSub: 'Barcha yo\'nalishlar', allS: 'Barcha holatlar',
+                    total: "Jami o'qituvchilar", active: 'Faol', groups: 'Guruhlar', studs: 'Talabalar', s_active: 'Faol', s_leave: "Ta'tilda", s_left: 'Ishdan ketgan',
+                    phone: 'Telefon', subject: "Yo'nalish", exp: 'Tajriba', years: 'yil', salary: 'Oylik maosh', status: 'Holat', name: 'Ism familiya', first: 'Ism', last: 'Familya',
+                    hours: 'Haftalik soat', revenue: 'Taxminiy oylik tushum', cur: "so'm", empty: "O'qituvchi topilmadi", noGroups: "Bu o'qituvchining guruhi yo'q",
+                    newT: "Yangi o'qituvchi", editT: "O'qituvchini tahrirlash", save: 'Saqlash', cancel: 'Bekor qilish', edit: 'Tahrirlash', del: "O'chirish",
+                    delConfirm: "O'qituvchini o'chirmoqchimisiz?", delBlocked: "O'qituvchining guruhlari bor. Avval guruhlarni boshqa o'qituvchiga biriktiring.",
+                    gName: 'Guruh', gTime: 'Vaqt', gDays: 'Kunlar', gRoom: 'Xona', gStuds: 'Talabalar', gStatus: 'Holat', roomN: 'Xona',
+                    g_active: 'Faol', g_paused: "To'xtatilgan", g_finished: 'Tugagan', dayN: ['Du', 'Se', 'Chor', 'Pay', 'Ju', 'Sha', 'Yak'] },
+                en: { title: 'Teachers', search: 'Search by name or phone', add: 'Add teacher', allSub: 'All subjects', allS: 'All statuses',
+                    total: 'Total teachers', active: 'Active', groups: 'Groups', studs: 'Students', s_active: 'Active', s_leave: 'On leave', s_left: 'Left',
+                    phone: 'Phone', subject: 'Subject', exp: 'Experience', years: 'yrs', salary: 'Monthly salary', status: 'Status', name: 'Full name', first: 'First name', last: 'Last name',
+                    hours: 'Weekly hours', revenue: 'Estimated monthly revenue', cur: 'UZS', empty: 'No teachers found', noGroups: 'This teacher has no groups',
+                    newT: 'New teacher', editT: 'Edit teacher', save: 'Save', cancel: 'Cancel', edit: 'Edit', del: 'Delete',
+                    delConfirm: 'Delete this teacher?', delBlocked: 'This teacher has groups. Reassign the groups to another teacher first.',
+                    gName: 'Group', gTime: 'Time', gDays: 'Days', gRoom: 'Room', gStuds: 'Students', gStatus: 'Status', roomN: 'Room',
+                    g_active: 'Active', g_paused: 'Paused', g_finished: 'Finished', dayN: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
+                ru: { title: 'Преподаватели', search: 'Поиск по имени или телефону', add: 'Добавить преподавателя', allSub: 'Все направления', allS: 'Все статусы',
+                    total: 'Всего преподавателей', active: 'Активные', groups: 'Группы', studs: 'Студенты', s_active: 'Работает', s_leave: 'В отпуске', s_left: 'Уволен',
+                    phone: 'Телефон', subject: 'Направление', exp: 'Опыт', years: 'лет', salary: 'Оклад в месяц', status: 'Статус', name: 'Имя и фамилия', first: 'Имя', last: 'Фамилия',
+                    hours: 'Часов в неделю', revenue: 'Ожидаемая выручка в месяц', cur: 'сум', empty: 'Преподаватели не найдены', noGroups: 'У преподавателя нет групп',
+                    newT: 'Новый преподаватель', editT: 'Изменить преподавателя', save: 'Сохранить', cancel: 'Отмена', edit: 'Изменить', del: 'Удалить',
+                    delConfirm: 'Удалить преподавателя?', delBlocked: 'У преподавателя есть группы. Сначала передайте группы другому преподавателю.',
+                    gName: 'Группа', gTime: 'Время', gDays: 'Дни', gRoom: 'Кабинет', gStuds: 'Студенты', gStatus: 'Статус', roomN: 'Кабинет',
+                    g_active: 'Активна', g_paused: 'Приостановлена', g_finished: 'Завершена', dayN: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] }
+            };
+            const T = () => S[document.documentElement.getAttribute('lang')] || S.uz;
+            const SUBJECTS = ['Ingliz tili', 'Koreys tili', 'Rus tili', 'IT'];
+            let TH = [
+                { id: 1, name: 'Mirabbos Mentor', phone: '+998 90 123 45 67', subject: 'Ingliz tili', exp: 6, salary: 4500000, status: 'active' },
+                { id: 2, name: 'Murodbek Teacher', phone: '+998 91 234 56 78', subject: 'Ingliz tili', exp: 4, salary: 4000000, status: 'active' },
+                { id: 3, name: 'Fozilova Gavharoy', phone: '+998 93 345 67 89', subject: 'Ingliz tili', exp: 8, salary: 5000000, status: 'active' },
+                { id: 4, name: 'Soliyeva Gulsanam', phone: '+998 94 456 78 90', subject: 'Koreys tili', exp: 5, salary: 4200000, status: 'active' },
+                { id: 5, name: 'Guljaxon', phone: '+998 97 567 89 01', subject: 'Rus tili', exp: 10, salary: 4800000, status: 'active' },
+                { id: 6, name: 'Sukhrobjon', phone: '+998 99 678 90 12', subject: 'IT', exp: 3, salary: 5500000, status: 'active' },
+                { id: 7, name: 'Abdunazarov Abdurashid', phone: '+998 88 789 01 23', subject: 'Ingliz tili', exp: 2, salary: 3500000, status: 'leave' }
+            ];
+            let nextId = TH.length + 1, editId = null, openId = null;
+            const f = { q: '', subject: '', status: '' };
+            const root = document.getElementById('teachersRoot');
+            const $ = id => document.getElementById(id);
+            const money = n => Number(n).toLocaleString('ru-RU');
+            const ic = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+            const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+            const gOf = th => typeof window.groupsOfTeacher === 'function' ? window.groupsOfTeacher(th.name) : [];
+            const hoursOf = gs => gs.filter(g => g.status === 'active').reduce((s, g) => s + g.days.length * (toMin(g.end) - toMin(g.start)) / 60, 0);
+            const studsOf = gs => gs.reduce((s, g) => s + g.students, 0);
+            const badge = s => s === 'active' ? 'active' : s === 'leave' ? 'frozen' : 'grad';
+            const statusOpts = (t, sel) => ['active', 'leave', 'left'].map(s => `<option value="${s}" ${sel === s ? 'selected' : ''}>${t['s_' + s]}</option>`).join('');
+
+            function shell() {
+                const t = T(), th = TH.find(x => x.id === openId);
+                if (openId && !th) openId = null;
+                root.innerHTML = (th ? detailHTML(th, t) : listHTML(t)) + modalHTML(t);
+                attachUzPhoneMask($('thPhone'));
+                bind();
+                if (!th) render();
+            }
+
+            function listHTML(t) {
+                return `
+                <div class="clients-head"><div class="clients-head-text"><h1>${t.title}</h1></div>
+                    <div class="clients-head-actions-top"><button class="clients-add-btn" id="thAdd" type="button">${ic('<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>')}<span>${t.add}</span></button></div></div>
+                <div class="stat-cards" id="thStats"></div>
+                <div class="st-toolbar">
+                    <div class="clients-search">${ic('<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>')}<input id="thSearch" type="text" placeholder="${t.search}" value="${escapeHtml(f.q)}"></div>
+                    <select class="st-select" id="thSubject"><option value="">${t.allSub}</option>${SUBJECTS.map(x => `<option ${f.subject === x ? 'selected' : ''}>${x}</option>`).join('')}</select>
+                    <select class="st-select" id="thStatus"><option value="">${t.allS}</option>${statusOpts(t, f.status)}</select>
+                </div>
+                <div class="gr-grid" id="thGrid"></div>`;
+            }
+
+            function detailHTML(th, t) {
+                const gs = gOf(th), stat = (label, val, path) => `<div class="stat-card"><div class="stat-icon">${ic(path)}</div><div class="stat-label">${label}</div><div class="stat-value">${val}</div></div>`;
+                const rev = gs.filter(g => g.status === 'active').reduce((s, g) => s + g.price * g.students, 0);
+                return `
+                <div class="gr-topbar">
+                    <button class="st-ghost-btn" id="thBack" type="button">${ic('<polyline points="15 6 9 12 15 18"/>')}${t.title}</button>
+                    <div class="clients-head-actions-top"><button class="st-ghost-btn" id="thDetEdit" type="button">${ic('<path d="M4 20h4L19 9l-4-4L4 16v4z"/>')}${t.edit}</button></div></div>
+                <div class="gr-title"><div class="th-id"><div class="st-avatar">${escapeHtml(clientInitials(th.name))}</div><h1>${escapeHtml(th.name)}</h1></div><span class="gr-status ${th.status === 'active' ? 'active' : th.status === 'leave' ? 'paused' : 'finished'}">${t['s_' + th.status]}</span></div>
+                <dl class="gr-info">
+                    <div><dt>${t.phone}</dt><dd>${escapeHtml(th.phone)}</dd></div>
+                    <div><dt>${t.subject}</dt><dd>${escapeHtml(th.subject)}</dd></div>
+                    <div><dt>${t.exp}</dt><dd>${th.exp} ${t.years}</dd></div>
+                    <div><dt>${t.salary}</dt><dd>${money(th.salary)} ${t.cur}</dd></div>
+                </dl>
+                <div class="stat-cards" style="margin-top:0">
+                    ${stat(t.groups, gs.length, '<path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/>')}
+                    ${stat(t.studs, studsOf(gs), '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.4"/>')}
+                    ${stat(t.hours, Math.round(hoursOf(gs) * 10) / 10, '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>')}
+                    ${stat(t.revenue, money(rev) + ' ' + t.cur, '<circle cx="12" cy="12" r="8"/><path d="M12 8v8M9 10h4.5a1.5 1.5 0 0 1 0 3H9"/>')}
+                </div>
+                <div class="payments-card" style="margin-top:0"><div class="payments-table-wrap" style="max-height:none"><table class="payments-table"><thead><tr>
+                    <th>${t.gName}</th><th>${t.gTime}</th><th class="col-hide-sm">${t.gDays}</th><th class="col-hide-sm">${t.gRoom}</th><th class="num">${t.gStuds}</th><th>${t.gStatus}</th></tr></thead><tbody>
+                    ${gs.map(g => `<tr class="th-row" data-gid="${g.id}"><td>${escapeHtml(g.name)}</td><td>${g.start} – ${g.end}</td>
+                        <td class="muted col-hide-sm">${g.days.map(i => t.dayN[i]).join(' · ')}</td><td class="muted col-hide-sm">${t.roomN} ${g.room}</td>
+                        <td class="num">${g.students} / ${g.cap}</td><td><span class="gr-status ${g.status}">${t['g_' + g.status]}</span></td></tr>`).join('')}
+                    </tbody></table>${gs.length ? '' : `<div class="st-empty">${t.noGroups}</div>`}</div></div>`;
+            }
+
+            function modalHTML(t) {
+                return `<div class="clients-modal-backdrop gr-modal-wide" id="thModalBackdrop"><div class="clients-modal">
+                    <h2 id="thModalTitle"></h2>
+                    <div class="clients-modal-row">
+                        <div class="clients-modal-field"><label>${t.first}</label><input id="thFirst" autocomplete="off"></div>
+                        <div class="clients-modal-field"><label>${t.last}</label><input id="thLast" autocomplete="off"></div></div>
+                    <div class="clients-modal-field"><label>${t.phone}</label><input id="thPhone" type="tel" placeholder="+998 __ ___ __ __" autocomplete="off"></div>
+                    <div class="clients-modal-row">
+                        <div class="clients-modal-field"><label>${t.subject}</label><select id="thMSubject">${SUBJECTS.map(x => `<option>${x}</option>`).join('')}</select></div>
+                        <div class="clients-modal-field"><label>${t.exp} (${t.years})</label><input id="thExp" type="number" min="0" value="1"></div></div>
+                    <div class="clients-modal-row">
+                        <div class="clients-modal-field"><label>${t.salary} (${t.cur})</label><input id="thSalary" type="number" min="0" step="100000" value="4000000"></div>
+                        <div class="clients-modal-field"><label>${t.status}</label><select id="thMStatus">${statusOpts(t, '')}</select></div></div>
+                    <div class="clients-modal-actions"><button type="button" class="clients-modal-cancel" id="thCancel">${t.cancel}</button><button type="button" class="clients-modal-save" id="thSave">${t.save}</button></div>
+                </div></div>`;
+            }
+
+            function filtered() {
+                const q = f.q.trim().toLowerCase(), qd = q.replace(/\D/g, '');
+                return TH.filter(x => (!q || x.name.toLowerCase().includes(q) || (qd && x.phone.replace(/\D/g, '').includes(qd)))
+                    && (!f.subject || x.subject === f.subject) && (!f.status || x.status === f.status));
+            }
+
+            function render() {
+                const t = T(), rows = filtered(), grid = $('thGrid'); if (!grid) return;
+                const allG = TH.flatMap(gOf), cards = [
+                    [t.total, TH.length, '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/>'],
+                    [t.active, TH.filter(x => x.status === 'active').length, '<path d="M5 12l5 5 9-10"/>'],
+                    [t.groups, allG.length, '<path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/>'],
+                    [t.studs, studsOf(allG), '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.4"/>']];
+                $('thStats').innerHTML = cards.map(c => `<div class="stat-card"><div class="stat-icon">${ic(c[2])}</div><div class="stat-label">${c[0]}</div><div class="stat-value">${c[1]}</div></div>`).join('');
+                grid.innerHTML = rows.length ? rows.map(x => {
+                    const gs = gOf(x);
+                    return `<div class="gr-card" data-id="${x.id}"><div class="gr-card-head">
+                        <div class="th-id"><div class="st-avatar">${escapeHtml(clientInitials(x.name))}</div><div><div class="gr-name">${escapeHtml(x.name)}</div><div class="gr-sub">${escapeHtml(x.subject)}</div></div></div>
+                        <div class="gr-acts"><button class="st-act" data-act="edit" data-id="${x.id}" title="${t.edit}">${ic('<path d="M4 20h4L19 9l-4-4L4 16v4z"/>')}</button>
+                        <button class="st-act del" data-act="del" data-id="${x.id}" title="${t.del}">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></div></div>
+                        <dl class="gr-meta">
+                            <div><dt>${t.phone}</dt><dd>${escapeHtml(x.phone)}</dd></div>
+                            <div><dt>${t.exp}</dt><dd>${x.exp} ${t.years}</dd></div>
+                            <div><dt>${t.groups}</dt><dd>${gs.length}</dd></div>
+                            <div><dt>${t.studs}</dt><dd>${studsOf(gs)}</dd></div></dl>
+                        <div class="gr-fillrow"><span>${t.salary}: <b>${money(x.salary)}</b></span><span class="gr-status ${x.status === 'active' ? 'active' : x.status === 'leave' ? 'paused' : 'finished'}">${t['s_' + x.status]}</span></div></div>`;
+                }).join('') : `<div class="st-empty" style="grid-column:1/-1">${t.empty}</div>`;
+            }
+
+            function openModal(id) {
+                const x = TH.find(y => y.id === id);
+                editId = id || null;
+                $('thModalTitle').textContent = x ? T().editT : T().newT;
+                const [fi, ...la] = x ? x.name.split(' ') : [''];
+                $('thFirst').value = fi || ''; $('thLast').value = la.join(' ');
+                $('thPhone').value = x ? x.phone : '';
+                $('thMSubject').value = x ? x.subject : SUBJECTS[0];
+                $('thExp').value = x ? x.exp : 1;
+                $('thSalary').value = x ? x.salary : 4000000;
+                $('thMStatus').value = x ? x.status : 'active';
+                $('thModalBackdrop').classList.add('open');
+                $('thFirst').focus();
+            }
+            const closeModal = () => $('thModalBackdrop').classList.remove('open');
+
+            function save() {
+                const first = $('thFirst').value.trim();
+                if (!first) { $('thFirst').focus(); return; }
+                const data = {
+                    name: [first, $('thLast').value.trim()].filter(Boolean).join(' '), phone: $('thPhone').value.trim() || '-',
+                    subject: $('thMSubject').value, exp: parseInt($('thExp').value, 10) || 0,
+                    salary: parseInt($('thSalary').value, 10) || 0, status: $('thMStatus').value
+                };
+                if (editId) {
+                    const old = TH.find(x => x.id === editId);
+                    if (old.name !== data.name && typeof window.renameTeacherInGroups === 'function') window.renameTeacherInGroups(old.name, data.name);
+                    Object.assign(old, data);
+                } else TH.push({ id: nextId++, ...data });
+                shell();
+                if (typeof window.renderGroups === 'function') window.renderGroups();
+            }
+
+            function bind() {
+                const on = (id, ev, fn) => { const el = $(id); if (el) el.addEventListener(ev, fn); };
+                on('thSearch', 'input', e => { f.q = e.target.value; render(); });
+                on('thSubject', 'change', e => { f.subject = e.target.value; render(); });
+                on('thStatus', 'change', e => { f.status = e.target.value; render(); });
+                on('thAdd', 'click', () => openModal());
+                on('thCancel', 'click', closeModal);
+                on('thSave', 'click', save);
+                on('thBack', 'click', () => { openId = null; shell(); });
+                on('thDetEdit', 'click', () => openModal(openId));
+                on('thModalBackdrop', 'click', e => { if (e.target.id === 'thModalBackdrop') closeModal(); });
+                on('thGrid', 'click', e => {
+                    const b = e.target.closest('[data-act]');
+                    if (b) {
+                        const x = TH.find(y => y.id === +b.dataset.id);
+                        if (b.dataset.act === 'edit') openModal(x.id);
+                        else if (gOf(x).length) alert(T().delBlocked);
+                        else if (confirm(T().delConfirm)) { TH = TH.filter(y => y.id !== x.id); shell(); if (window.renderGroups) window.renderGroups(); }
+                        return;
+                    }
+                    const card = e.target.closest('.gr-card');
+                    if (card) { openId = +card.dataset.id; shell(); window.scrollTo(0, 0); }
+                });
+                document.querySelectorAll('.th-row').forEach(r => r.addEventListener('click', () => {
+                    if (typeof window.openGroup === 'function') window.openGroup(+r.dataset.gid);
+                }));
+            }
+
+            window.teacherNames = () => TH.filter(x => x.status !== 'left').map(x => x.name);
+            window.closeTeacherDetail = () => { openId = null; };
+            window.renderTeachers = shell;
+            shell();
         })();
 
         (function initLanguage() {
