@@ -2541,6 +2541,9 @@
         .th-id { display: flex; align-items: center; gap: 12px; min-width: 0; }
         .th-id .st-avatar { width: 42px; height: 42px; font-size: 14px; }
         .th-row { cursor: pointer; }
+        #thGrid .payments-table-wrap { max-height: none; }
+        #thGrid tbody tr { cursor: pointer; }
+        #thGrid tbody tr:hover { background: var(--hover-bg); }
 
         /* Scroll ishlayveradi, lekin scrollbar korinmaydi */
         * {
@@ -6096,7 +6099,7 @@
                     <select class="st-select" id="thSubject"><option value="">${t.allSub}</option>${SUBJECTS.map(x => `<option ${f.subject === x ? 'selected' : ''}>${x}</option>`).join('')}</select>
                     <select class="st-select" id="thStatus"><option value="">${t.allS}</option>${statusOpts(t, f.status)}</select>
                 </div>
-                <div class="gr-grid" id="thGrid"></div>`;
+                <div class="payments-card" style="margin-top:0"><div id="thGrid"></div></div>`;
             }
 
             function detailHTML(th, t) {
@@ -6158,19 +6161,20 @@
                     [t.groups, allG.length, '<path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/>'],
                     [t.studs, studsOf(allG), '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.4"/>']];
                 $('thStats').innerHTML = cards.map(c => `<div class="stat-card"><div class="stat-icon">${ic(c[2])}</div><div class="stat-label">${c[0]}</div><div class="stat-value">${c[1]}</div></div>`).join('');
-                grid.innerHTML = rows.length ? rows.map(x => {
-                    const gs = gOf(x);
-                    return `<div class="gr-card" data-id="${x.id}"><div class="gr-card-head">
-                        <div class="th-id"><div class="st-avatar">${escapeHtml(clientInitials(x.name))}</div><div><div class="gr-name">${escapeHtml(x.name)}</div><div class="gr-sub">${escapeHtml(x.subject)}</div></div></div>
-                        <div class="gr-acts"><button class="st-act" data-act="edit" data-id="${x.id}" title="${t.edit}">${ic('<path d="M4 20h4L19 9l-4-4L4 16v4z"/>')}</button>
-                        <button class="st-act del" data-act="del" data-id="${x.id}" title="${t.del}">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></div></div>
-                        <dl class="gr-meta">
-                            <div><dt>${t.phone}</dt><dd>${escapeHtml(x.phone)}</dd></div>
-                            <div><dt>${t.exp}</dt><dd>${x.exp} ${t.years}</dd></div>
-                            <div><dt>${t.groups}</dt><dd>${gs.length}</dd></div>
-                            <div><dt>${t.studs}</dt><dd>${studsOf(gs)}</dd></div></dl>
-                        <div class="gr-fillrow"><span>${t.salary}: <b>${money(x.salary)}</b></span><span class="gr-status ${x.status === 'active' ? 'active' : x.status === 'leave' ? 'paused' : 'finished'}">${t['s_' + x.status]}</span></div></div>`;
-                }).join('') : `<div class="st-empty" style="grid-column:1/-1">${t.empty}</div>`;
+                grid.innerHTML = `<div class="payments-table-wrap"><table class="payments-table"><thead><tr>
+                    <th>${t.name}</th><th class="col-hide-sm">${t.phone}</th><th>${t.subject}</th><th class="col-hide-sm">${t.exp}</th><th class="num">${t.groups}</th><th class="num">${t.studs}</th><th class="num col-hide-sm">${t.salary}</th><th>${t.status}</th><th></th></tr></thead><tbody>
+                    ${rows.map(x => {
+                        const gs = gOf(x);
+                        return `<tr data-id="${x.id}"><td><div class="st-user"><div class="st-avatar">${escapeHtml(clientInitials(x.name))}</div>${escapeHtml(x.name)}</div></td>
+                        <td class="muted col-hide-sm">${escapeHtml(x.phone)}</td><td>${escapeHtml(x.subject)}</td>
+                        <td class="muted col-hide-sm">${x.exp} ${t.years}</td>
+                        <td class="num">${gs.length}</td><td class="num">${studsOf(gs)}</td>
+                        <td class="num col-hide-sm">${money(x.salary)} <span class="pay-cur">${t.cur}</span></td>
+                        <td><span class="st-badge ${badge(x.status)}">${t['s_' + x.status]}</span></td>
+                        <td style="text-align:right"><button class="st-act" data-act="edit" data-id="${x.id}" title="${t.edit}">${ic('<path d="M4 20h4L19 9l-4-4L4 16v4z"/>')}</button>
+                        <button class="st-act del" data-act="del" data-id="${x.id}" title="${t.del}">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></td></tr>`;
+                    }).join('')}
+                    </tbody></table>${rows.length ? '' : `<div class="st-empty">${t.empty}</div>`}</div>`;
             }
 
             function openModal(id) {
@@ -6226,7 +6230,7 @@
                         else if (confirm(T().delConfirm)) { TH = TH.filter(y => y.id !== x.id); shell(); if (window.renderGroups) window.renderGroups(); }
                         return;
                     }
-                    const card = e.target.closest('.gr-card');
+                    const card = e.target.closest('tr[data-id]');
                     if (card) { openId = +card.dataset.id; shell(); window.scrollTo(0, 0); }
                 });
                 document.querySelectorAll('.th-row').forEach(r => r.addEventListener('click', () => {
